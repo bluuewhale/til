@@ -1,2 +1,1 @@
-# Blog
-Things posted on my Naver Blog
+# Things I've worked on
