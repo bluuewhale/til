@@ -1,7 +1,8 @@
 # Til
-
+---
 
 ## Algorithm
+---
   - [MIT_6.006](https://github.com/DonghyungKo/til/tree/master/Algorithm/MIT_6.006)
     - MIT Algorithm lecture (MOOC)
   
@@ -11,5 +12,8 @@
 
 
 ## NLP
+---
   - [Papers](https://github.com/DonghyungKo/til/tree/master/NLP_with_Finance/Papers)
+    - [Domestic](https://github.com/DonghyungKo/til/tree/master/NLP_with_Finance/Papers/Domestic)
+    - [Foreign](https://github.com/DonghyungKo/til/tree/master/NLP_with_Finance/Papers/Foreign)
 
