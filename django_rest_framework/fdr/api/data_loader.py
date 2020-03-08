@@ -1,11 +1,13 @@
+import itertools
+
 import FinanceDataReader as fdr
-from .utility import merge_dict
 
 
 class DataLoader:
     """ FDR Data Loader"""
 
-    def load_ohlc(self, ticker, sdate=None, edate=None):
+    @staticmethod
+    def load_ohlc(ticker, sdate=None, edate=None):
         """ load OHLCVC(Open, High, Low, CLose, Volume, Change)
 
         Parameters
@@ -20,33 +22,33 @@ class DataLoader:
 
         Returns
         -------
-        dict
-            dictionary of list(dl)
-            OHLCVC(Open, High, Low, CLose, Volume, Change)
+        list
+            ld (list of dictionaries)
+            [{Open, High, Low, CLose, Volume, Change}]
         """
 
+        def _load_ohlc(ticker, sdate=None, edate=None):
+
+            try:
+                df = fdr.DataReader(ticker, sdate, edate)
+            except (IndexError, ValueError):  # date is wrong, symbol not found
+                return []
+
+            df["date"] = [t.strftime("%Y-%m-%d") for t in df.index]
+            df["ticker"] = ticker
+            df.columns = [c.lower() for c in df.columns]
+
+            return df.to_dict("record")
+
         if (sdate is None) and (edate is None):
-
-            data_dict = merge_dict(
-                self.__load_ohlc(ticker, "1980-01-01", "1994-12-31"),
-                self.__load_ohlc(ticker, "1995-01-01", "2009-12-31"),
-                self.__load_ohlc(ticker, "2010-01-01"),
+            data = list(
+                itertools.chain(
+                    _load_ohlc(ticker, "1980-01-01", "1994-12-31"),
+                    _load_ohlc(ticker, "1995-01-01", "2009-12-31"),
+                    _load_ohlc(ticker, "2010-01-01"),
+                )
             )
-
         else:
-            data_dict = self.__load_ohlc(ticker, sdate, edate)
+            data = _load_ohlc(ticker, sdate, edate)
 
-        return data_dict
-
-    def __load_ohlc(self, ticker, sdate=None, edate=None):
-
-        try:
-            df = fdr.DataReader(ticker, sdate, edate)
-        except IndexError:  # empty
-            return {}
-
-        df.columns = list(map(lambda x: x.lower(), df.columns))
-        df["ticker"] = ticker
-        df["date"] = list(map(lambda x: x.strftime("%Y-%m-%d"), df.index))
-
-        return df.to_dict("list")
+        return data
