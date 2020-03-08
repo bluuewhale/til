@@ -1,4 +1,3 @@
-from collections import defaultdict
 from datetime import datetime as dt
 from datetime import timedelta
 
@@ -8,103 +7,112 @@ from rest_framework.decorators import api_view
 
 import FinanceDataReader as fdr
 import numpy as np
-import pandas as pd
 
-
-from .serializer import OHLCReadSerializer, OHLCCreateSerializer
+from .serializer import OHLCSerializerFactory
 from .models import OHLC
 from .data_loader import DataLoader
-from .utility import dl_to_ld, ld_to_dl, merge_dict
+from .utility import ld_to_dl
+
+
+def save(data):
+    """ FDR에서 불러온 OHLC data를 instance로 DB에 저장하는 함수입니다.
+
+    Parameters
+    ----------
+    data : list
+        list of dictionaries
+
+    Returns
+    -------
+    django.http.Response
+    """
+
+    # convert dict of lists to list of dicts
+    serializer_cls = OHLCSerializerFactory.create()
+    serializer = serializer_cls(
+        data=ld_to_dl(data), many=True
+    )  # ld to dl for saving data
+
+    # create new instance in DB
+    if serializer.is_valid():
+        try:
+            serializer.save()
+        except IntegrityError:
+            pass
+    else:
+        return HttpResponse(status=400)
+
+    return HttpResponse(status=201)
 
 
 @api_view(["GET"])
-def get_ohlc(request, ticker):
+def get_ohlc(request):
+    """ Data Response Process
 
-    model = OHLC
-    read_serializer_cls = OHLCReadSerializer
-    create_serializer_cls = OHLCCreateSerializer
-    loader = DataLoader()
+    1. check if data in DB
+        True: move to 2
+        False: move to 3
 
-    def create(data_dl):
-        """ FDR에서 불러온 OHLC 데이터를 instance로 DB에 저장하는 함수입니다.
+    2. load full-period data from FDR
+        create instance in DB -> return data
 
-        Parameters
-        ----------
-        data_dl : dict
-            dictonary of lists
-
-        Returns
-        -------
-        django.http.Response
-        """
-
-        # convert dict of lists to list of dicts
-        ld = dl_to_ld(data_dl)
-        create_serializer = create_serializer_cls(data=ld, many=True)
-
-        # create new instance in DB
-        if create_serializer.is_valid():
-            try:
-                create_serializer.save()
-            except IntegrityError:
-                pass
-        else:
-            return JsonResponse(create_serializer.errors, safe=False, status=400)
-
-        return HttpResponse(status=201)
+    3. check if update is needed
+        True: load updated data -> create instance in DB -> return data
+        False: return data
+    """
 
     if request.method == "GET":
-        """ Data Response Process
 
-        1. check if data in DB
-            True: move to 2
-            False: move to 3
+        model = OHLC
+        serializer_cls = OHLCSerializerFactory.create()
 
-        2. load full-period data from FDR
-            create instance in DB -> return data
+        # 1. query data fr2om db
+        url_kwargs = request.GET.dict()
+        queryset = model.objects.filter(**url_kwargs)
+        serializer = serializer_cls(queryset, many=True)
+        data = serializer.data  # list of dicts
 
-        3. check if update is needed
-            True: load updated data -> create instance in DB -> return data
-            False: return data
-        """
+        ticker = url_kwargs.get("ticker", "")
+        # 2. # if no data in DB, load new data from fdr
+        if not data:
+            data = DataLoader.load_ohlc(ticker)
 
-        # 1. get data from db
-        queryset = model.objects.filter(ticker=ticker).order_by("date")
-        serializer = read_serializer_cls(queryset, many=True)
-        data = serializer.data
+            if not data:  # if fdr data is empty, ERROR
+                return HttpResponse("wrong ticker", status=400)
 
-        if len(data):  # if data in DB, convert type for data handling
-            ohlc_dl = ld_to_dl(data)
-
-        else:  # 2. load new data from fdr
-            ohlc_dl = loader.load_ohlc(ticker)
-
-            if not len(ohlc_dl.get("date", [])):  # if fdr data is empty, ERROR
-                return HttpResponse("{} data doesn't exist".format(ticker), status=400)
-
-            # create instance in DB (save) and receive create response
-            create_res = create(ohlc_dl)
-            if create_res.status_code != 201:
-                return create_res
+            crt_serializer = serializer_cls(data=data, many=True)
+            if crt_serializer.is_valid():
+                try:
+                    crt_serializer.save()
+                except IntegrityError:
+                    pass
+            else:
+                # return HttpResponse("validation failed", status=400)
+                return JsonResponse(crt_serializer.errors, safe=False)  # debug only
 
         # 3. check if need update
-        format = "%Y-%m-%d"  # YYYY-MM-DD
-        last_update = ohlc_dl["date"][-1]
-        today = dt.now().strftime(format)
+        fmt = "%Y-%m-%d"  # YYYY-MM-DD
+        last_update = data[-1].get("date")
+        today = dt.now().strftime(fmt)
 
         if np.busday_count(last_update, today):  # if need update, do it!
 
-            sdate = dt.strptime(last_update, format) + timedelta(days=1)
-            sdate = sdate.strftime(format)  # last_date in DB + 1day
+            sdate = (dt.strptime(last_update, fmt) + timedelta(days=1)).strftime(fmt)
             edate = today
+            update_data = DataLoader.load_ohlc(ticker, sdate, edate)  # load data
 
-            update_dl = loader.load_ohlc(ticker, sdate, edate)  # load data
+            if update_data:  # update only when available
+                crt_serializer = serializer_cls(data=update_data, many=True)
 
-            if len(update_dl.get("date", [])):  # update only when available
-                ohlc_dl = merge_dict(ohlc_dl, update_dl)
+                if crt_serializer.is_valid():
+                    try:
+                        crt_serializer.save()
+                    except IntegrityError:
+                        pass
+                else:
+                    # return HttpResponse("validation failed", status=400)
+                    return JsonResponse(crt_serializer.errors, safe=False)  # debug
 
-                create_res = create(update_dl)  # create instance in DB
-                if create_res.status_code != 201:
-                    return create_res
+                data += update_data  # concat
 
-        return JsonResponse(ohlc_dl, safe=False)
+        return JsonResponse(data, safe=False)
