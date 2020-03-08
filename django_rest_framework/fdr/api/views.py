@@ -1,61 +1,110 @@
+from collections import defaultdict
 from datetime import datetime as dt
 from datetime import timedelta
 
-import FinanceDataReader as fdr
-import pandas as pd
+from django.db.utils import IntegrityError
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 
-from .serializer import OHLCSerializer
+import FinanceDataReader as fdr
+import numpy as np
+import pandas as pd
+
+
+from .serializer import OHLCReadSerializer, OHLCCreateSerializer
 from .models import OHLC
-from .tasks import DataLoader
+from .data_loader import DataLoader
+from .utility import dl_to_ld, ld_to_dl, merge_dict
 
 
 @api_view(["GET"])
 def get_ohlc(request, ticker):
-    """ ticker로 필터링 """
 
     model = OHLC
-    serializer_cls = OHLCSerializer
+    read_serializer_cls = OHLCReadSerializer
+    create_serializer_cls = OHLCCreateSerializer
     loader = DataLoader()
 
+    def create(data_dl):
+        """ FDR에서 불러온 OHLC 데이터를 instance로 DB에 저장하는 함수입니다.
+
+        Parameters
+        ----------
+        data_dl : dict
+            dictonary of lists
+
+        Returns
+        -------
+        django.http.Response
+        """
+
+        # convert dict of lists to list of dicts
+        ld = dl_to_ld(data_dl)
+        create_serializer = create_serializer_cls(data=ld, many=True)
+
+        # create new instance in DB
+        if create_serializer.is_valid():
+            try:
+                create_serializer.save()
+            except IntegrityError:
+                pass
+        else:
+            return JsonResponse(create_serializer.errors, safe=False, status=400)
+
+        return HttpResponse(status=201)
+
     if request.method == "GET":
+        """ Data Response Process
 
-        # get data from db
+        1. check if data in DB
+            True: move to 2
+            False: move to 3
+
+        2. load full-period data from FDR
+            create instance in DB -> return data
+
+        3. check if update is needed
+            True: load updated data -> create instance in DB -> return data
+            False: return data
+        """
+
+        # 1. get data from db
         queryset = model.objects.filter(ticker=ticker).order_by("date")
-        serializer = serializer_cls(queryset, many=True)
-        ohlc_dict = serializer.data
+        serializer = read_serializer_cls(queryset, many=True)
+        data = serializer.data
 
-        if len(ohlc_dict) == 0:  # if db is empty, load new data from fdr
-            ohlc_dict = loader.load_ohlc(ticker)
+        if len(data):  # if data in DB, convert type for data handling
+            ohlc_dl = ld_to_dl(data)
 
-            if len(ohlc_dict["date"]) == 0:  # check if newly loaded fdr data is empty
+        else:  # 2. load new data from fdr
+            ohlc_dl = loader.load_ohlc(ticker)
+
+            if not len(ohlc_dl.get("date", [])):  # if fdr data is empty, ERROR
                 return HttpResponse("{} data doesn't exist".format(ticker), status=400)
 
-            # TODO: save new fdr data
-            # post_serializer = serializer_cls(data=ohlc_dict)
+            # create instance in DB (save) and receive create response
+            create_res = create(ohlc_dl)
+            if create_res.status_code != 201:
+                return create_res
 
-            # if post_serializer.is_valid():
-            #    return HttpResponse("200", status=200)
-            # else:
-            #    return JsonResponse(post_serializer.errors)
+        # 3. check if need update
+        format = "%Y-%m-%d"  # YYYY-MM-DD
+        last_update = ohlc_dl["date"][-1]
+        today = dt.now().strftime(format)
 
-        date_format = "%Y-%m-%d"
-        last_date = ohlc_dict["date"][-1]
-        today = dt.now().strftime(date_format)
+        if np.busday_count(last_update, today):  # if need update, do it!
 
-        if today == last_date:  # data is up to date
-
-            # if today > last_date:  # if need update, do it
-
-            sdate = dt.strptime(last_date, date_format) + timedelta(days=1)
-            sdate = sdate.strftime(date_format)
+            sdate = dt.strptime(last_update, format) + timedelta(days=1)
+            sdate = sdate.strftime(format)  # last_date in DB + 1day
             edate = today
 
-            update_data = loader.load_ohlc(ticker, sdate, edate)
+            update_dl = loader.load_ohlc(ticker, sdate, edate)  # load data
 
-            # TODO: update_data DB에 추가하는 코드 작성
+            if len(update_dl.get("date", [])):  # update only when available
+                ohlc_dl = merge_dict(ohlc_dl, update_dl)
 
-            ohlc_dict = loader.merge_dict(ohlc_dict, update_data)
+                create_res = create(update_dl)  # create instance in DB
+                if create_res.status_code != 201:
+                    return create_res
 
-        return JsonResponse(ohlc_dict, safe=False)
+        return JsonResponse(ohlc_dl, safe=False)
