@@ -1,0 +1,25 @@
+{% extends 'blog_app/base.html' %}
+
+{% block posts %}
+<div class="container">
+    <button class="btn btn-primary btn-lg">
+        <a href='create'>새 글 쓰기</a>
+    </button>
+    <ul class="list">
+        {% for post in posts %}
+        <li class="item">
+            <h3><a href={{post.id}}>{{ post.title }}</a></h3>
+            <div class="content">{{ post.content|truncatewords:50 }}</div>
+            <div class="info">
+                <div class="published-date">
+                    <span>Date | </span>{{ post.published_date }}
+                </div>
+                <div class="author">
+                    <span>Author | </span>{{ post.author }}
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
