@@ -3,6 +3,6 @@ from tr_request import views
 
 
 urlpatterns = [
-    re_path('^(?P<trCode>[0-9a-zA-Z]+)/', views.tr_request)
+    re_path('^', views.tr_request)
 ]
     
