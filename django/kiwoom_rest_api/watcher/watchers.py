@@ -42,8 +42,8 @@ class KiwoomWatcher:
         if reqs:
             req_name = reqs[0]
             req_path = os.path.join(self.req_dir, req_name)
+            os.remove(req_path) # req 파일 삭제 먼저 (무한 반복 하지 않도록)
             req_content = read_json(req_path)
-            os.remove(req_path) # req 파일 삭제
             
             res = self.worker.request(**req_content)
             res_path = os.path.join(self.res_dir, req_name)

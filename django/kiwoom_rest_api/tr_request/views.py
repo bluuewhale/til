@@ -11,46 +11,25 @@ from django.conf import settings
 
 from utility import write_json, read_json
 
-class Request:
-    def __init__(self, request, *args, **kwargs):
-        self.request = request
+def parse_params(request, method='GET'):
+    return {k: v for k, v in getattr(request, method).items()}
 
-        for k, v in kwargs.items():
-            setattr(self, k, v)
+def read_response(path, n_retry=100, delay=0.1):
+    for _ in range(n_retry):
+        time.sleep(delay)
+        try:
+            data = read_json(path)
+            os.remove(path) # res 파일 삭제
+            return JsonResponse(data)
+        except FileNotFoundError:
+            pass
+    return JsonResponse({})
 
-    @property
-    def params(self):
-        return {k: v for k, v in getattr(self.request, 'GET').items()}
-
-    def get_content(self, **kwargs):
-        content_dict = {k: v for k, v in kwargs.items()}
-        content_dict.update(self.params)
-        return content_dict
-    
-class Response:
-    def __init__(self):
-        pass 
-
-    def read_json(self, path, n_retry=100, delay=0.1):
-        for _ in range(n_retry):
-            time.sleep(delay)
-            try:
-                data = read_json(path)
-                os.remove(path) # res 파일 삭제
-                return JsonResponse(data)
-            except FileNotFoundError:
-                pass
-        return JsonResponse({})
-
-class TrManager(Request, Response):
-    def __init__(self, request, req_dir, res_dir, *args, **kwargs):
-        #super(TrManager, self).__init__(self, request, *args, **kwargs) # init Request only
-        self.request = request
+class TrManager:
+    def __init__(self, req_dir, res_dir, *args, **kwargs):
         self.req_dir = req_dir
         self.res_dir = res_dir
-        
         self.name = self.now
-        self.content = self.get_content(**kwargs)
 
         for k, v in kwargs.items():
             setattr(self, k, v)
@@ -59,23 +38,28 @@ class TrManager(Request, Response):
     def now(self):
         return dt.now().strftime("%Y-%m-%d-%H-%M-%S.%f")
     
-    def __send_request(self):
+    def __send_request(self, content):
         path = os.path.join(self.req_dir, self.name)
-        write_json(self.content, path)
+        write_json(content, path)
     
     def __get_response(self, n_retry, delay):
         path = os.path.join(self.res_dir, self.name)
-        return self.read_json(path, n_retry, delay)
+        return read_response(path, n_retry, delay)
     
-    def run(self, n_retry=30, delay=0.1):
-        
-        self.__send_request()
+    def run(self, content, n_retry=30, delay=0.1):
+        self.__send_request(content)
         return self.__get_response(n_retry, delay)
 
 def tr_request(request, trCode):
     
     req_dir = os.path.join(settings.BASE_DIR, 'watcher/tr_requests')
     res_dir = os.path.join(settings.BASE_DIR, 'watcher/tr_responses')
-    manager = TrManager(request, req_dir, res_dir, trCode=trCode)
-    data =  manager.run()
+    manager = TrManager(req_dir, res_dir)
+
+    req_contents = {
+        'trCode' : trCode,
+    }
+    req_contents.update(parse_params(request))
+
+    data =  manager.run(req_contents)
     return data
