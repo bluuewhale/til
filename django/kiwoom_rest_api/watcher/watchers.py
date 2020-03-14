@@ -12,9 +12,11 @@ from utility import read_json, write_json
 
 
 class KiwoomWatcher:
-    def __init__(self, kiwoom, worker, **kwargs):
+
+    def __init__(self, kiwoom, worker, *args, **kwargs):
         self.kiwoom = kiwoom
         self.worker = worker
+
         for k, v in kwargs.items():
             setattr(self, k, v)
     
@@ -26,31 +28,12 @@ class KiwoomWatcher:
     def res_dir(self):
         raise NotImplementedError()
     
-    def run(self):
-        self.killOldProcess()
-
-        loop = asyncio.get_event_loop()
-        coroutineList = [
-            self.asyncWatch(),
-        ]
-        loop.run_until_complete(asyncio.gather(*coroutineList))
-    
     @AutoRunDecorator.asyncFullTime(delay=0.05)
-    async def asyncWatch(self):
-        reqs = os.listdir(self.req_dir)
-        
-        if reqs:
-            req_name = reqs[0]
-            req_path = os.path.join(self.req_dir, req_name)
-            os.remove(req_path) # req 파일 삭제 먼저 (무한 반복 하지 않도록)
-            req_content = read_json(req_path)
-            
-            res = self.worker.request(**req_content)
-            res_path = os.path.join(self.res_dir, req_name)
-            write_json(res, res_path) # res 파일 생성
+    async def asyncRun(self):
+        raise NotImplementedError
 
     # Support Methods
-    def killOldProcess(self):
+    def __killOldProcess(self):
         # 이전에 실행된 Process는 꺼버리고 새로운 Process로 실행 (중복 방지).
         try:
             pidPath = 'pid.txt'
@@ -62,9 +45,23 @@ class KiwoomWatcher:
             saveTxt(os.getpid(), pidPath)
             
 
-class DataRequestWatcher(KiwoomWatcher):
+class TrWatcher(KiwoomWatcher):
     def __init__(self, kiwoom, worker, *args, **kwargs):
-        KiwoomWatcher.__init__(self, kiwoom, worker, *args, **kwargs)
+        super().__init__(kiwoom, worker, *args, **kwargs)
+
+    @AutoRunDecorator.asyncFullTime(delay=0.05)
+    async def asyncRun(self):
+        reqs = os.listdir(self.req_dir)
+        
+        if reqs:
+            req_name = reqs[0]
+            req_path = os.path.join(self.req_dir, req_name)
+            req_content = read_json(req_path)
+            os.remove(req_path) # 읽은 후 바로 삭제
+            
+            res = self.worker.request(**req_content) # request 전송, response 수신
+            res_path = os.path.join(self.res_dir, req_name)
+            write_json(res, res_path) # res 파일 생성
 
     @property
     def req_dir(self):
@@ -75,9 +72,23 @@ class DataRequestWatcher(KiwoomWatcher):
         return 'tr_responses'
 
 
-class OrderRequestWatcher(KiwoomWatcher):
+class OrderWatcher(KiwoomWatcher):
     def __init__(self, kiwoom, worker, *args, **kwargs):
-        KiwoomWatcher.__init__(self, kiwoom, worker, *args, **kwargs)
+        super().__init__(kiwoom, worker, *args, **kwargs)
+
+    @AutoRunDecorator.asyncFullTime(delay=0.05)
+    async def asyncRun(self):
+        reqs = os.listdir(self.req_dir)
+        
+        if reqs:
+            req_name = reqs[0]
+            req_path = os.path.join(self.req_dir, req_name)
+            req_content = read_json(req_path)
+            os.remove(req_path) # 읽은 후 바로 삭제
+            
+            res = self.worker.sendOrder(**req_content) # order 전송
+            res_path = os.path.join(self.res_dir, req_name)
+            write_json(res, res_path) # res 파일 생성
 
     @property
     def req_dir(self):
