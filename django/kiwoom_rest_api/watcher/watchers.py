@@ -19,11 +19,11 @@ class KiwoomWatcher:
             setattr(self, k, v)
     
     @property
-    def request_dir(self):
+    def req_dir(self):
         raise NotImplementedError()
 
     @property
-    def response_dir(self):
+    def res_dir(self):
         raise NotImplementedError()
     
     def run(self):
@@ -37,16 +37,16 @@ class KiwoomWatcher:
     
     @AutoRunDecorator.asyncFullTime(delay=0.05)
     async def asyncWatch(self):
-        reqs = os.listdir(self.request_dir)
+        reqs = os.listdir(self.req_dir)
         
         if reqs:
             req_name = reqs[0]
-            req_path = os.path.join(self.request_dir, req_name)
+            req_path = os.path.join(self.req_dir, req_name)
             req_content = read_json(req_path)
             os.remove(req_path) # req 파일 삭제
             
             res = self.worker.request(**req_content)
-            res_path = os.path.join(self.response_dir, req_name)
+            res_path = os.path.join(self.res_dir, req_name)
             write_json(res, res_path) # res 파일 생성
 
     # Support Methods
@@ -67,12 +67,12 @@ class DataRequestWatcher(KiwoomWatcher):
         KiwoomWatcher.__init__(self, kiwoom, worker, *args, **kwargs)
 
     @property
-    def request_dir(self):
-        return 'data_requests'
+    def req_dir(self):
+        return 'tr_requests'
 
     @property
-    def response_dir(self):
-        return 'data_responses'
+    def res_dir(self):
+        return 'tr_responses'
 
 
 class OrderRequestWatcher(KiwoomWatcher):
@@ -80,10 +80,10 @@ class OrderRequestWatcher(KiwoomWatcher):
         KiwoomWatcher.__init__(self, kiwoom, worker, *args, **kwargs)
 
     @property
-    def request_dir(self):
+    def req_dir(self):
         return 'order_requests'
 
     @property
-    def response_dir(self):
+    def res_dir(self):
         return 'order_responses'
     
