@@ -80,8 +80,8 @@ class OrderManager(Manager):
 
         return JsonResponse({'status':400}, status=400)
     
-    def run(self, request):
+    def run(self, request, n_retry=30, delay=0.1):
         content = self.parse_params(request)
         self._send_request(content)
-        return self._get_response()
+        return self._get_response(n_retry, delay)
 
