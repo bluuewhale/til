@@ -202,3 +202,500 @@
 "ORDER_NO": "",
 }
 ======================================================================
+'2020-03-15 16:19:59.058080 Connection Successful'
+'2020-03-15 16:22:59.233898 Connection Successful'
+'2020-03-15 16:24:40.134990 Connection Successful'
+'2020-03-15 16:33:35.886590 Connection Successful'
+'2020-03-15 16:34:07.545203 Connection Successful'
+'2020-03-15 16:34:49.981623 Connection Successful'
+'2020-03-15 16:35:09.014316 Connection Successful'
+'2020-03-15 16:36:10.997234 Connection Successful'
+'2020-03-15 16:36:20.599508 Connection Successful'
+'2020-03-15 16:36:20.769387  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:36:21.519738',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:36:21.682492  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:36:21.702414',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:36:21.869414  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:36:21.895482',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:36:23.179114  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:36:23.201056',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:36:26.832154  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:36:26.860254',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:36:30.542893  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:36:30.568872',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:37:45.371058  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:37:45.395992',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:01.156812  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:01.275494',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:01.947624  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:01.972557',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:02.645923  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:02.671856',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:03.242336  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:03.270258',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:03.840784  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:03.862676',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:04.329427  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:04.353363',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:04.874971  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:04.895914',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:05.465392  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:05.489330',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:38:05.958075  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:38:05.981012',
+ 'TR_CODE': 'OPT10005'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:38:42.147127'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:02.783875'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:06.573449'}
+'2020-03-15 16:39:52.729251 Connection Successful'
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:52.783158'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:53.563590'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:53.750055'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:53.936380'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:54.120090'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:39:55.847775'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:41:36.243048'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:42:03.376611'}
+'[00Z218] 모의투자 장종료 상태입니다'
+{'accNo': '8131214911',
+ 'code': '005930',
+ 'hogaType': '03',
+ 'msg': '[00Z218] 모의투자 장종료 상태입니다',
+ 'orderNo': '',
+ 'orderType': 1,
+ 'originOrderNo': '',
+ 'price': 0,
+ 'qty': 1,
+ 'rqName': 'test',
+ 'scrNo': '0000',
+ 'time': '2020-03-15 16:42:07.326400'}
+'2020-03-15 16:43:10.577870  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:10.598814',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:11.474475  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:11.509381',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:12.180695  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:12.203582',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:12.774057  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:12.795999',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:13.315610  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:13.342575',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:13.861221  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:13.882133',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:14.399749  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:14.425720',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:15.604528  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:15.626471',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:16.070097  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:16.094032',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:16.359323  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:16.387249',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:16.650547  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:16.678470',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:16.895890  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:16.921854',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:17.135186  commRqData 주식일주월시분요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식일주월시분요청',
+ 'TIME': '2020-03-15 16:43:17.160146',
+ 'TR_CODE': 'OPT10005'}
+'2020-03-15 16:43:45.399661  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:43:45.415585',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:45:47.871027  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:45:47.887979',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:37.998564  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:38.030515',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:38.852098  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:38.868085',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:39.438652  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:39.457601',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:39.974467  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:39.995601',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:40.467638  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:40.482557',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:40.949517  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:40.965475',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:41.432960  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:41.445929',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:41.811538  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:41.826493',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:42.254807  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:42.267987',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:42.585107  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:42.606277',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:42.972712  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:42.988669',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:43.362237  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:43.381261',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:43.695789  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:43.708754',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:44.088911  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:44.097886',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:44.465096  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:44.478057',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:44.893560  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:44.908518',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:45.273349  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:45.293408',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:47.033311  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:47.049570',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:47.463343  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:47.481295',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:48:48.253342  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:48:48.269298',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:49:13.962710 Connection Successful'
+'2020-03-15 16:49:14.124744  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:49:14.804856',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:51:48.763904 Connection Successful'
+'2020-03-15 16:51:48.927253  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:51:49.605600',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:52:06.446578 Connection Successful'
+'2020-03-15 16:52:42.692048 Connection Successful'
+'2020-03-15 16:52:59.332100  commRqData 주식호가요청'
+{'BASC_DT': '20200315',
+ 'EVENT': 'eventReceiveTrData',
+ 'REQUEST_NAME': '주식호가요청',
+ 'TIME': '2020-03-15 16:53:00.629497',
+ 'TR_CODE': 'OPT10004'}
+'2020-03-15 16:54:09.311883 Connection Successful'
+'2020-03-15 16:54:25.339685 Connection Successful'
+'2020-03-15 17:00:19.123694 Connection Successful'

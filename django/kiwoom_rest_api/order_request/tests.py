@@ -1,3 +1,4 @@
+import json
 import requests
 import unittest
 
@@ -5,7 +6,7 @@ class OrderTest(unittest.TestCase):
     
     def setUp(self):
         self.url = 'http://127.0.0.1:8000/order/'
-        self.code = "005930"
+        self.code = "005sdfsfd930"
         self.accNo = "8131214911"
 
     def test_buy_order(self):
@@ -21,7 +22,9 @@ class OrderTest(unittest.TestCase):
             "originOrderNo":"",
         }
 
-        requests.get(self.url, params)
+        response = requests.get(self.url, params)
+        #data = json.loads(response.content)
+        print(response.content)
 
 if __name__ == "__main__":
     unittest.main()

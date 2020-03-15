@@ -11,8 +11,8 @@ from django.conf import settings
 from manager import OrderManager
 
 def order_request(request):
-    req_dir = os.path.join(settings.BASE_DIR, 'watcher/order_requests')
-    res_dir = os.path.join(settings.BASE_DIR, 'watcher/order_responses')
+    req_dir = os.path.join(settings.BASE_DIR, 'watcher/tmp/order/requests')
+    res_dir = os.path.join(settings.BASE_DIR, 'watcher/tmp/order/responses')
     
     manager = OrderManager(req_dir, res_dir)
     data =  manager.run(request)
