@@ -67,9 +67,19 @@ class OrderManager(Manager):
         for k, v in kwargs.items():
             setattr(self, k, v)
     
-    def _get_response(self):
-        return JsonResponse({'status':'no debug or test codes yet'}, status=200)
-        
+    def _get_response(self, n_retry, delay):
+        for _ in range(n_retry):
+            time.sleep(delay)
+            try:
+                data = read_json(self.res_path)
+                os.remove(self.res_path) # res 파일 삭제
+                return JsonResponse(data)
+                
+            except FileNotFoundError:
+                pass
+
+        return JsonResponse({'status':400}, status=400)
+    
     def run(self, request):
         content = self.parse_params(request)
         self._send_request(content)

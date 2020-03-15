@@ -18,8 +18,8 @@ def main():
     
     loop = asyncio.get_event_loop()
     coroutineList = [
-        tr_watcher.asyncRun(),
-        order_watcher.asyncRun(),
+        tr_watcher.run(main_func_name='request'),
+        order_watcher.run(main_func_name='sendOrder'),
     ]
     loop.run_until_complete(asyncio.gather(*coroutineList))
     
