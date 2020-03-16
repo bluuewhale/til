@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from manager import OrderManager
 
 @api_view(['POST'])
-#@permission_classes((IsAuthenticated, ))
+@permission_classes((IsAuthenticated, ))
 def order_request(request):
     req_dir = os.path.join(settings.BASE_DIR, 'watcher/tmp/order/requests')
     res_dir = os.path.join(settings.BASE_DIR, 'watcher/tmp/order/responses')
