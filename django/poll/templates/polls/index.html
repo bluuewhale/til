@@ -1,0 +1,24 @@
+{% extends "polls/base.html" %}
+
+{% block head %}
+
+<head>
+    <title>Polls</title>
+</head>
+{% endblock head %}
+
+
+{% block content %}
+{% if questions %}
+<ul>
+    {% for q in questions %}
+    <li>
+        <a href="{% url 'polls:detail' q.id %}">{{ q.text }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available!</p>
+{% endif %}
+
+{% endblock content %}
