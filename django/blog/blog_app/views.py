@@ -3,9 +3,8 @@ from django.shortcuts import render
 from .models import Post
 
 
-def hello_world(request):
-    # return HttpResponse("hello world")
-    return render(request, "blog_app/hello.html")
+def index(request):
+    return render(request, "blog_app/index.html")
 
 
 def post_list(request):

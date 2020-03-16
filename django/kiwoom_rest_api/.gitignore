@@ -2,6 +2,7 @@ log
 beforeRelease.txt
 .json
 .txt
+token.txt
 
 # vscode
 .vscode/
