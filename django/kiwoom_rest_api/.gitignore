@@ -3,6 +3,9 @@ beforeRelease.txt
 .json
 .txt
 token.txt
+pwd.txt
+tmp
+
 
 # vscode
 .vscode/

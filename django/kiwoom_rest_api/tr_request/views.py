@@ -13,7 +13,7 @@ from manager import TrManager
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
 def tr_request(request):
-    req_dir = os.path.join(settings.BASE_DIR, 'watcher/tmp/tr/requests', )
+    req_dir = os.path.join(settings.BASE_DIR, 'watcher/tmp/tr/requests')
     res_dir = os.path.join(settings.BASE_DIR, 'watcher/tmp/tr/responses')
     
     manager = TrManager(req_dir, res_dir)
