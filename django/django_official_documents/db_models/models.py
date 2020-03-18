@@ -164,6 +164,171 @@ Managers are only accessible via model classes, not the model instances.
 
 # Model methods
 """
-
+you can define a custom method
+- This is a valuable technique for keeping business logic in one place -- the model.
 """
 
+
+class PersonFL(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+# Overriding predefined model methods
+"""
+In particular you'll often want to change the way save() and delete() work.
+
+It's important to remember to call the superclass method 
+"""
+
+
+class Blog(models.Model):
+    name = models.CharField(max_length=100)
+    tag_line = models.TextField()
+
+    def save(self, *args, **kwargs):
+        # do_something()
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        # do_something_else()
+
+
+# Model inheritance
+"""
+The base class should subclass: django.db.models.Model.
+
+there are three styles of inheritance in Django
+    1. abstract class
+        the parent class to hold information that you 
+        don't want to have to type out for each child model
+    
+    2. Multi-table inheritance
+        subclasses have their own databases
+    
+    3. Proxy model
+        only change python-level behavior,
+        no change in fields
+"""
+
+# 1. abstract class
+"""
+the parent class to hold information that you 
+
+abstract=True in the Meta class
+    -> will not create any database table
+"""
+
+
+class CommonImfo(models.Model):
+    """ abstract class
+    no tables, no Manager
+    """
+
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+
+    class Meta:
+        abstract = True
+
+
+class Student(CommonImfo):
+    home_group = models.CharField(max_length=5)
+
+    """ Meta inheritance
+    if you need to re-define Meta class
+        -> you can inherit parents' meta class 
+
+    even if you don't inherit meta class, 
+    django sets abstract=False automatically
+    """
+
+    class Meta(CommonImfo.Meta):
+        db_table = "student_ifno"
+        # abstract=True # explicitly set if you want a subclass to be a abstract class
+
+
+# Be careful with related_name and related_query_name
+"""
+To work around this problem, when you are using related_name or related_query_name
+in an abstract base class (only), part of the value should contain '%(app_label)s' 
+and '%(class)s'.
+
+if you forget to use it, Django will raise errors when you perform system checks 
+(or run migrate).
+"""
+from django.db import models
+
+
+class Ingredients(models.Model):
+    pass
+
+
+class Burger(models.Model):
+    m2m = models.ManyToManyField(
+        Ingredients,
+        related_name="%(app_label)s_%(class)s_related",
+        related_query_name="%(app_label)s_%(class)ss",
+    )
+
+    class Meta:
+        abstract = True
+
+
+class CheeseBurger(Burger):
+    pass
+    # reverse m2m field name: db_models_cheeseburger_related
+    # reverse query name: db_models_cheeseburgers
+
+
+# 2. Multi-table inheritance
+"""
+Each model corresponds to its own database table and can be queried and 
+created individually. The inheritance relationship introduces links between 
+the child model and each of its parents (via an automatically-created OneToOneField)
+"""
+
+
+class PlaceA(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=80)
+
+
+class RestaurantA(PlaceA):
+    """
+    All of the fields of Place will also be available in Restaurant, 
+    although the data will reside in a different database table. 
+    """
+
+    # below is how automatically created one-to-one fields looks like
+    place_ptr = models.OneToOneField(
+        Place, on_delete=models.CASCADE, parent_link=True, primary_key=True,
+    )
+
+    serves_hot_dogs = models.BooleanField(default=False)
+    serves_pizza = models.BooleanField(default=False)
+
+
+# 3. Proxy models
+"""
+unlike multi-table inheritance, proxy model doesn't have it' own database.
+    -> share database with parents
+
+This is useful when only modifying a python-level methods 
+"""
+
+
+class PersonB(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+
+
+class MyPerson(PersonB):
+    class Meta:
+        proxy = True
+
+    def do_something(self):
+        # ...
+        pass
