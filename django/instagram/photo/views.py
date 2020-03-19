@@ -107,3 +107,15 @@ class PhotoFavorite(View):
             return HttpResponseRedirect(reverse("accounts:login"))
         return super(PhotoFavorite, self).dispatch(request, *args, **kwargs)
 
+
+class PhotoLikeList(ListView):
+    model = Photo
+    template_name_suffix = "_index"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.warning(request, "로그인이 필요합니다")
+            return HttpResponseRedirect("/")
+
+    def get_queryset(self):
+        return self.request.user.like.post.all()
