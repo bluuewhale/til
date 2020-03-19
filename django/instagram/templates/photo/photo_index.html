@@ -1,32 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-4">
     <div class="row">
-        <div class=col-1></div>
-        <div class='card-deck'>
-            {% for object in object_list %}
-            <div class=col>
-                <div class="card">
-                    <a href="{% url 'photo:detail' object.id %}"><img src="{{ object.image.url }}"
-                            class="card-img-top"></a>
-                    <div class="card-body">
-                        <p class="card-text">{{object.text}}</p>
-                    </div>
-                    <div class="card-block" style="list-style: none;">
-                        <p class="card-text">저자: {{object.author}}</p>
-                        <p class='card-text'>생성일: {{object.created }}</p>
-                        <p class='card-text'>수정일: {{object.updated }}</p>
-                    </div>
-                    <div class='card-body'>
-                        <a href="{% url 'photo:update' object.id%}" class="card-link">수정하기</a>
-                        <a href="{% url 'photo:delete' object.id%}" class="card-link">삭제하기</a>
-                    </div>
-                </div>
+        {% for object in object_list %}
+        <div class='col-auto mb-3'>
+            <div class="card" style="width: 13rem; border: none;">
+                <a href="{% url 'photo:detail' object.id %}"><img src="{{ object.image.url }}" class="card-img-top"></a>
             </div>
-            {% endfor %}
         </div>
-        <div class="col-1"></div>
+        {% endfor %}
     </div>
 </div>
 </div>

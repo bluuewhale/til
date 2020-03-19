@@ -38,6 +38,13 @@
                 {% endif %}
         </div>
     </nav>
+
+    {% if messages %}
+    {% for m in messages %}
+    <div class='alert alert-primary' , role="alert">{{m}}</div>
+    {% endfor %}
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 
