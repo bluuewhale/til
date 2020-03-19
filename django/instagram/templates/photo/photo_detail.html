@@ -3,32 +3,51 @@
 {% block content %}
 <div class="row mt-4">
     <div class="col"></div>
-    <div class="col-12 col-xl-4 col-md-4">
+    <article class="col-12 col-xl-4 col-md-6 container">
         <div class="card">
+            <h5 style='padding: 5px'>
+                <div class='ml-2'>{{ object.author }} </div>
+            </h5>
+
             <img src="{{ object.image.url }}" class='card-img-top'>
-            <div class='card-body'>
-                <h5 class='card-title'>{{ object.author }}</h5>
-                <p class='card-text'>{{ object.text }}</p>
+
+            <!-- like, favorite -->
+            <section class='ml-2 mt-2'>
+                <!-- 이후에 Ajax로 re-rendering 최소화 -->
+                <a href="{% url 'photo:like' object.id %}"
+                    class='ml-1 float-left btn-like {% if user in object.like.all %}active{% endif %}'>
+                </a>
+                <a href="{% url 'photo:favorite' object.id %}"
+                    class='ml-1 float-right btn-favorite {% if user in object.favorite.all %}active{% endif %}'>
+                </a>
+            </section>
+            <section class='ml-2 mt-2'>
+                <div>좋아요 {{object.total_likes}}개</div>
+            </section>
+            <div class='card-body pl-2'>
+                <span style="font-weight: bold;">{{ object.author }}</span>
+                <span>{{ object.text }}</span>
             </div>
+
+            <!-- disuqs -->
             <ul class='list-group list-group-flush' style='list-style: none;'>
-                <!-- <li class='list-group-item'>수정일: {{ object.updated }}</li> -->
                 <li class='list-group-item'>
                     {% load disqus_tags %}
                     <div class='card-body'></div>
                     {% disqus_show_comments %}
                 </li>
             </ul>
+
             {% if user == object.author %}
             <div class='card-body'>
                 <!-- 글을 작성한 사람만 수정, 삭제 가능-->
-                <a href="{% url 'photo:update' object.id%}" class="card-link">수정하기</a>
+                <a href=" {% url 'photo:update' object.id%}" class="card-link">수정하기</a>
                 <a href="{% url 'photo:delete' object.id%}" class="card-link">삭제하기</a>
             </div>
             {% endif %}
 
-
         </div>
-    </div>
+    </article>
     <div class="col"></div>
 </div>
 {% endblock %}
