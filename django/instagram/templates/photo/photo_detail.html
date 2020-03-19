@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
     <div class="col"></div>
-    <div class="col-12 col-xl-4 col-md-6">
+    <div class="col-12 col-xl-4 col-md-4">
         <div class="card">
             <img src="{{ object.image.url }}" class='card-img-top'>
             <div class='card-body'>
@@ -14,10 +14,15 @@
                 <li class='list-group-item'>수정일: {{ object.updated }}</li>
                 <li class='list-group-item'>생성일: {{ object.created }}</li>
             </ul>
-            <div class="card-body">
-                <a href="{% url 'photo:update' object.id" class='card-link'>수정하기</a>
-                <a href="{% url 'photo:delete' object.id" class="card-link">삭제하기</a>
+            {% if user == object.author %}
+            <div class='card-body'>
+                <!-- 글을 작성한 사람만 수정, 삭제 가능-->
+                <a href="{% url 'photo:update' object.id%}" class="card-link">수정하기</a>
+                <a href="{% url 'photo:delete' object.id%}" class="card-link">삭제하기</a>
             </div>
+            {% endif %}
+
+
         </div>
     </div>
     <div class="col"></div>
