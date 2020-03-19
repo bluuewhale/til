@@ -1,7 +1,15 @@
+from urllib.parse import urlparse
+
 from django.contrib import messages
-from django.http.response import HttpResponseRedirect
-from django.urls import reverse_lazy
-from django.shortcuts import redirect
+from django.http.response import (
+    HttpResponseRedirect,
+    HttpResponseForbidden,
+    Http404,
+    HttpResponseBadRequest,
+)
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import View
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -39,8 +47,7 @@ class PhotoUpdate(UpdateView):
         if object.author != request.user:
             messages.warning(request, "수정할 권한이 없습니다.")
             return HttpResponseRedirect("/")
-        else:
-            return super(PhotoUpdate, self).dispatch(request, *args, **kwargs)
+        return super(PhotoUpdate, self).dispatch(request, *args, **kwargs)
 
 
 class PhotoDelete(DeleteView):
@@ -55,11 +62,48 @@ class PhotoDelete(DeleteView):
         if object.author != request.user:
             messages.warning(request, "수정할 권한이 없습니다.")
             return HttpResponseRedirect("/")
-        else:
-            return super(PhotoDelete, self).dispatch(request, *args, **kwargs)
+        return super(PhotoDelete, self).dispatch(request, *args, **kwargs)
 
 
 class PhotoDetail(DetailView):
     model = Photo
     template_name_suffix = "_detail"
+
+
+class PhotoLike(View):
+    def get(self, request, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=kwargs.get("pk"))
+
+        user = request.user
+        like_users = photo.like.all()
+        if user in like_users:  # 이미 좋아요를 누른 상태면
+            photo.like.remove(user)  # 좋아요 취소
+        else:
+            photo.like.add(user)  # 좋아요 등록
+        return HttpResponseRedirect(photo.get_absolute_url())
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:  # 로그인 확인
+            return HttpResponseRedirect(reverse("accounts:login"))
+        return super(PhotoLike, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return HttpResponseBadRequest()
+
+
+class PhotoFavorite(View):
+    def get(self, request, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=kwargs.get("pk"))
+        user = request.user
+
+        if user in photo.favorite.all():  # 이미 fav를 누른 상태면
+            photo.favorite.remove(user)  # 취소
+        else:
+            photo.favorite.add(user)  # fav등록
+        return HttpResponseRedirect(photo.get_absolute_url())
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:  # 로그인 확인
+            return HttpResponseRedirect(reverse("accounts:login"))
+        return super(PhotoFavorite, self).dispatch(request, *args, **kwargs)
 

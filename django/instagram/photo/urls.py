@@ -8,4 +8,6 @@ urlpatterns = [
     path("update/<int:pk>/", PhotoUpdate.as_view(), name="update"),
     path("delete/<int:pk>/", PhotoDelete.as_view(), name="delete"),
     path("detail/<int:pk>/", PhotoDetail.as_view(), name="detail"),
+    path("like/<int:pk>/", PhotoLike.as_view(), name="like"),
+    path("favorite/<int:pk>", PhotoFavorite.as_view(), name="favorite"),
 ]

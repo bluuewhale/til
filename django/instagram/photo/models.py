@@ -10,6 +10,9 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)  # update field only when created
     updated = models.DateTimeField(auto_now=True)  # update field on every save
 
+    like = models.ManyToManyField(User, related_name="likes", blank=True)
+    favorite = models.ManyToManyField(User, related_name="favorites", blank=True)
+
     class Meta:
         ordering = ["-created"]  # 최신순으로 정렬
 
@@ -18,4 +21,8 @@ class Photo(models.Model):
 
     def get_absolute_url(self):
         return reverse("photo:detail", args=(self.id,))
+
+    @property
+    def total_likes(self):
+        return self.like.count()
 
