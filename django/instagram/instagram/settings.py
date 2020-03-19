@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "photo",
     "accounts",
+    "disqus",
+    "django.contrib.sites",
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media").replace("\\", "/")
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+
+DISQUS_WEBSITE_SHORTNAME = "instagram-clone-1"
+SITE_ID = 1

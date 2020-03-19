@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
+<div class="row mt-4">
     <div class="col"></div>
     <div class="col-12 col-xl-4 col-md-4">
         <div class="card">
@@ -11,8 +11,12 @@
                 <p class='card-text'>{{ object.text }}</p>
             </div>
             <ul class='list-group list-group-flush' style='list-style: none;'>
-                <li class='list-group-item'>수정일: {{ object.updated }}</li>
-                <li class='list-group-item'>생성일: {{ object.created }}</li>
+                <!-- <li class='list-group-item'>수정일: {{ object.updated }}</li> -->
+                <li class='list-group-item'>
+                    {% load disqus_tags %}
+                    <div class='card-body'></div>
+                    {% disqus_show_comments %}
+                </li>
             </ul>
             {% if user == object.author %}
             <div class='card-body'>
