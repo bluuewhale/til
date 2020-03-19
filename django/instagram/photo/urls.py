@@ -10,5 +10,5 @@ urlpatterns = [
     path("detail/<int:pk>/", PhotoDetail.as_view(), name="detail"),
     path("like/<int:pk>/", PhotoLike.as_view(), name="like"),
     path("favorite/<int:pk>", PhotoFavorite.as_view(), name="favorite"),
-    path("my-likes", PhotoLikeList.as_view(), name="my-likes"),
+    path("my-likes", PhotoLikeList.as_view(), name="my_likes"),
 ]

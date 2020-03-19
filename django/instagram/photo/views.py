@@ -116,6 +116,7 @@ class PhotoLikeList(ListView):
         if not request.user.is_authenticated:
             messages.warning(request, "로그인이 필요합니다")
             return HttpResponseRedirect("/")
+        return super(PhotoLikeList, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.request.user.like.post.all()
+        return self.request.user.likes.all()
