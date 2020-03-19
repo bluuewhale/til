@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col"></div>
+    <div class="col-12 col-xl-4 col-md-6">
+        <div class="card">
+            <img src="{{ object.image.url }}" class='card-img-top'>
+            <div class='card-body'>
+                <h5 class='card-title'>{{ object.author }}</h5>
+                <p class='card-text'>{{ object.text }}</p>
+            </div>
+            <ul class='list-group list-group-flush' style='list-style: none;'>
+                <li class='list-group-item'>수정일: {{ object.updated }}</li>
+                <li class='list-group-item'>생성일: {{ object.created }}</li>
+            </ul>
+            <div class="card-body">
+                <a href="{% url 'photo:update' object.id" class='card-link'>수정하기</a>
+                <a href="{% url 'photo:delete' object.id" class="card-link">삭제하기</a>
+            </div>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock %}
