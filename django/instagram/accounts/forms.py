@@ -5,7 +5,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Username"}
+        )
+    )
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={"class": "form-control", "placeholder": "Password"}
@@ -33,7 +37,11 @@ class UserLoginForm(forms.Form):
 
 
 class SignUpForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Username"}
+        )
+    )
 
     password = forms.CharField(
         widget=forms.PasswordInput(
@@ -46,24 +54,27 @@ class SignUpForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "Repeat Password"}
         )
     )
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control"}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "Email"})
+    )
 
-    # username 필드에 username이 존재하는지 확인
-    def clean_username(self):
-        username = self.cleaned_data.get("username")
+    def clean(self):
+        cleaned_data = super().clean()
+
+        username = cleaned_data.get("username")
         if User.objects.filter(username=username).exists():
-            raise forms.ValidationError("Duplicated Username")
-        return username
+            self.add_error("username", "Duplicated username")
 
-    def clean_password(self):
         password = self.cleaned_data.get("password")
         password_repeat = self.cleaned_data.get("password_repeat")
         if password != password_repeat:
-            raise forms.ValidationError("Password doesn't match")
-        return password
+            self.add_error("password", "Password doesn't match")
 
     def signup(self):
         if self.is_valid():
-            return User.objects.create_user(**self.cleaned_data)
-        print(self.errors.as_data())
-        raise forms.ValidationError("Invalid Data")
+            username = self.cleaned_data.get("username")
+            password = self.cleaned_data.get("password")
+            email = self.cleaned_data.get("email")
+            User.objects.create_user(username=username, password=password, email=email)
+        else:
+            self.add_error("username", "error")

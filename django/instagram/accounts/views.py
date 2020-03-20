@@ -37,22 +37,21 @@ class UserLoginView(FormView):
         return super(UserLoginView, self).form_valid(form)
 
 
-class SignUpView(View):
+class SignUpView(FormView):
+    form_class = SignUpForm
+    template_name = "accounts/signup.html"
+    success_url = reverse_lazy("photo:index")
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect("photo:index")
         return super(SignUpView, self).dispatch(request, *args, **kwargs)
 
-    def get(self, request):
-        form = SignUpForm()
-        return render(request, "accounts/signup.html", {"form": form})
-
-    def post(self, request):
-        form = SignUpForm(request.POST)
+    def form_valid(self, form):
         try:
             form.signup()
-        except forms.ValidationError as e:
-            messages.warning(request, str(e))
-            return redirect("/")
+        except Exception as e:
+            messages.warning(self.request, str(e))
+            return redirect("accounts:signup")
         return redirect("photo:index")
 
