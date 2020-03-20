@@ -1,19 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class=row>
-    <div class="col"></div>
-    <div class="col-6">
-        <div class="alert alert-primary" , role="alert">
-            Please enter your id and password
-        </div>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="login" class="btn btn-outline-primary">
-        </form>
-    </div>
-    <div class='col'></div>
-</div>
-
+<section class='login row justify-content-center mt-4'>
+    {% include 'form.html' with form=form submit_title='Login' %}
+</section>
 {% endblock %}
