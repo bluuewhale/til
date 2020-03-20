@@ -8,7 +8,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             {% for object in object_list %}
-            <div class="card col-5 mb-4" style="border: none;">
+            <div class="card col-4 mb-4" style="border: none;">
                 <a href="{% url 'photo:detail' object.id %}">
                     <img src="{{ object.image.url }}" class="card-img-top">
                 </a>

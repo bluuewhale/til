@@ -120,3 +120,17 @@ class PhotoLikeList(ListView):
 
     def get_queryset(self):
         return self.request.user.likes.all()
+
+
+class PhotoFavoriteList(ListView):
+    model = Photo
+    template_name_suffix = "_index"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.warning(request, "로그인이 필요한 서비스 입니다.")
+            return HttpResponseRedirect("/")
+        return super(PhotoFavoriteList, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.request.user.favorites.all()
