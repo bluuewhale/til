@@ -13,7 +13,10 @@ from django.views.generic import View
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Photo
+from .forms import PhotoCreateForm
 
 
 class PhotoList(ListView):
@@ -22,11 +25,12 @@ class PhotoList(ListView):
     # paginated_by = 20
 
 
-class PhotoCreate(CreateView):
+class PhotoCreate(LoginRequiredMixin, CreateView):
     model = Photo
-    fields = ["text", "image"]
+    form_class = PhotoCreateForm
     template_name_suffix = "_create"
-    success_url = "/"
+    #success_url = "/"
+    login_url = reverse_lazy("accounts:login")
 
     def form_valid(self, form):
         form.instance.author_id = self.request.user.id
@@ -50,10 +54,11 @@ class PhotoUpdate(UpdateView):
         return super(PhotoUpdate, self).dispatch(request, *args, **kwargs)
 
 
-class PhotoDelete(DeleteView):
+class PhotoDelete(LoginRequiredMixin, DeleteView):
     model = Photo
     template_name_suffix = "_delete"
     success_url = "/"
+    login_url = reverse_lazy("accounts:login")
 
     def dispatch(self, request, *args, **kwargs):
         """ request를 검사하고 HTTP 매서드를 찾아서 중계하는 역할 """
