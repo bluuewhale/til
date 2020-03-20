@@ -1,18 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-    <div class="col"></div>
-    <div class='col-12 col-xl-8 col-md-8'>
-        <div class="alert alert-primary" role="alert">
-            모든 항목을 다 채워주세요!
-        </div>
-        <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value='Upload' class="btn btn-primary">
-        </form>
-    </div>
-    <div class="col"></div>
-</div>
+<section class='login row justify-content-center mt-4'>
+    {% include 'form.html' with form=form %}
+</section>
 {% endblock %}
