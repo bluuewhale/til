@@ -1,15 +1,34 @@
-import json
+import os
 from pprint import pprint
-import requests
-import unittest
+
+from django.test import TestCase
+from django.conf import settings
+from django.urls import reverse
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+from rest_framework.test import (
+    APIClient,
+    APITestCase,
+    APIRequestFactory,
+    force_authenticate,
+)
+
+from utility import read_txt
 
 
-class OrderTest(unittest.TestCase):
+class OrderTest(TestCase):
     def setUp(self):
-        self.url = "http://127.0.0.1:8000/order/"
+
+        self.user = User.objects.create(
+            username="Tester", email="Tester@gmail.com", password="secret"
+        )
+        self.token = Token.objects.create(user=self.user)
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
+
+        self.url = reverse("order_request:request")
         self.code = "005930"
         self.accNo = "8131214911"
-        self.token = "Token d7efae0bbe54e6d994de5b9b83474abb5330ce4f"
 
     def test_buy_order(self):
         headers = {"Authorization": self.token}
@@ -26,13 +45,7 @@ class OrderTest(unittest.TestCase):
             "originOrderNo": "",
         }
 
-        response = requests.post(self.url, data=params, headers=headers)
-        try:
-            data = json.loads(response.content)
-            pprint(data)
-        except:
-            print(response.content)
+        response = self.client.post(self.url, data=params, headers=headers)
 
-
-if __name__ == "__main__":
-    unittest.main()
+        data = response.json()
+        pprint(data)
