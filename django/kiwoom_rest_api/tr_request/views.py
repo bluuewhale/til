@@ -18,6 +18,6 @@ def tr_request(request):
     req_dir = os.path.join(settings.BASE_DIR, "watcher/cache/tr/requests")
     res_dir = os.path.join(settings.BASE_DIR, "watcher/cache/tr/responses")
 
-    manager = TrManager(req_dir, res_dir)
-    data = manager.run(request)
+    manager = TrManager(request, req_dir, res_dir)
+    data = manager.run()
     return data
