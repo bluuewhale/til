@@ -21,11 +21,10 @@ class TrRequestTests(TestCase):
             username="Tester", email="Tester@gmail.com", password="secret"
         )
         self.token = Token.objects.create(user=self.user)
-
-        self.url = reverse("tr_request:request")
         self.client = APIClient()
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
+        self.url = reverse("tr_request:request")
         self.code = "005930"
         self.date = "20200314"
         self.accNo = "8131214911"
