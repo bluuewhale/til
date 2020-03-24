@@ -25,12 +25,12 @@ class OrderRequestView(APIView):
 
         manager = OrderManager(request, req_dir, res_dir)
         data = manager.run()
+        if data is None:
+            return HttpResponse("Bad Request", status=400)
 
         """ save order log """
         token = request.META.get("HTTP_AUTHORIZATION").split(" ")[-1]
         user = getattr(Token.objects.get(key=token), "user")
         order = Order.objects.create(user=user, **data)
 
-        if data is None:
-            return HttpResponse("Bad Request", status=400)
         return JsonResponse(data)
