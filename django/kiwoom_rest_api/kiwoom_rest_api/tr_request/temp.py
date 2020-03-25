@@ -1,53 +1,8 @@
-import os
-from pprint import pprint
-
-from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
-from rest_framework.test import (
-    APIClient,
-    APITestCase,
-    APIRequestFactory,
-    force_authenticate,
-)
-
-from utility import read_txt
-
-
-class TrRequestTests(TestCase):
-    def setUp(self):
-        self.user = User.objects.create(
-            username="Tester", email="Tester@gmail.com", password="secret"
-        )
-        self.token = Token.objects.create(user=self.user)
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
-
-        self.url = reverse("tr_request:request")
-        self.code = "005930"
-        self.date = "20200314"
-        self.accNo = "8131214911"
-
-    def test_OPT10004_success(self):
-        """ 정상 요청 (OPT10004) """
-
-        params = {
-            "trCode": "OPT10004",
-            "종목코드": self.code,
-        }
-
-        response = self.client.get(self.url, data=params)
-        data = response.json()
-
-        self.assertEqual(response.status_code, 200)
-        self.assertGreater(len(data.get("멀티데이터")), 0)
 
     def test_OPT10004_no_auth_token(self):
         """ Auth Token을 request header에 추가하지 않은 경우 """
 
         params = {
-            "trCode": "OPT10004",
             "종목코드": self.code,
         }
 
@@ -114,7 +69,6 @@ class TrRequestTests(TestCase):
     def test_OPT10059_success(self):
 
         params = {
-            "trCode": "OPT10059",
             "일자": self.date,
             "종목코드": self.code,
             "금액수량구분": "1",  # 1:금액, 2:수량
@@ -173,4 +127,3 @@ class TrRequestTests(TestCase):
         print(data)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(data, "Bad Request")
-
