@@ -20,12 +20,14 @@ class Manager:
         self.req_path = os.path.join(req_dir, file_name)
         self.res_path = os.path.join(res_dir, file_name)
 
-        for k, v in kwargs.items():
-            setattr(self, k, v)
+        self.kwargs = kwargs
 
     def run(self, n_retry=40, delay=0.05):
 
         content = self.parse_params(self.request)
+        for k, v in self.kwargs.items():
+            content[k] = v
+
         self._send_request(content)
         return self._get_response(n_retry, delay)  # json
 
@@ -51,8 +53,8 @@ class Manager:
 
 
 class TrManager(Manager):
-    def __init__(self, req_dir, res_dir, *args, **kwargs):
-        super().__init__(req_dir, res_dir, *args, **kwargs)
+    def __init__(self, request, req_dir, res_dir, *args, **kwargs):
+        super().__init__(request, req_dir, res_dir, *args, **kwargs)
 
 
 class OrderManager(Manager):
