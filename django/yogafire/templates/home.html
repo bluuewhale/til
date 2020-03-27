@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block content %}
+
+<div class='row'>
+    <video width="400" controls>
+    <source src="{% static "/videos/test.mp4" %}" type="video/mp4">
+    </video>
+</div>
+
+{% endblock content %}
