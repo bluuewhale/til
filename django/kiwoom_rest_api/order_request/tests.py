@@ -46,5 +46,6 @@ class OrderTest(TestCase):
 
         response = self.client.post(self.url, data=params, headers=headers)
 
+        self.assertEqual(response.status_code, 200)
         data = response.json()
         pprint(data)
