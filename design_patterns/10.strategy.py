@@ -7,10 +7,13 @@ https://refactoring.guru/design-patterns/strategy
 유사하지만 다른 작업을 수행하는 여러 전략을 클래스 형태로 캡슐화, 
 단순히 전략을 만들거나 교체함으로써 행위를 자유롭게 수정할 수 있음 (OCP)
 
-Bridge와 상당히 유사한 구조를 가짐
+Bridge 와 상당히 유사한 구조를 가짐
  - 구체적인 기능에 대한 구현을 외부 클래스에 위임함 (OCP)
    + 기능에 대한 수정-확장이 매우 유연함
 
+State 패턴과 유사하지만 조금 다르게 활용됨
+ - Strategy 패턴은 상속을 통해 다양한 variation(수정-확장)에 유연하게 대응
+ - State 패턴은 조건문 분기를 효율적으로 처리하기에 유용
 """
 
 from abc import ABC, abstractmethod
