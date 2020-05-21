@@ -19,6 +19,13 @@ https://m.blog.naver.com/PostView.nhn?blogId=tradlinx0522&logNo=220928963011&pro
  + 구현 클래스
   - Implementor : 최상위 구현 클래스  (Abstraction의 기능을 구현하기 위한 인터페이스 정의)
   - ConcreteImplementor : 하위 구현 클래스 (실제 기능을 구현합니다.)
+
+Strategy 패턴과의 차이점
+  - Strategy 패턴은 행동(Behavioral) 패턴
+    + 런타임에 사용자가 알맞는 알고리즘(전략)을 선택
+  - Bridge 패턴은 구조(Structural) 패턴
+    + 인터페이스 계층 구조를 나누고 참조를 통해 합치는 형태
+    
 """
 
 from abc import ABC, abstractmethod
