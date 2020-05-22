@@ -9,14 +9,15 @@ class MenuTable:
     HOT_AMERICANO = 0
     ICE_AMERICANO = 1
 
-
-class Drink:
+from abc import ABC, abstractmethod
+class Drink(ABC):
+    
+    @abstractmethod
     def __init__(self):
         self.price = 0
         self.name = None
         self.is_hot = None
-        raise NotImplementedError("must override")
-
+    
     def __repr__(self):
         return f"{self.name}: {self.price}원"
 
