@@ -1,0 +1,2 @@
+class MessageValidateError(Exception):
+    pass
