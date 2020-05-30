@@ -1,0 +1,1 @@
+/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch03_varibles/target/debug/ch03_basic_concepts: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch03_varibles/src/main.rs

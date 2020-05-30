@@ -1,0 +1,1 @@
+/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch02_guessing_game/target/debug/ch_02_guessing_game: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch02_guessing_game/src/main.rs
