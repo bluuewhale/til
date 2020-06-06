@@ -90,7 +90,7 @@ impl PostInterface for Post {
         self.content.push_str(text);
     }
     fn request_review(&mut self) {
-        // take 메서드를 호출하여, state 데이터의 소유권을 가지고 None으로 만들어 버림
+        // take 메서드를 호출하여, state 데이터의 소유권을 가져오고 이전 값을 None으로 만들어 버림
         if let Some(s) = self.state.take() {
             self.state = Some(s.request_review())
         }
