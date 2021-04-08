@@ -42,12 +42,16 @@ impl<T> Node<T> {
             next: None,
         }
     }
+
+    fn to_ptr(self) -> Option<NonNull<Node<T>>> {
+        Some(unsafe { NonNull::new_unchecked(Box::into_raw(Box::new(self))) })
+    }
 }
 
 pub struct LinkedList<T> {
     length: u32,
-    start: Option<NonNull<Node<T>>>,
-    end: Option<NonNull<Node<T>>>,
+    head: Option<NonNull<Node<T>>>,
+    tail: Option<NonNull<Node<T>>>,
 }
 
 impl<T> Default for LinkedList<T> {
@@ -60,37 +64,45 @@ impl<T> LinkedList<T> {
     pub fn new() -> Self {
         Self {
             length: 0,
-            start: None,
-            end: None,
+            head: None,
+            tail: None,
         }
     }
     pub fn add(&mut self, obj: T) {
-        let mut node = Box::new(Node::new(obj));
+        let node = Node::new(obj);
 
-        // Since we are adding node at the end, next will always be None
-        node.next = None;
-        node.prev = self.end;
-
-        // Get a pointer to node
-        let node_ptr = Some(unsafe { NonNull::new_unchecked(Box::into_raw(node)) });
-        match self.end {
-            None => self.start = node_ptr, // This is the case of emptry list
-            Some(end_ptr) => unsafe { (*end_ptr.as_ptr()).next = node_ptr },
+        if self.length == 0 {
+            // when LinkedList is empty, no linking occurs yet
+            self.head = node.to_ptr(); // head is updated only once
+            self.tail = self.head;
+        } else {
+            // Now, linking occurs!
+            let node_ptr = self.link_new_node_to_tail(node);
+            self.tail = node_ptr; // update tail
         }
-        self.end = node_ptr;
+
         self.length += 1;
     }
 
     pub fn get(&mut self, index: i32) -> Option<&T> {
-        self.get_ith_node(self.start, index)
+        self.get_ith_node(self.head, index)
+    }
+
+    fn link_new_node_to_tail(&mut self, mut node: Node<T>) -> Option<NonNull<Node<T>>> {
+        node.prev = self.tail; // prev of new node is linked to the tail of LinkedList
+
+        let node_ptr = node.to_ptr();
+        unsafe { (*self.tail.unwrap().as_ptr()).next = node_ptr } // next of LinkedList's tail is linked to new node! (None is unreachable)
+        node_ptr
     }
 
     fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
+        // recursively follow linked nodes
         match node {
-            None => None,
+            None => None, // not enough
             Some(next_ptr) => match index {
-                0 => Some(unsafe { &(*next_ptr.as_ptr()).val }),
-                _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
+                0 => Some(unsafe { &(*next_ptr.as_ptr()).val }), // reached end
+                _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1), // to next node
             },
         }
     }
@@ -101,7 +113,7 @@ where
     T: std::fmt::Display,
 {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        match self.start {
+        match self.head {
             Some(node) => write!(f, "{}", unsafe { node.as_ref() }),
             None => Ok(()),
         }
