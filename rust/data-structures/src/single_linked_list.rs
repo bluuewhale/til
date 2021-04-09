@@ -31,16 +31,11 @@ use std::ptr::NonNull;
 struct Node<T> {
     val: T,
     next: Option<NonNull<Node<T>>>,
-    prev: Option<NonNull<Node<T>>>,
 }
 
 impl<T> Node<T> {
     fn new(t: T) -> Node<T> {
-        Node {
-            val: t,
-            prev: None,
-            next: None,
-        }
+        Node { val: t, next: None }
     }
 
     fn to_ptr(self) -> Option<NonNull<Node<T>>> {
@@ -84,19 +79,21 @@ impl<T> LinkedList<T> {
         self.length += 1;
     }
 
-    pub fn get(&mut self, index: i32) -> Option<&T> {
+    pub fn get(&mut self, index: u32) -> Option<&T> {
+        if index > self.length {
+            return None;
+        }
+
         self.get_ith_node(self.head, index)
     }
 
-    fn link_new_node_to_tail(&mut self, mut node: Node<T>) -> Option<NonNull<Node<T>>> {
-        node.prev = self.tail; // prev of new node is linked to the tail of LinkedList
-
+    fn link_new_node_to_tail(&mut self, node: Node<T>) -> Option<NonNull<Node<T>>> {
         let node_ptr = node.to_ptr();
-        unsafe { (*self.tail.unwrap().as_ptr()).next = node_ptr } // next of LinkedList's tail is linked to new node! (None is unreachable)
+        unsafe { (*self.tail.unwrap().as_ptr()).next = node_ptr } // LinkedList's tail is linked to new node! (None is unreachable)
         node_ptr
     }
 
-    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
+    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: u32) -> Option<&T> {
         // recursively follow linked nodes
         match node {
             None => None, // not enough
