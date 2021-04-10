@@ -33,13 +33,14 @@ struct Node<T> {
     next: Option<NonNull<Node<T>>>,
 }
 
+// public methods
 impl<T> Node<T> {
-    fn new(t: T) -> Node<T> {
+    pub fn new(t: T) -> Node<T> {
         Node { val: t, next: None }
     }
 
     #[inline]
-    fn to_ptr(self) -> Option<NonNull<Node<T>>> {
+    pub fn to_ptr(self) -> Option<NonNull<Node<T>>> {
         Some(unsafe { NonNull::new_unchecked(Box::into_raw(Box::new(self))) })
     }
 }
@@ -56,6 +57,7 @@ impl<T> Default for LinkedList<T> {
     }
 }
 
+// public methods
 impl<T> LinkedList<T> {
     pub fn new() -> Self {
         Self {
@@ -89,7 +91,11 @@ impl<T> LinkedList<T> {
 
         self.get_ith_node(self.head, index)
     }
+}
 
+// private methods
+impl<T> LinkedList<T> {
+    #[inline]
     fn link_new_node_to_tail(&mut self, node: Node<T>) -> Option<NonNull<Node<T>>> {
         let node_ptr = node.to_ptr();
         unsafe { (*self.tail.unwrap().as_ptr()).next = node_ptr } // LinkedList's tail is linked to new node! (None is unreachable)
