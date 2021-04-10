@@ -30,18 +30,13 @@ use std::ptr::NonNull;
 
 struct Node<T> {
     val: T,
-    next: Option<NonNull<Node<T>>>,
+    pub(crate) next: Option<NonNull<Node<T>>>,
 }
 
 // public methods
 impl<T> Node<T> {
     pub fn new(t: T) -> Node<T> {
         Node { val: t, next: None }
-    }
-
-    #[inline]
-    pub fn to_ptr(self) -> Option<NonNull<Node<T>>> {
-        Some(unsafe { NonNull::new_unchecked(Box::into_raw(Box::new(self))) })
     }
 }
 
@@ -57,7 +52,6 @@ impl<T> Default for LinkedList<T> {
     }
 }
 
-// public methods
 impl<T> LinkedList<T> {
     pub fn new() -> Self {
         Self {
@@ -67,48 +61,145 @@ impl<T> LinkedList<T> {
         }
     }
 
+    /// Returns `true` if the `LinkedList` is empty.
+    /// This operation should compute in 0(1) time.
     #[inline]
-    pub fn add(&mut self, obj: T) {
-        let node = Node::new(obj);
+    pub fn is_empty(&self) -> bool {
+        self.head.is_none()
+    }
+}
 
-        if self.length == 0 {
-            // when LinkedList is empty, no linking occurs yet
-            self.head = node.to_ptr(); // head is updated only once
-            self.tail = self.head;
-        } else {
-            // Now, linking occurs!
-            let node_ptr = self.link_new_node_to_tail(node);
-            self.tail = node_ptr; // update tail
+// setter methods (front/back)
+impl<T> LinkedList<T> {
+    /// Appends element to the back.
+    #[inline]
+    pub fn push_back(&mut self, val: T) {
+        self.push_back_node(Box::new(Node::new(val)))
+    }
+
+    /// Appends element to the front
+    #[inline]
+    pub fn push_front(&mut self, val: T) {
+        self.push_front_node(Box::new(Node::new(val)))
+    }
+
+    /// Appends the given node to the back of LinkedList
+    #[inline]
+    fn push_back_node(&mut self, node: Box<Node<T>>) {
+        unsafe {
+            let node = Some(NonNull::new_unchecked(Box::into_raw(node)));
+            match self.tail {
+                None => self.head = node,
+                Some(mut tail) => tail.as_mut().next = node,
+            }
+
+            self.tail = node;
+            self.length += 1;
+        }
+    }
+
+    /// Appends the given node to the front of LinkedList
+    #[inline]
+    fn push_front_node(&mut self, node: Box<Node<T>>) {
+        unsafe {
+            let mut node = Some(NonNull::new_unchecked(Box::into_raw(node)));
+            match self.head {
+                None => self.tail = node,
+                Some(head) => node.as_mut().unwrap().as_mut().next = Some(head),
+            }
+
+            self.head = node;
+            self.length += 1;
+        }
+    }
+}
+
+// getter methods (front/back)
+impl<T> LinkedList<T> {
+    /// Provides a reference to the front element or `None` LinkedList is empty
+    #[inline]
+    pub fn front(&self) -> Option<&T> {
+        unsafe { self.head.as_ref().map(|node| &(node.as_ref().val)) }
+    }
+
+    /// Provides a mutable reference to the front element or `None` LinkedList is empty
+    #[inline]
+    pub fn front_mut(&mut self) -> Option<&T> {
+        unsafe { self.head.as_mut().map(|node| &(node.as_mut().val)) }
+    }
+
+    /// Provides a reference to the back element or `None` LinkedList is empty
+    #[inline]
+    pub fn back(&self) -> Option<&T> {
+        unsafe { self.tail.as_ref().map(|node| &(node.as_ref().val)) }
+    }
+
+    /// Provides a mutable reference to the back element or `None` LinkedList is empty
+    #[inline]
+    pub fn back_mut(&mut self) -> Option<&T> {
+        unsafe { self.tail.as_mut().map(|node| &(node.as_mut().val)) }
+    }
+}
+
+// setter methods (by index)
+impl<T> LinkedList<T> {
+    /// Insert node to i-th index of LinkedList.
+    /// If given index if bigger than length of LinkedList,
+    /// Node will be attached to the tail of LinkedList
+    #[inline]
+    pub fn insert(&mut self, val: T, index: u32) {
+        self.insert_node(Box::new(Node::new(val)), index)
+    }
+
+    #[inline]
+    fn insert_node(&mut self, mut node: Box<Node<T>>, index: u32) {
+        if index > self.length {
+            return self.push_back_node(node);
+        }
+
+        if index == 0 {
+            return self.push_front_node(node);
+        }
+
+        unsafe {
+            let mut front = self.get_ith_node(self.head, index - 1).unwrap(); // None is unreachable
+            let back = front.as_ref().next;
+
+            // [front] -> [middle] -> [back]
+            node.next = back;
+            let middle = NonNull::new_unchecked(Box::into_raw(node));
+            front.as_mut().next = Some(middle);
         }
 
         self.length += 1;
     }
+}
 
+// getter methods (by index)
+impl<T> LinkedList<T> {
+    /// Provides a reference to i-th element or `None` if i-th node does not exists
+    #[inline]
     pub fn get(&mut self, index: u32) -> Option<&T> {
         if index > self.length {
             return None;
         }
 
         self.get_ith_node(self.head, index)
-    }
-}
-
-// private methods
-impl<T> LinkedList<T> {
-    #[inline]
-    fn link_new_node_to_tail(&mut self, node: Node<T>) -> Option<NonNull<Node<T>>> {
-        let node_ptr = node.to_ptr();
-        unsafe { (*self.tail.unwrap().as_ptr()).next = node_ptr } // LinkedList's tail is linked to new node! (None is unreachable)
-        node_ptr
+            .map(|node| unsafe { &((*node.as_ptr()).val) })
     }
 
+    /// Provide i-th node of LinkedList or `None` if i-th node does not exists
     #[inline]
-    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: u32) -> Option<&T> {
+    fn get_ith_node(
+        &mut self,
+        node: Option<NonNull<Node<T>>>,
+        index: u32,
+    ) -> Option<NonNull<Node<T>>> {
         // recursively follow linked nodes
         match node {
             None => None, // not enough
             Some(next_ptr) => match index {
-                0 => Some(unsafe { &(*next_ptr.as_ptr()).val }), // reached end
+                0 => Some(unsafe { next_ptr }), // reached end
                 _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1), // to next node
             },
         }
@@ -137,6 +228,7 @@ where
         }
     }
 }
+
 #[cfg(test)]
 mod tests {
     use super::LinkedList;
@@ -144,9 +236,9 @@ mod tests {
     #[test]
     fn create_numeric_list() {
         let mut list = LinkedList::<i32>::new();
-        list.add(1);
-        list.add(2);
-        list.add(3);
+        list.push_back(1);
+        list.push_back(2);
+        list.push_back(3);
         println!("Linked List is {}", list);
         assert_eq!(3, list.length);
     }
@@ -154,9 +246,9 @@ mod tests {
     #[test]
     fn create_string_list() {
         let mut list_str = LinkedList::<String>::new();
-        list_str.add("A".to_string());
-        list_str.add("B".to_string());
-        list_str.add("C".to_string());
+        list_str.push_back("A".to_string());
+        list_str.push_back("B".to_string());
+        list_str.push_back("C".to_string());
         println!("Linked List is {}", list_str);
         assert_eq!(3, list_str.length);
     }
@@ -164,22 +256,88 @@ mod tests {
     #[test]
     fn get_by_index_in_numeric_list() {
         let mut list = LinkedList::<i32>::new();
-        list.add(1);
-        list.add(2);
-        println!("Linked List is {}", list);
-        let retrived_item = list.get(1);
-        assert!(retrived_item.is_some());
-        assert_eq!(2 as i32, *retrived_item.unwrap());
+        list.push_back(1);
+        assert!(list.get(0).is_some());
+        assert_eq!(1, *list.get(0).unwrap());
     }
 
     #[test]
     fn get_by_index_in_string_list() {
-        let mut list_str = LinkedList::<String>::new();
-        list_str.add("A".to_string());
-        list_str.add("B".to_string());
-        println!("Linked List is {}", list_str);
-        let retrived_item = list_str.get(1);
-        assert!(retrived_item.is_some());
-        assert_eq!("B", *retrived_item.unwrap());
+        let mut list = LinkedList::<String>::new();
+        list.push_back("A".to_string());
+        assert!(list.get(0).is_some());
+        assert_eq!("A", list.get(0).unwrap());
+    }
+
+    #[test]
+    fn push_back() {
+        let mut list = LinkedList::<i32>::new();
+        list.push_back(1);
+        list.push_back(2);
+        list.push_back(3);
+        assert_eq!(3, list.length);
+        assert_eq!(1, *list.get(0).unwrap());
+        assert_eq!(2, *list.get(1).unwrap());
+        assert_eq!(3, *list.get(2).unwrap());
+    }
+
+    #[test]
+    fn push_front() {
+        let mut list = LinkedList::<i32>::new();
+        list.push_front(1);
+        list.push_front(2);
+        list.push_front(3);
+        assert_eq!(3, list.length);
+        assert_eq!(3, *list.get(0).unwrap());
+        assert_eq!(2, *list.get(1).unwrap());
+        assert_eq!(1, *list.get(2).unwrap());
+    }
+
+    #[test]
+    fn front_back() {
+        let mut list = LinkedList::<i32>::new();
+        list.push_back(1);
+        list.push_back(2);
+        list.push_back(3);
+        assert_eq!(3, list.length);
+        assert_eq!(1, *list.front().unwrap());
+        assert_eq!(3, *list.back().unwrap());
+    }
+
+    #[test]
+    fn get() {
+        let mut list = LinkedList::<i32>::new();
+        list.push_back(1);
+        list.push_front(2);
+        list.push_back(3);
+        assert_eq!(2, *list.get(0).unwrap());
+        assert_eq!(1, *list.get(1).unwrap());
+        assert_eq!(3, *list.get(2).unwrap());
+    }
+
+    #[test]
+    fn insert() {
+        let mut list = LinkedList::<i32>::new();
+        list.push_back(1);
+        list.push_back(2);
+        list.push_back(3);
+        list.insert(10, 1);
+        assert_eq!(4, list.length);
+        assert_eq!(1, *list.get(0).unwrap());
+        assert_eq!(10, *list.get(1).unwrap());
+        assert_eq!(2, *list.get(2).unwrap());
+        assert_eq!(3, *list.get(3).unwrap());
+    }
+
+    #[test]
+    fn insert_back() {
+        let mut list = LinkedList::<i32>::new();
+        list.push_back(1);
+        list.push_back(2);
+        list.insert(4, 10);
+        assert_eq!(3, list.length);
+        assert_eq!(1, *list.get(0).unwrap());
+        assert_eq!(2, *list.get(1).unwrap());
+        assert_eq!(4, *list.get(2).unwrap());
     }
 }
