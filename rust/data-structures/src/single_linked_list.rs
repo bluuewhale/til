@@ -38,6 +38,7 @@ impl<T> Node<T> {
         Node { val: t, next: None }
     }
 
+    #[inline]
     fn to_ptr(self) -> Option<NonNull<Node<T>>> {
         Some(unsafe { NonNull::new_unchecked(Box::into_raw(Box::new(self))) })
     }
@@ -63,6 +64,8 @@ impl<T> LinkedList<T> {
             tail: None,
         }
     }
+
+    #[inline]
     pub fn add(&mut self, obj: T) {
         let node = Node::new(obj);
 
@@ -93,6 +96,7 @@ impl<T> LinkedList<T> {
         node_ptr
     }
 
+    #[inline]
     fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: u32) -> Option<&T> {
         // recursively follow linked nodes
         match node {
