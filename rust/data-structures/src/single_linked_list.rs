@@ -38,6 +38,9 @@ impl<T> Node<T> {
     pub fn new(t: T) -> Node<T> {
         Node { val: t, next: None }
     }
+    fn into_element(self: Box<Self>) -> T {
+        self.val
+    }
 }
 
 pub struct LinkedList<T> {
@@ -199,10 +202,43 @@ impl<T> LinkedList<T> {
         match node {
             None => None, // not enough
             Some(next_ptr) => match index {
-                0 => Some(unsafe { next_ptr }), // reached end
+                0 => Some(next_ptr), // reached end
                 _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1), // to next node
             },
         }
+    }
+}
+
+impl<T> LinkedList<T> {
+    /// Pop element from the back of LinkedList, or return `None` if empty
+    #[inline]
+    pub fn pop_back(&mut self) -> Option<T> {
+        self.pop_back_node().map(Node::into_element)
+    }
+
+    /// Pop node from the back of LinkedList, or return `None` if empty
+    /// This will unlink the last node from LinkedList
+    #[inline]
+    fn pop_back_node(&mut self) -> Option<Box<Node<T>>> {
+        self.tail.map(|node_ptr| {
+            unsafe {
+                if self.length > 1 {
+                    self.tail = self.get_ith_node(self.head, self.length - 2);
+                } else {
+                    self.tail = None;
+                }
+                match self.tail {
+                    None => self.head = None,
+                    Some(mut tail) => {
+                        tail.as_mut().next = None;
+                    }
+                }
+            }
+
+            self.length -= 1;
+            let node = unsafe { Box::from_raw(node_ptr.as_ptr()) };
+            node
+        })
     }
 }
 
@@ -339,5 +375,21 @@ mod tests {
         assert_eq!(1, *list.get(0).unwrap());
         assert_eq!(2, *list.get(1).unwrap());
         assert_eq!(4, *list.get(2).unwrap());
+    }
+
+    #[test]
+    fn pop_back() {
+        let mut list = LinkedList::<i32>::new();
+        list.push_back(1);
+        list.push_back(2);
+        assert_eq!(2, list.length);
+
+        assert_eq!(Some(2), list.pop_back());
+        assert_eq!(1, list.length);
+
+        assert_eq!(Some(1), list.pop_back());
+        assert_eq!(0, list.length);
+
+        assert_eq!(None, list.pop_back());
     }
 }
