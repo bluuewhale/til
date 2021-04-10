@@ -1,4 +1,4 @@
-//https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs
+//https://github.com/rust-lang/rust/blob/1.31.1/src/liballoc/collections/linked_list.rs#L52-L56
 
 use std::ptr::NonNull;
 
