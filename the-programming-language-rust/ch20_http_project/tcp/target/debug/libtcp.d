@@ -1,0 +1,1 @@
+/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch20_http_project/tcp/target/debug/libtcp.rlib: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch20_http_project/tcp/src/lib.rs
