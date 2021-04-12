@@ -36,7 +36,7 @@ impl<T: ?Sized> Unique<T> {
         }
     }
 
-    pub fn as_ptr(&self) -> *mut T {
+    pub fn as_ptr(self) -> *mut T {
         self.ptr as _
     }
 }
