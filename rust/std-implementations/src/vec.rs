@@ -45,6 +45,10 @@ impl<T: ?Sized> Unique<T> {
     pub fn as_ptr(&self) -> *mut T {
         self.ptr as _
     }
+
+    pub fn as_nonnull(&self) -> NonNull<T> {
+        unsafe { NonNull::new_unchecked(self.ptr as _) }
+    }
 }
 
 impl<T: Sized> Unique<T> {
@@ -78,6 +82,13 @@ impl<T> Vec<T> {
             cap: 0,
         }
     }
+    pub fn capacity(&self) -> usize {
+        self.cap
+    }
+
+    pub fn len(&self) -> usize {
+        self.len
+    }
 }
 
 impl<T> Vec<T> {
@@ -99,6 +110,7 @@ impl<T> Vec<T> {
                 (new_cap, result)
             } else {
                 // Reallocate memory for Vec<T> as it grows
+                // }
                 let new_cap = self.cap * 2; // capacity doubles
 
                 // check that the new allocation doesn't exceed `usize::MAX` at all
@@ -109,7 +121,7 @@ impl<T> Vec<T> {
                 );
 
                 let result = std::alloc::Global.grow(
-                    NonNull::new(self.ptr.as_ptr() as *mut T).unwrap().cast(),
+                    self.ptr.as_nonnull().cast(),
                     Layout::array::<T>(self.cap).unwrap(),
                     Layout::array::<T>(new_cap).unwrap(),
                 );
@@ -153,5 +165,82 @@ impl<T> Vec<T> {
 
         self.len -= 1;
         unsafe { Some(std::ptr::read(self.ptr.as_ptr().offset(self.len as isize))) }
+    }
+}
+
+impl<T> Drop for Vec<T> {
+    fn drop(&mut self) {
+        if self.cap == 0 {
+            return;
+        }
+
+        while let Some(_) = self.pop() {}
+        unsafe {
+            std::alloc::Global.dealloc(
+                self.ptr.as_nonnull().cast(),
+                Layout::array::<T>(self.cap).unwrap(),
+            )
+        }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::Vec;
+
+    #[test]
+    fn test_alloc() {
+        let mut vec = Vec::<i32>::new();
+        vec.push(1);
+
+        assert_eq!(vec.capacity(), 1);
+        assert_eq!(vec.len(), 1);
+
+        vec.push(2);
+        assert_eq!(vec.capacity(), 2);
+        assert_eq!(vec.len(), 2);
+
+        vec.push(3);
+        assert_eq!(vec.capacity(), 4);
+        assert_eq!(vec.len(), 3);
+
+        vec.push(4);
+        assert_eq!(vec.capacity(), 4);
+        assert_eq!(vec.len(), 4);
+    }
+
+    #[test]
+    fn test_pop() {
+        let mut vec = Vec::<i32>::new();
+        vec.push(1);
+        vec.push(2);
+        vec.push(3);
+        vec.push(4);
+
+        assert_eq!(Some(4), vec.pop());
+        assert_eq!(Some(3), vec.pop());
+        assert_eq!(Some(2), vec.pop());
+        assert_eq!(Some(1), vec.pop());
+        assert_eq!(None, vec.pop());
+
+        assert_eq!(0, vec.len());
+        assert_eq!(4, vec.capacity());
+    }
+
+    #[test]
+    fn test_overwrite() {
+        let mut vec = Vec::<i32>::new();
+        vec.push(1);
+        vec.push(2);
+
+        let p = vec.ptr.as_ptr();
+        assert_eq!(unsafe { std::ptr::read(p.offset(1)) }, 2);
+
+        vec.pop();
+        vec.push(3);
+
+        assert_eq!(unsafe { std::ptr::read(p.offset(1)) }, 3);
+        assert_eq!(2, vec.len());
+        assert_eq!(2, vec.capacity());
     }
 }
