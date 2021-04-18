@@ -1,4 +1,10 @@
-use std::marker::PhantomData;
+use std::{
+    alloc::{AllocRef, Layout},
+    marker::PhantomData,
+    ptr::NonNull,
+};
+
+/// See `https://doc.rust-lang.org/nomicon/vec-alloc.html` for details
 
 /// 1. Unique<T>
 /// Unique<T> is a wrapper around a raw non-null *mut T that indicates that
@@ -55,4 +61,69 @@ pub struct Vec<T> {
     ptr: Unique<T>,
     cap: usize,
     len: usize,
+}
+
+impl<T> Vec<T> {
+    fn new() -> Self {
+        assert!(
+            std::mem::size_of::<T>() != 0,
+            "We are not ready to handle ZSTs"
+        );
+        Self {
+            ptr: Unique::empty(),
+            len: 0,
+            cap: 0,
+        }
+    }
+}
+
+impl<T> Vec<T> {
+    /// Returns bytes length of Element T
+    fn elem_size(&self) -> usize {
+        std::mem::size_of::<T>()
+    }
+
+    /// Allocate memory for Vec<T> as it grows
+    #[inline]
+    fn allocate(&mut self) {
+        unsafe {
+            let (new_cap, result) = if self.cap == 0 {
+                // Allocate memory for Vec<T> for the first time
+                let new_cap = 1;
+                let result =
+                    std::alloc::Global.alloc(std::alloc::Layout::array::<T>(new_cap).unwrap());
+
+                (new_cap, result)
+            } else {
+                // Reallocate memory for Vec<T> as it grows
+                let new_cap = self.cap * 2; // capacity doubles
+
+                // check that the new allocation doesn't exceed `usize::MAX` at all
+                // regardless of the actual size of the capacity
+                assert!(
+                    new_cap * self.elem_size() <= usize::MAX,
+                    "capacity overflow"
+                );
+
+                let result = std::alloc::Global.grow(
+                    NonNull::new(self.ptr.ptr as *mut T).unwrap().cast(),
+                    Layout::array::<T>(self.cap).unwrap(),
+                    Layout::array::<T>(new_cap).unwrap(),
+                );
+
+                (new_cap, result)
+            };
+
+            // Out-of-Memory
+            if result.is_err() {
+                std::alloc::handle_alloc_error(Layout::from_size_align_unchecked(
+                    new_cap * self.elem_size(),
+                    std::mem::align_of::<T>(),
+                ))
+            }
+
+            self.ptr = Unique::new_unchecked(result.unwrap().as_ptr().cast());
+            self.cap = new_cap;
+        }
+    }
 }
