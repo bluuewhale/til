@@ -42,7 +42,7 @@ impl<T: ?Sized> Unique<T> {
         }
     }
 
-    pub fn as_ptr(self) -> *mut T {
+    pub fn as_ptr(&self) -> *mut T {
         self.ptr as _
     }
 }
@@ -57,6 +57,9 @@ impl<T: Sized> Unique<T> {
 }
 
 /// 2. Vec<T>
+/// Vec<T> is a Heap-allocated dynamically sized array.
+/// This is done by dynamically growing memory allocation of Vec<T> by double
+/// as the numober of elements in Vec<T> increases.
 pub struct Vec<T> {
     ptr: Unique<T>,
     cap: usize,
@@ -106,7 +109,7 @@ impl<T> Vec<T> {
                 );
 
                 let result = std::alloc::Global.grow(
-                    NonNull::new(self.ptr.ptr as *mut T).unwrap().cast(),
+                    NonNull::new(self.ptr.as_ptr() as *mut T).unwrap().cast(),
                     Layout::array::<T>(self.cap).unwrap(),
                     Layout::array::<T>(new_cap).unwrap(),
                 );
@@ -125,5 +128,30 @@ impl<T> Vec<T> {
             self.ptr = Unique::new_unchecked(result.unwrap().as_ptr().cast());
             self.cap = new_cap;
         }
+    }
+
+    /// Append element at the back of Vec<T>
+    /// If the capacity lacks, Vec<T> will re-allocate more memory.
+    pub fn push(&mut self, elem: T) {
+        if self.len == self.cap {
+            self.allocate()
+        }
+
+        unsafe {
+            let offset = self.ptr.as_ptr().offset(self.len as isize);
+            std::ptr::write(offset, elem);
+        }
+
+        self.len += 1;
+    }
+
+    /// Pop element from the back of Vec<T> or return `None` if Vec<T> is empty
+    pub fn pop(&mut self) -> Option<T> {
+        if self.len == 0 {
+            return None;
+        }
+
+        self.len -= 1;
+        unsafe { Some(std::ptr::read(self.ptr.as_ptr().offset(self.len as isize))) }
     }
 }
