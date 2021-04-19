@@ -7,41 +7,26 @@ use crate::unique::Unique;
 
 /// See `https://doc.rust-lang.org/nomicon/vec-alloc.html` for details
 
-/// Vec<T>
-/// Vec<T> is a Heap-allocated dynamically sized array.
-/// This is done by dynamically growing memory allocation of Vec<T> by double
-/// as the numober of elements in Vec<T> increases.
-pub struct Vec<T> {
+/// RawVec<T>
+/// RawVec<T> is a Heap-allocated dynamically sized array.
+/// RawVec<T> if responsible for specifing buffer and freeing its memory in Vec<T> and IntoIter<T>
+/// so that, wrapper of RawVec<T> doesn't need to care about these jobs.
+pub struct RawVec<T> {
     ptr: Unique<T>,
     cap: usize,
-    len: usize,
 }
 
-impl<T> Vec<T> {
+impl<T> RawVec<T> {
     fn new() -> Self {
         assert!(
             std::mem::size_of::<T>() != 0,
             "We are not ready to handle ZSTs"
         );
+
         Self {
             ptr: Unique::empty(),
-            len: 0,
             cap: 0,
         }
-    }
-    pub fn capacity(&self) -> usize {
-        self.cap
-    }
-
-    pub fn len(&self) -> usize {
-        self.len
-    }
-}
-
-impl<T> Vec<T> {
-    /// Returns bytes length of Element T
-    fn elem_size(&self) -> usize {
-        std::mem::size_of::<T>()
     }
 
     /// Allocate memory for Vec<T> as it grows
@@ -89,15 +74,63 @@ impl<T> Vec<T> {
         }
     }
 
+    /// Returns bytes length of Element T
+    fn elem_size(&self) -> usize {
+        std::mem::size_of::<T>()
+    }
+}
+impl<T> Drop for RawVec<T> {
+    fn drop(&mut self) {
+        if self.cap != 0 {
+            unsafe {
+                let c = self.ptr.as_nonnull();
+                std::alloc::Global
+                    .dealloc(c.cast(), std::alloc::Layout::array::<T>(self.cap).unwrap())
+            }
+        }
+    }
+}
+
+/// Vec<T>
+/// Vec<T> is a Heap-allocated dynamically sized array.
+/// This is done by dynamically growing memory allocation of Vec<T> by double
+/// as the numober of elements in Vec<T> increases.
+pub struct Vec<T> {
+    inner: RawVec<T>,
+    len: usize,
+}
+
+impl<T> Vec<T> {
+    fn new() -> Self {
+        Self {
+            inner: RawVec::<T>::new(),
+            len: 0,
+        }
+    }
+    pub fn capacity(&self) -> usize {
+        self.inner.cap
+    }
+
+    pub fn len(&self) -> usize {
+        self.len
+    }
+}
+
+impl<T> Vec<T> {
+    /// Returns bytes length of Element T
+    fn elem_size(&self) -> usize {
+        self.inner.elem_size()
+    }
+
     /// Append element at the back of Vec<T>
     /// If the capacity lacks, Vec<T> will re-allocate more memory.
     pub fn push(&mut self, elem: T) {
-        if self.len == self.cap {
-            self.allocate()
+        if self.len == self.inner.cap {
+            self.inner.allocate()
         }
 
         unsafe {
-            let offset = self.ptr.as_ptr().offset(self.len as isize);
+            let offset = self.inner.ptr.as_ptr().offset(self.len as isize);
             std::ptr::write(offset, elem);
         }
 
@@ -111,27 +144,31 @@ impl<T> Vec<T> {
         }
 
         self.len -= 1;
-        unsafe { Some(std::ptr::read(self.ptr.as_ptr().offset(self.len as isize))) }
+        unsafe {
+            Some(std::ptr::read(
+                self.inner.ptr.as_ptr().offset(self.len as isize),
+            ))
+        }
     }
 
     /// Insert an element to given index by moving all the other elements to the right
     /// by one
     pub fn insert(&mut self, index: usize, elem: T) {
         // assert!(index <= self.len, "index out of bounds");
-        if self.cap == self.len() {
-            self.allocate()
+        if self.inner.cap == self.len() {
+            self.inner.allocate()
         }
 
         unsafe {
             if index < self.len {
                 std::ptr::copy(
-                    self.ptr.as_ptr().offset(index as isize),
-                    self.ptr.as_ptr().offset(index as isize + 1),
+                    self.inner.ptr.as_ptr().offset(index as isize),
+                    self.inner.ptr.as_ptr().offset(index as isize + 1),
                     self.len - index,
                 )
             }
 
-            std::ptr::write(self.ptr.as_ptr().offset(index as isize), elem);
+            std::ptr::write(self.inner.ptr.as_ptr().offset(index as isize), elem);
             self.len += 1;
         }
     }
@@ -141,10 +178,10 @@ impl<T> Vec<T> {
         // assert!(index < self.len, "index out of bounds");
         unsafe {
             self.len -= 1;
-            let result = std::ptr::read(self.ptr.as_ptr().offset(index as isize));
+            let result = std::ptr::read(self.inner.ptr.as_ptr().offset(index as isize));
             std::ptr::copy(
-                self.ptr.as_ptr().offset(index as isize + 1),
-                self.ptr.as_ptr().offset(index as isize),
+                self.inner.ptr.as_ptr().offset(index as isize + 1),
+                self.inner.ptr.as_ptr().offset(index as isize),
                 self.len - index,
             );
             result
@@ -154,10 +191,9 @@ impl<T> Vec<T> {
 
 // IntoIter
 pub struct IntoIter<T> {
-    pub(crate) ptr: Unique<T>,
-    pub(crate) cap: usize,
-    pub(crate) start: *const T,
-    pub(crate) end: *const T,
+    inner: RawVec<T>,
+    start: *const T,
+    end: *const T,
 }
 impl<T> Iterator for IntoIter<T> {
     type Item = T;
@@ -195,54 +231,35 @@ impl<T> DoubleEndedIterator for IntoIter<T> {
 
 impl<T> Drop for IntoIter<T> {
     fn drop(&mut self) {
-        if self.cap != 0 {
+        if self.inner.cap != 0 {
             for _ in &mut *self {} // # drop any remaining element
-
-            unsafe {
-                let c = self.ptr.as_nonnull();
-                std::alloc::Global
-                    .dealloc(c.cast(), std::alloc::Layout::array::<T>(self.cap).unwrap())
-            }
         }
     }
 }
 impl<T> Vec<T> {
     /// Consume Vec<T> and return IntoIter<T> which is DoubleEncodedIterator of [T]
     pub fn into_iter(self) -> IntoIter<T> {
-        let ptr = Unique::new_unchecked(self.ptr.as_ptr());
-        let cap = self.cap;
+        let inner = RawVec {
+            ptr: Unique::new_unchecked(self.inner.ptr.as_ptr()),
+            cap: self.inner.cap,
+        };
         let len = self.len;
+        let start = inner.ptr.as_ptr();
+        let end = if inner.cap == 0 {
+            inner.ptr.as_ptr() // no allocation yet
+        } else {
+            unsafe { inner.ptr.as_ptr().offset(len as isize) }
+        };
 
         std::mem::forget(self);
 
-        unsafe {
-            IntoIter {
-                start: ptr.as_ptr(),
-                end: if cap == 0 {
-                    ptr.as_ptr()
-                } else {
-                    ptr.as_ptr().offset(len as isize)
-                },
-                ptr,
-                cap,
-            }
-        }
+        IntoIter { inner, start, end }
     }
 }
 
 impl<T> Drop for Vec<T> {
     fn drop(&mut self) {
-        if self.cap == 0 {
-            return;
-        }
-
         while let Some(_) = self.pop() {}
-        unsafe {
-            std::alloc::Global.dealloc(
-                self.ptr.as_nonnull().cast(),
-                Layout::array::<T>(self.cap).unwrap(),
-            )
-        }
     }
 }
 
@@ -250,13 +267,13 @@ impl<T> Deref for Vec<T> {
     type Target = [T];
 
     fn deref(&self) -> &Self::Target {
-        unsafe { std::slice::from_raw_parts(self.ptr.as_ptr(), self.len) }
+        unsafe { std::slice::from_raw_parts(self.inner.ptr.as_ptr(), self.len) }
     }
 }
 
 impl<T> DerefMut for Vec<T> {
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe { std::slice::from_raw_parts_mut(self.ptr.as_ptr(), self.len) }
+        unsafe { std::slice::from_raw_parts_mut(self.inner.ptr.as_ptr(), self.len) }
     }
 }
 
@@ -309,7 +326,7 @@ mod test {
         vec.push(1);
         vec.push(2);
 
-        let p = vec.ptr.as_ptr();
+        let p = vec.inner.ptr.as_ptr();
         assert_eq!(unsafe { std::ptr::read(p.offset(1)) }, 2);
 
         vec.pop();
