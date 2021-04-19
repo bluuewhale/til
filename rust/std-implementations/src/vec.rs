@@ -1,67 +1,13 @@
 use std::{
     alloc::{AllocRef, Layout},
-    marker::PhantomData,
     ops::{Deref, DerefMut},
-    ptr::NonNull,
 };
+
+use crate::{into_iter::IntoIter, unique::Unique};
 
 /// See `https://doc.rust-lang.org/nomicon/vec-alloc.html` for details
 
-/// 1. Unique<T>
-/// Unique<T> is a wrapper around a raw non-null *mut T that indicates that
-/// the possessor of this wrapper owns the referent. Useful for building abstractions
-/// like Box<T>, Vec<T>, String and HashMap<K, V>
-///
-/// Unlike `*mut T`, `Unique<T>` is covariant over `T`.
-/// Unline `*mut T`, the pointer must always be non-null, even if the pointer is never
-/// dereferenced. This is so that enums may use this forbidden value as a discriminant
-
-pub struct Unique<T: ?Sized> {
-    ptr: *const T,
-    _marker: PhantomData<T>,
-}
-unsafe impl<T: Send> Send for Unique<T> {}
-unsafe impl<T: Sync> Sync for Unique<T> {}
-
-impl<T: ?Sized> Unique<T> {
-    /// Create a new `Unique`
-    /// # Safety
-    /// `ptr` must be non-null
-    pub fn new_unchecked(ptr: *mut T) -> Self {
-        Self {
-            ptr,
-            _marker: PhantomData,
-        }
-    }
-
-    /// Creates a new `Uniqe<T>` if `ptr` is non-null
-    pub fn new(ptr: *mut T) -> Option<Self> {
-        if 0 == ptr as *mut () as usize {
-            None
-        } else {
-            Some(Self::new_unchecked(ptr))
-        }
-    }
-
-    pub fn as_ptr(&self) -> *mut T {
-        self.ptr as _
-    }
-
-    pub fn as_nonnull(&self) -> NonNull<T> {
-        unsafe { NonNull::new_unchecked(self.ptr as _) }
-    }
-}
-
-impl<T: Sized> Unique<T> {
-    /// Creates a new `Unique` that is dangling, but well-aligned
-    /// This is useful for initializing types which lazily allocate, like `Vec`
-    fn empty() -> Self {
-        let ptr = std::mem::align_of::<T>() as *mut T;
-        Self::new_unchecked(ptr)
-    }
-}
-
-/// 2. Vec<T>
+/// Vec<T>
 /// Vec<T> is a Heap-allocated dynamically sized array.
 /// This is done by dynamically growing memory allocation of Vec<T> by double
 /// as the numober of elements in Vec<T> increases.
@@ -206,6 +152,31 @@ impl<T> Vec<T> {
     }
 }
 
+// IntoIter
+impl<T> Vec<T> {
+    /// Consume Vec<T> and return IntoIter<T> which is DoubleEncodedIterator of [T]
+    pub fn into_iter(self) -> IntoIter<T> {
+        let ptr = Unique::new_unchecked(self.ptr.as_ptr());
+        let cap = self.cap;
+        let len = self.len;
+
+        std::mem::forget(self);
+
+        unsafe {
+            IntoIter {
+                start: ptr.as_ptr(),
+                end: if cap == 0 {
+                    ptr.as_ptr()
+                } else {
+                    ptr.as_ptr().offset(len as isize)
+                },
+                ptr,
+                cap,
+            }
+        }
+    }
+}
+
 impl<T> Drop for Vec<T> {
     fn drop(&mut self) {
         if self.cap == 0 {
@@ -330,5 +301,30 @@ mod test {
         vec.push(3);
 
         assert_eq!([1, 2, 3], *vec);
+    }
+
+    #[test]
+    fn test_into_iter() {
+        let mut vec = Vec::<usize>::new();
+        vec.push(0);
+        vec.push(1);
+        vec.push(2);
+
+        for (i, x) in vec.into_iter().enumerate() {
+            assert_eq!(i, x);
+        }
+    }
+    #[test]
+    fn test_into_iter_next() {
+        let mut vec = Vec::<usize>::new();
+        vec.push(0);
+        vec.push(1);
+        vec.push(2);
+
+        let mut into_iter = vec.into_iter();
+        assert_eq!(Some(0), into_iter.next());
+        assert_eq!(Some(2), into_iter.next_back());
+        assert_eq!(Some(1), into_iter.next());
+        assert_eq!(None, into_iter.next_back());
     }
 }
