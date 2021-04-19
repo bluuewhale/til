@@ -234,6 +234,7 @@ impl<T> Drop for IntoIter<T> {
         if self.inner.cap != 0 {
             for _ in &mut *self {} // # drop any remaining element
         }
+        // deallocation is handled by RawVec
     }
 }
 impl<T> Vec<T> {
@@ -260,6 +261,7 @@ impl<T> Vec<T> {
 impl<T> Drop for Vec<T> {
     fn drop(&mut self) {
         while let Some(_) = self.pop() {}
+        // deallocation is handled by RawVec
     }
 }
 
