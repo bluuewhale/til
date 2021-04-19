@@ -167,6 +167,43 @@ impl<T> Vec<T> {
         self.len -= 1;
         unsafe { Some(std::ptr::read(self.ptr.as_ptr().offset(self.len as isize))) }
     }
+
+    /// Insert an element to given index by moving all the other elements to the right
+    /// by one
+    pub fn insert(&mut self, index: usize, elem: T) {
+        // assert!(index <= self.len, "index out of bounds");
+        if self.cap == self.len() {
+            self.allocate()
+        }
+
+        unsafe {
+            if index < self.len {
+                std::ptr::copy(
+                    self.ptr.as_ptr().offset(index as isize),
+                    self.ptr.as_ptr().offset(index as isize + 1),
+                    self.len - index,
+                )
+            }
+
+            std::ptr::write(self.ptr.as_ptr().offset(index as isize), elem);
+            self.len += 1;
+        }
+    }
+
+    /// Remove an element from Vec<T> and move other elements to the left by one
+    pub fn remove(&mut self, index: usize) -> T {
+        // assert!(index < self.len, "index out of bounds");
+        unsafe {
+            self.len -= 1;
+            let result = std::ptr::read(self.ptr.as_ptr().offset(index as isize));
+            std::ptr::copy(
+                self.ptr.as_ptr().offset(index as isize + 1),
+                self.ptr.as_ptr().offset(index as isize),
+                self.len - index,
+            );
+            result
+        }
+    }
 }
 
 impl<T> Drop for Vec<T> {
@@ -257,5 +294,32 @@ mod test {
         assert_eq!(unsafe { std::ptr::read(p.offset(1)) }, 3);
         assert_eq!(2, vec.len());
         assert_eq!(2, vec.capacity());
+    }
+
+    #[test]
+    fn test_insert() {
+        let mut vec = Vec::<i32>::new();
+        vec.push(1);
+        vec.push(2);
+        vec.insert(1, 3);
+
+        assert_eq!(3, vec.len());
+        assert_eq!(Some(2), vec.pop());
+        assert_eq!(Some(3), vec.pop());
+        assert_eq!(Some(1), vec.pop());
+        assert_eq!(None, vec.pop());
+    }
+    #[test]
+    fn test_remove() {
+        let mut vec = Vec::<i32>::new();
+        vec.push(1);
+        vec.push(2);
+        vec.push(3);
+
+        assert_eq!(3, vec.len());
+        assert_eq!(Some(3), vec.pop());
+        assert_eq!(Some(2), vec.pop());
+        assert_eq!(Some(1), vec.pop());
+        assert_eq!(None, vec.pop());
     }
 }
