@@ -322,4 +322,13 @@ mod test {
         assert_eq!(Some(1), vec.pop());
         assert_eq!(None, vec.pop());
     }
+    #[test]
+    fn test_deref() {
+        let mut vec = Vec::<i32>::new();
+        vec.push(1);
+        vec.push(2);
+        vec.push(3);
+
+        assert_eq!([1, 2, 3], *vec);
+    }
 }
