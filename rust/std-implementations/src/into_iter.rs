@@ -1,3 +1,5 @@
+use std::alloc::AllocRef;
+
 use crate::unique::Unique;
 
 pub struct IntoIter<T> {
@@ -35,6 +37,20 @@ impl<T> DoubleEndedIterator for IntoIter<T> {
             unsafe {
                 self.end = self.end.offset(-1);
                 Some(std::ptr::read(self.end))
+            }
+        }
+    }
+}
+
+impl<T> Drop for IntoIter<T> {
+    fn drop(&mut self) {
+        if self.cap != 0 {
+            for _ in &mut *self {} // # drop any remaining element
+
+            unsafe {
+                let c = self.ptr.as_nonnull();
+                std::alloc::Global
+                    .dealloc(c.cast(), std::alloc::Layout::array::<T>(self.cap).unwrap())
             }
         }
     }
