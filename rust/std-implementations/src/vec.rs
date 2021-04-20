@@ -1,5 +1,5 @@
 use std::{
-    alloc::{AllocRef, Layout},
+    alloc::{Allocator, Layout},
     ops::{Deref, DerefMut},
 };
 
@@ -37,7 +37,7 @@ impl<T> RawVec<T> {
                 // Allocate memory for Vec<T> for the first time
                 let new_cap = 1;
                 let result =
-                    std::alloc::Global.alloc(std::alloc::Layout::array::<T>(new_cap).unwrap());
+                    std::alloc::Global.allocate(std::alloc::Layout::array::<T>(new_cap).unwrap());
 
                 (new_cap, result)
             } else {
@@ -85,7 +85,7 @@ impl<T> Drop for RawVec<T> {
             unsafe {
                 let c = self.ptr.as_nonnull();
                 std::alloc::Global
-                    .dealloc(c.cast(), std::alloc::Layout::array::<T>(self.cap).unwrap())
+                    .deallocate(c.cast(), std::alloc::Layout::array::<T>(self.cap).unwrap())
             }
         }
     }
