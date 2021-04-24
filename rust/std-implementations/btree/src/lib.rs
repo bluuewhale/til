@@ -55,11 +55,6 @@ impl<T: Ord> BNode<T> {
         &self.val
     }
 
-    /// Return mutable reference to value inside `BNode<T>`
-    pub fn val_mut(&mut self) -> &mut T {
-        &mut self.val
-    }
-
     /// Return immutable reference to left node if exists, or Return  `None`
     pub fn left(&self) -> Option<&BNode<T>> {
         self.left.as_ref().map(|node| node.as_ref())
@@ -70,15 +65,15 @@ impl<T: Ord> BNode<T> {
         self.right.as_ref().map(|node| node.as_ref())
     }
 
-    /// Return `true` if leaf node and return `false` is not leaf node
-    pub fn is_leaf(&self) -> bool {
-        self.left.is_none() && self.right.is_none()
-    }
+    ///// Return `true` if leaf node and return `false` is not leaf node
+    //pub fn is_leaf(&self) -> bool {
+    //    self.left.is_none() && self.right.is_none()
+    //}
 
-    /// Return `true` if Node is full and return `false` if not full
-    pub fn is_full(&self) -> bool {
-        self.left.is_some() && self.right.is_some()
-    }
+    ///// Return `true` if Node is full and return `false` if not full
+    //pub fn is_full(&self) -> bool {
+    //    self.left.is_some() && self.right.is_some()
+    //}
 }
 
 struct BinarySearchTree<T: Ord> {
