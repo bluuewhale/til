@@ -76,6 +76,21 @@ impl<T: Ord> BNode<T> {
     //}
 }
 
+impl<T: Ord> BNode<T> {
+    /// traverse from left to right
+    pub fn traverse_inorder<'a, 'b>(&'a self, vec: &'b mut Vec<&'a T>) {
+        if self.left.is_some() {
+            self.left.as_ref().unwrap().traverse_inorder(vec);
+        }
+
+        vec.push(self.val());
+
+        if self.right.is_some() {
+            self.right.as_ref().unwrap().traverse_inorder(vec);
+        }
+    }
+}
+
 struct BinarySearchTree<T: Ord> {
     root: Option<BNode<T>>,
 }
@@ -109,6 +124,19 @@ impl<T: Ord> BinarySearchTree<T> {
             Some(r) => r.find(val),
             None => false,
         }
+    }
+}
+
+impl<T: Ord> BinarySearchTree<T> {
+    /// traverse from left to right
+    pub fn traverse_inorder(&self) -> Vec<&T> {
+        let mut vals = Vec::new();
+        match self.root.as_ref() {
+            Some(r) => r.traverse_inorder(&mut vals),
+            None => {}
+        };
+
+        vals
     }
 }
 
@@ -168,5 +196,19 @@ mod test {
         assert_eq!(bst.find(&30), true);
 
         assert_eq!(bst.find(&2), false);
+    }
+
+    #[test]
+    fn test_traverse_inorder() {
+        let mut bst = BinarySearchTree::new();
+        bst.insert(10); // root
+        bst.insert(5); // root - left
+        bst.insert(1); // root - left - left
+        bst.insert(7); // root - left - right
+        bst.insert(20); // root - right
+        bst.insert(15); // root - right - left
+        bst.insert(30); // root - right - right
+
+        assert_eq!(bst.traverse_inorder(), vec![&1, &5, &7, &10, &15, &20, &30]);
     }
 }
