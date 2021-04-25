@@ -77,7 +77,7 @@ impl<T: Ord> BNode<T> {
 }
 
 impl<T: Ord> BNode<T> {
-    /// traverse from left to right
+    /// traverse left -> self -> right
     pub fn traverse_inorder<'a, 'b>(&'a self, vec: &'b mut Vec<&'a T>) {
         if self.left.is_some() {
             self.left.as_ref().unwrap().traverse_inorder(vec);
@@ -88,6 +88,32 @@ impl<T: Ord> BNode<T> {
         if self.right.is_some() {
             self.right.as_ref().unwrap().traverse_inorder(vec);
         }
+    }
+
+    /// traverse self -> left -> right
+    pub fn traverse_preorder<'a, 'b>(&'a self, vec: &'b mut Vec<&'a T>) {
+        vec.push(self.val());
+
+        if self.left.is_some() {
+            self.left.as_ref().unwrap().traverse_preorder(vec);
+        }
+
+        if self.right.is_some() {
+            self.right.as_ref().unwrap().traverse_preorder(vec);
+        }
+    }
+
+    /// traverse left -> right -> self
+    pub fn traverse_postorder<'a, 'b>(&'a self, vec: &'b mut Vec<&'a T>) {
+        if self.left.is_some() {
+            self.left.as_ref().unwrap().traverse_postorder(vec);
+        }
+
+        if self.right.is_some() {
+            self.right.as_ref().unwrap().traverse_postorder(vec);
+        }
+
+        vec.push(self.val());
     }
 }
 
@@ -128,11 +154,33 @@ impl<T: Ord> BinarySearchTree<T> {
 }
 
 impl<T: Ord> BinarySearchTree<T> {
-    /// traverse from left to right
+    /// traverse left -> self -> right
     pub fn traverse_inorder(&self) -> Vec<&T> {
         let mut vals = Vec::new();
         match self.root.as_ref() {
             Some(r) => r.traverse_inorder(&mut vals),
+            None => {}
+        };
+
+        vals
+    }
+
+    /// traverse self -> left -> right
+    pub fn traverse_preorder(&self) -> Vec<&T> {
+        let mut vals = Vec::new();
+        match self.root.as_ref() {
+            Some(r) => r.traverse_preorder(&mut vals),
+            None => {}
+        };
+
+        vals
+    }
+
+    /// traverse left -> right -> right
+    pub fn traverse_postorder(&self) -> Vec<&T> {
+        let mut vals = Vec::new();
+        match self.root.as_ref() {
+            Some(r) => r.traverse_postorder(&mut vals),
             None => {}
         };
 
@@ -210,5 +258,39 @@ mod test {
         bst.insert(30); // root - right - right
 
         assert_eq!(bst.traverse_inorder(), vec![&1, &5, &7, &10, &15, &20, &30]);
+    }
+
+    #[test]
+    fn test_traverse_preorder() {
+        let mut bst = BinarySearchTree::new();
+        bst.insert(10); // root
+        bst.insert(5); // root - left
+        bst.insert(1); // root - left - left
+        bst.insert(7); // root - left - right
+        bst.insert(20); // root - right
+        bst.insert(15); // root - right - left
+        bst.insert(30); // root - right - right
+
+        assert_eq!(
+            bst.traverse_preorder(),
+            vec![&10, &5, &1, &7, &20, &15, &30]
+        );
+    }
+
+    #[test]
+    fn test_traverse_postorder() {
+        let mut bst = BinarySearchTree::new();
+        bst.insert(10); // root
+        bst.insert(5); // root - left
+        bst.insert(1); // root - left - left
+        bst.insert(7); // root - left - right
+        bst.insert(20); // root - right
+        bst.insert(15); // root - right - left
+        bst.insert(30); // root - right - right
+
+        assert_eq!(
+            bst.traverse_postorder(),
+            vec![&1, &7, &5, &15, &30, &20, &10]
+        );
     }
 }
