@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-struct BNode<T: Ord> {
+pub struct BNode<T: Ord> {
     val: T,
     left: ChildNode<T>,
     right: ChildNode<T>,
@@ -76,45 +76,49 @@ impl<T: Ord> BNode<T> {
     //}
 }
 
-impl<T: Ord> BNode<T> {
-    /// traverse left -> self -> right
-    pub fn traverse_inorder<'a, 'b>(&'a self, vec: &'b mut Vec<&'a T>) {
-        if self.left.is_some() {
-            self.left.as_ref().unwrap().traverse_inorder(vec);
-        }
+/// traverse left -> self -> right
+pub fn traverse_inorder<T: Ord>(node: &BNode<T>) -> Vec<&T> {
+    let mut vals = Vec::new();
 
-        vec.push(self.val());
-
-        if self.right.is_some() {
-            self.right.as_ref().unwrap().traverse_inorder(vec);
-        }
+    if node.left.is_some() {
+        vals.extend(traverse_inorder(node.left.as_ref().unwrap()));
+    };
+    vals.push(node.val());
+    if node.right.is_some() {
+        vals.extend(traverse_inorder(node.right.as_ref().unwrap()));
     }
 
-    /// traverse self -> left -> right
-    pub fn traverse_preorder<'a, 'b>(&'a self, vec: &'b mut Vec<&'a T>) {
-        vec.push(self.val());
+    vals
+}
 
-        if self.left.is_some() {
-            self.left.as_ref().unwrap().traverse_preorder(vec);
-        }
+/// traverse  self -> left -> right
+pub fn traverse_preorder<T: Ord>(node: &BNode<T>) -> Vec<&T> {
+    let mut vals = Vec::new();
 
-        if self.right.is_some() {
-            self.right.as_ref().unwrap().traverse_preorder(vec);
-        }
+    vals.push(node.val());
+    if node.left.is_some() {
+        vals.extend(traverse_preorder(node.left.as_ref().unwrap()));
+    };
+    if node.right.is_some() {
+        vals.extend(traverse_preorder(node.right.as_ref().unwrap()));
     }
 
-    /// traverse left -> right -> self
-    pub fn traverse_postorder<'a, 'b>(&'a self, vec: &'b mut Vec<&'a T>) {
-        if self.left.is_some() {
-            self.left.as_ref().unwrap().traverse_postorder(vec);
-        }
+    vals
+}
 
-        if self.right.is_some() {
-            self.right.as_ref().unwrap().traverse_postorder(vec);
-        }
+/// traverse  left -> right -> self
+pub fn traverse_postorder<T: Ord>(node: &BNode<T>) -> Vec<&T> {
+    let mut vals = Vec::new();
 
-        vec.push(self.val());
+    if node.left.is_some() {
+        vals.extend(traverse_postorder(node.left.as_ref().unwrap()));
+    };
+    if node.right.is_some() {
+        vals.extend(traverse_postorder(node.right.as_ref().unwrap()));
     }
+    vals.push(node.val());
+
+    vals
 }
 
 struct BinarySearchTree<T: Ord> {
@@ -156,35 +160,26 @@ impl<T: Ord> BinarySearchTree<T> {
 impl<T: Ord> BinarySearchTree<T> {
     /// traverse left -> self -> right
     pub fn traverse_inorder(&self) -> Vec<&T> {
-        let mut vals = Vec::new();
         match self.root.as_ref() {
-            Some(r) => r.traverse_inorder(&mut vals),
-            None => {}
-        };
-
-        vals
+            Some(r) => traverse_inorder(r),
+            None => Vec::new(),
+        }
     }
 
     /// traverse self -> left -> right
     pub fn traverse_preorder(&self) -> Vec<&T> {
-        let mut vals = Vec::new();
         match self.root.as_ref() {
-            Some(r) => r.traverse_preorder(&mut vals),
-            None => {}
-        };
-
-        vals
+            Some(r) => traverse_preorder(r),
+            None => Vec::new(),
+        }
     }
 
     /// traverse left -> right -> right
     pub fn traverse_postorder(&self) -> Vec<&T> {
-        let mut vals = Vec::new();
         match self.root.as_ref() {
-            Some(r) => r.traverse_postorder(&mut vals),
-            None => {}
-        };
-
-        vals
+            Some(r) => traverse_postorder(r),
+            None => Vec::new(),
+        }
     }
 }
 
