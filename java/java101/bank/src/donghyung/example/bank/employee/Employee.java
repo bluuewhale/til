@@ -3,12 +3,20 @@ package donghyung.example.bank.employee;
 import donghyung.example.bank.bank.Bank;
 
 public class Employee {
-    String name;
+    private String name;
     int salary;
 
     public Employee(String name, int salary) {
         this.name = name;
         this.salary = salary;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void SaveMoney(Bank bank, int money) {
