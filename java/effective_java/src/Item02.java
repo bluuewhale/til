@@ -1,14 +1,16 @@
 import java.util.EnumSet;
 import java.util.Objects;
 
-import Item02.CheesePizza.Cheese;
-
 // Item02: Consider a builder when faced with many constructor parameters
 //   -> 생성자의 매개변수가 많아지면 builder pattern을 적극 활용하자.
 
 // [ 장점 ]
 // 읽기 편하다
 // 일부 필드는 optional하거나, lazy하게 추가되는 경우에도 유연하게 대응할 수 있다.
+
+// [ Tips ]
+// 1. 추상 Builder class에서 build() 메서드가 Covariant한 return type을 반환하면 클라이언트 코드에서 타입 캐스팅을 할 필요가 없어진다.
+// 2. 메서드 체인닝을 위해 Builder class에 self() 메서드를 구현하여 사용하면 self-type 개념을 활용할 수 있다.
 
 public class Item02 {
 
