@@ -1,10 +1,12 @@
 # Today I've learned
 this repository is where I write code implementations of what I've learned everyday.
 
-# Rust
-This repository is my personal records of studying rust
+&nbsp;
 
-![](https://rustacean.net/assets/rustacean-flat-happy.svg)
+# Rust
+<img src="images/2021-05-09-22-13-08.png" width="200">  
+
+&nbsp;
 
 ## The Programming Language Rust
 
@@ -49,10 +51,11 @@ This repository is my personal records of studying rust
 - [`No.448`: Find All Numbers Disappeared in an Array](https://github.com/DonghyungKo/til/tree/master/rust/leetcode/no448_Find_All_Numbers_Disappeared_In_An_Array)
 
 
----
+&nbsp;
 # Java
+<img src="images/2021-05-09-22-08-24.png" width="200">  
 
-![](https://www.oracle.com/oce/press/assets/CONT3F1340E86D91451E80213DA41423DB63/native/rc24-java-25yrs.gif)
+&nbsp;
 
 ## Java201
 This repository is my personal records of studying intermediate-level java concepts
@@ -63,6 +66,7 @@ This repository is my personal records of studying intermediate-level java conce
 - [`Item 03`: Weak Reference](https://github.com/DonghyungKo/til/blob/master/java/java201/src/WeakReferences.java)
 - [`Item 04`: Reflection](https://github.com/DonghyungKo/til/blob/master/java/java201/src/Reflection.java)
 
+&nbsp;
 ## Effective Java 3rd
 
 This repository is where I write code implementations of Effective Jave 3rd edition 
@@ -75,3 +79,30 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Item 05`: Prefer dependency injection to hardwiring resources](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item05.java)
 - [`Item 06`: Avoid creating unnecessary objects](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item06.java)
 - [`Item 07`: Eliminate obsolete object references](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item07.java)
+
+
+&nbsp;
+# Devops
+
+## Docker & Docker Compose
+<img src="images/2021-05-09-21-54-11.png" width="200">
+
+### Contents
+- [`Item 01`: Build redis image](https://github.com/DonghyungKo/til/blob/master/devops/docker/redis-image/Dockerfile)
+- [`Item 02`: Build simple web application](https://github.com/DonghyungKo/til/blob/master/devops/docker/simpleweb)
+- [`Item 03`: Deploy toy web application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/visits-starter)
+- [`Item 04`: Deploy frontend application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/simpleweb)
+- [`Item 05`: Deploy complex web application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/complex)
+
+&nbsp;
+## k8s
+<img src="images/2021-05-09-22-03-15.png" width="200">
+
+### Contents
+- [`Item 01`: Deploy simple web application](https://github.com/DonghyungKo/til/blob/master/devops/k8s/simplek8s)
+
+&nbsp;
+## Terraform
+<img src="images/2021-05-09-22-06-29.png" width="200">
+
+- [`Item 01`: Create Azure Resources](https://github.com/DonghyungKo/til/blob/master/devops/terraform)
