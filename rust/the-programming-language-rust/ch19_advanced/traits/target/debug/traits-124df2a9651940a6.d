@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch19_advanced/traits/target/debug/traits-124df2a9651940a6: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch19_advanced/traits/src/lib.rs
