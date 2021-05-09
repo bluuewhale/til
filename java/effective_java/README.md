@@ -1,14 +1,12 @@
-## Getting Started
+## Effective Java 3rd
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This repository is where I write code implementations of Effective Jave 3rd edition 
+## Contents
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-## Dependency Management
-
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+- [`Item 01`: Consider static factory methods instead of constructors](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item01.java)
+- [`Item 02`: Consider a builder when faced with many constructor parameters](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item02.java)
+- [`Item 03`: Enforce the singleton property with a private constructor or an enum type](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item03.java)
+- [`Item 04`: Enforce noninstantiability with a private constructor](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item04.java)
+- [`Item 05`: Prefer dependency injection to hardwiring resources](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item05.java)
+- [`Item 06`: Avoid creating unnecessary objects](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item06.java)
+- [`Item 07`: Eliminate obsolete object references](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item07.java)
