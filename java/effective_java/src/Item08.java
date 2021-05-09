@@ -8,10 +8,10 @@ import jdk.jshell.spi.ExecutionControl.ExecutionControlException;
 // 따라서, time-critical한 작업은 절대로 finalizer를 통해 처리하지 말아야 한다.
 
 // Lock을 반환하는 작업을 finalizer를 통해 처리하면, 분산 시스템 자체를 무너트릴 수도 있다.
-// 자원 반납은 AutoCloseable 인터페이스를 구현하거나, close()를 명시적으로 호출하라
-// 예외적으로, 안전망(safety net) 차원에서 Stream 계열 클래스들에 finalizer를 구현하기도 한다.
 
 public class Item08 {
+
+    // 자원 반납은 AutoCloseable 인터페이스를 구현하거나, close()를 명시적으로 호출하라
     public static class AutoCloseResourse implements AutoCloseable {
         private boolean isClosed;
 
@@ -24,6 +24,7 @@ public class Item08 {
             this.isClosed = true;
         }
 
+        // 예외적으로, 안전망(safety net) 차원에서 Stream 계열 클래스들에 finalizer를 구현하기도 한다.
         @Override
         protected void finalize() throws Exception {
             if (!this.isClosed) {
