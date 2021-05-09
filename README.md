@@ -79,6 +79,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Item 05`: Prefer dependency injection to hardwiring resources](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item05.java)
 - [`Item 06`: Avoid creating unnecessary objects](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item06.java)
 - [`Item 07`: Eliminate obsolete object references](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item07.java)
+- [`Item 08`: Avoid finalizers and cleaners](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item08.java)
 
 
 &nbsp;
