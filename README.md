@@ -82,6 +82,52 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 
 
 &nbsp;
+
+# Python
+<img src="images/2021-05-09-22-18-54.png" width="150">  
+
+&nbsp;
+## Design Patterns
+
+- [`Item 01`: Singleton](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/01.singltone.py)
+- [`Item 02`: Factory](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/02.factory.py)
+- [`Item 03`: Builder](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/03.builder.py)
+- [`Item 04`: Abstract Factory](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/04.abstract_factory.py)
+- [`Item 05`: Adapter](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/05.adapter.py)
+- [`Item 06`: Composite](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/06.composite.py)
+- [`Item 07`: Command](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/07.command.py)
+- [`Item 08`: Observer](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/08.observer.py)
+- [`Item 09`: Bridge](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/09.bridge.py)
+- [`Item 10`: Strategy](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/10.strategy.py)
+- [`Item 11`: State](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/11.state.py)
+- [`Item 12`: Proxy](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/12.proxy.py)
+- [`Item 13`: Mixin](https://github.com/DonghyungKo/til/blob/master/python/design_patterns/13.mixin.py)
+
+&nbsp;
+## Django
+- [`Item 01`: Toy web server](https://github.com/DonghyungKo/til/blob/master/python/django/poll)
+- [`Item 02`: Simple Instagram clone coding](https://github.com/DonghyungKo/til/blob/master/python/django/instagram)
+- [`Item 03`: Finance Data Reader API Server](https://github.com/DonghyungKo/til/blob/master/python/django/fdr_api)
+- [`Item 04`: Kiwoom API Server](https://github.com/DonghyungKo/til/blob/master/python/django/kiwoom_rest_api)
+
+&nbsp;
+## LeetCode
+
+- [`Array101`: Check If N and Its Double Exist](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Check%20If%20N%20and%20Its%20Double%20Exist.py)
+- [`Array101`: Duplicated Zeros](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Check%20If%20N%20and%20Its%20Double%20Exist.py)
+- [`Array101`: Find Numbers with Even Number of Digits](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Find%20Numbers%20with%20Even%20Number%20of%20Digits.py)
+- [`Array101`: Max Consecutive Ones](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Max%20Consecutive%20Ones.py)
+- [`Array101`: Merge Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Merge%20Sorted%20Array.py)
+- [`Array101`: Move Zeroes](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Move%20Zeroes.py)
+- [`Array101`: Remove Duplicates from Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Remove%20Duplicates%20from%20Sorted%20Array.py)
+- [`Array101`: Remove Element Solution](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Remove%20Element%20%20Solution.py)
+- [`Array101`: Remove Elements with Greatest Element on Right Side](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Replace%20Elements%20with%20Greatest%20Element%20on%20Right%20Side.py)
+- [`Array101`: Sort Array By Parity](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Sort%20Array%20By%20Parity.py)
+- [`Array101`: Squares of a Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Squares%20of%20a%20Sorted%20Array.py)
+- [`Array101`: Valid Mountain Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Valid%20Mountain%20Array.py)
+
+
+&nbsp;
 # Devops
 
 ## Docker & Docker Compose
