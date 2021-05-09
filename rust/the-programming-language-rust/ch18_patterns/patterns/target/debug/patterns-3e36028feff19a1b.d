@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch18_patterns/patterns/target/debug/patterns-3e36028feff19a1b: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch18_patterns/patterns/src/lib.rs

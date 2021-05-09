@@ -1,5 +1,5 @@
 [package]
-name = "ch18_patterns"
+name = "patterns"
 version = "0.1.0"
 authors = ["DonghyungKo <koko8624@gmail.com>"]
 edition = "2018"
