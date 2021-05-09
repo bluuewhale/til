@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch11_test/adder/target/debug/adder-5f359f1be921a5e5: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch11_test/adder/src/lib.rs

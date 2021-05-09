@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch13_iterator_and_closure/closures/target/debug/closures: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch13_iterator_and_closure/closures/src/lib.rs /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch13_iterator_and_closure/closures/src/main.rs

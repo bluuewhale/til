@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch03_functions/target/debug/ch03_functions: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch03_functions/src/main.rs

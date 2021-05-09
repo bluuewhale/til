@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch15_smart_pointer/drop/target/debug/drop-f2d49a6e50d69e45: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch15_smart_pointer/drop/src/lib.rs

@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch04_ownership/target/debug/ch04_ownership: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch04_ownership/src/main.rs

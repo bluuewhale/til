@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch12_io_project/target/debug/ch12_io_project: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch12_io_project/src/main.rs

@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch14_cargo_and_crates_io/add/target/debug/adder: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch14_cargo_and_crates_io/add/add-one/src/lib.rs /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch14_cargo_and_crates_io/add/adder/src/main.rs

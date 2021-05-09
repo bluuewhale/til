@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch12_io_project/minigrep/target/debug/minigrep-d0817d883546ce8e: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch12_io_project/minigrep/src/lib.rs

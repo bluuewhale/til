@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch05_structure/target/debug/ch05_structure: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch05_structure/src/main.rs

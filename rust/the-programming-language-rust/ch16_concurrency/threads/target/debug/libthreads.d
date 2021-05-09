@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch16_concurrency/threads/target/debug/libthreads.rlib: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch16_concurrency/threads/src/lib.rs

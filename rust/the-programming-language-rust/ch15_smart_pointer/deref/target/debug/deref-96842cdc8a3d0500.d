@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch15_smart_pointer/deref/target/debug/deref-96842cdc8a3d0500: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch15_smart_pointer/deref/src/lib.rs

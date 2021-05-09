@@ -1,1 +1,0 @@
-/Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch06_enum/target/debug/ch06_enum: /Users/donghyungko/Documents/git-project/rust/the_rust_programming_language/ch06_enum/src/main.rs
