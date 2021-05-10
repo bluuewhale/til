@@ -81,6 +81,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Item 06`: Avoid creating unnecessary objects](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item06.java)
 - [`Item 07`: Eliminate obsolete object references](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item07.java)
 - [`Item 08`: Avoid finalizers and cleaners](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item08.java)
+- [`Item 09`: Prefer try-with-resource to try-finally](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item09.java)
 
 
 &nbsp;
