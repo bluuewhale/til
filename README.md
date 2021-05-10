@@ -65,6 +65,7 @@ This repository is my personal records of studying intermediate-level java conce
 - [`Item 02`: Immutable Objects](https://github.com/DonghyungKo/til/blob/master/java/java201/src/ImmutableObject.java)
 - [`Item 03`: Weak Reference](https://github.com/DonghyungKo/til/blob/master/java/java201/src/WeakReferences.java)
 - [`Item 04`: Reflection](https://github.com/DonghyungKo/til/blob/master/java/java201/src/Reflection.java)
+- [`Item 05`: Thread](https://github.com/DonghyungKo/til/blob/master/java/java201/src/Threading.java)
 
 &nbsp;
 ## Effective Java 3rd
