@@ -90,8 +90,9 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 
 This repository is where I write code implementations of Effective Jave 3rd edition 
 ### Contents
-- [`Binary Search Tree`: with level order traverse](https://github.com/DonghyungKo/til/blob/master/java/data_structure_and_algorithm/src/BinarySearchTree.java)
+- [`Binary Search Tree`: Traverse nodes in level-order](https://github.com/DonghyungKo/til/blob/master/java/data_structure_and_algorithm/src/BinarySearchTree.java)
 - [`Graph`: DFS and BFS](https://github.com/DonghyungKo/til/blob/master/java/data_structure_and_algorithm/src/Graph.java)
+- [`Graph`: Check if two nodes are connected](https://github.com/DonghyungKo/til/blob/master/java/data_structure_and_algorithm/src/GraphConnectionCheck.java)
 
 
 &nbsp;
