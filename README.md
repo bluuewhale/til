@@ -84,6 +84,15 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Item 09`: Prefer try-with-resource to try-finally](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item09.java)
 - [`Item 10`: Obey the general contract with overriding equals](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item10.java)
 
+&nbsp;
+
+## Data Structure and Algorithms
+
+This repository is where I write code implementations of Effective Jave 3rd edition 
+### Contents
+- [`Binary Search Tree`: with level order traverse](https://github.com/DonghyungKo/til/blob/master/java/data_structure_and_algorithm/src/BinarySearchTree.java)
+- [`Graph`: DFS and BFS](https://github.com/DonghyungKo/til/blob/master/java/data_structure_and_algorithm/src/Graph.java)
+
 
 &nbsp;
 
