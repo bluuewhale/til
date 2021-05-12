@@ -148,11 +148,12 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 <img src="images/2021-05-09-21-54-11.png" width="200">
 
 ### Contents
-- [`Item 01`: Build redis image](https://github.com/DonghyungKo/til/blob/master/devops/docker/redis-image/Dockerfile)
-- [`Item 02`: Build simple web application](https://github.com/DonghyungKo/til/blob/master/devops/docker/simpleweb)
-- [`Item 03`: Deploy toy web application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/visits-starter)
-- [`Item 04`: Deploy frontend application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/simpleweb)
-- [`Item 05`: Deploy complex web application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/complex)
+- [`Network`: Docker Network Explained](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Under-the-Hood)
+- [`Toy Project`: Build redis image](https://github.com/DonghyungKo/til/blob/master/devops/docker/redis-image/Dockerfile)
+- [`Toy Project`: Build simple web application](https://github.com/DonghyungKo/til/blob/master/devops/docker/simpleweb)
+- [`Toy Project`: Deploy toy web application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/visits-starter)
+- [`Toy Project`: Deploy frontend application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/simpleweb)
+- [`Toy Project`: Deploy complex web application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/complex)
 
 &nbsp;
 ## k8s
