@@ -159,7 +159,8 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 <img src="images/2021-05-09-22-03-15.png" width="200">
 
 ### Contents
-- [`Item 01`: Deploy simple web application](https://github.com/DonghyungKo/til/blob/master/devops/k8s/simplek8s)
+- [`Architecture`: Kubernetes Architecture Explained](https://velog.io/@koo8624/%EB%B2%88%EC%97%AD-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Kubernetes-Architecture-Explained)
+- [`Toy Project`: Deploy simple web application](https://github.com/DonghyungKo/til/blob/master/devops/k8s/simplek8s)
 
 &nbsp;
 ## Terraform
