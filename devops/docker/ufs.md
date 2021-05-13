@@ -28,6 +28,8 @@ UFS에서는 기존 레이어(하위 레이어) 위에 새로운 레이어(상�
 
 *<center> Images from Devaom's Tech Blog </center>*
 
+도커에서 관리되는 모든 레이어와 관련된 정보는 호스트의 파일 시스템 내의 /var/lib/docker 폴더에 저장된다. 이 영역을 Docker area 혹은 Backing Filesystem 이라고 부른다.
+
 ### References
 
 [[Docker] 컨테이너의 구조](https://devaom.tistory.com/5)
