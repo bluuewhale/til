@@ -154,7 +154,6 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Storage Driver`: UFS and Storage Driver](https://velog.io/@koo8624/Docker-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-Storage-Driver)
 - [`Network`: Docker Network: Under the Hood](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Under-the-Hood)
 - [`Network`: Docker Network Overview](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Overview)
-
 - [`Toy Project`: Build redis image](https://github.com/DonghyungKo/til/blob/master/devops/docker/redis-image/Dockerfile)
 - [`Toy Project`: Build simple web application](https://github.com/DonghyungKo/til/blob/master/devops/docker/simpleweb)
 - [`Toy Project`: Deploy toy web application with docker-compose](https://github.com/DonghyungKo/til/blob/master/devops/docker/visits-starter)
@@ -166,7 +165,8 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 <img src="images/2021-05-09-22-03-15.png" width="200">
 
 ### Contents
-- [`Architecture`: Kubernetes Architecture Explained](https://velog.io/@koo8624/%EB%B2%88%EC%97%AD-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Kubernetes-Architecture-Explained)
+- [`Architecture`: Kubernetes Architecture Overview](https://velog.io/@koo8624/%EB%B2%88%EC%97%AD-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Kubernetes-Architecture-Explained)
+- [`API Server`: Kubernetes API Server](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-API-%EC%84%9C%EB%B2%84)
 - [`Toy Project`: Deploy simple web application](https://github.com/DonghyungKo/til/blob/master/devops/k8s/simplek8s)
 
 &nbsp;
