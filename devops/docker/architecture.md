@@ -2,7 +2,7 @@
 
 도커는 내부적으로 클라이언트-서버 구조를 사용한다. 도커는 Docker daemon이라 불리는 데몬몬 실행하여 컨테이너와 관련된 모든 요청(빌드, 실행 등)을 처리한다. 도커의 기본 CLI 클라이언트는 UNIX 소켓(default) 혹은 네트워크 인터페이스를 통해 도커 데몬으로 REST API 요청을 보내게 된다.
 
-[https://docs.docker.com/engine/images/architecture.svg](https://docs.docker.com/get-started/overview/)
+![](https://docs.docker.com/engine/images/architecture.svg)
 
 &nbsp;
 
@@ -48,6 +48,19 @@ $ docker run -it ubuntu /bin/bash
 1. 만약 로컬 환경에 `ubuntu` 이미지가 존재하지 않는 경우, 도커 데몬은 해당 이미지를 도커 레지스트리에서 찾아서 가져오는 작업(`docker pull ubuntu`)을 수행한다.
 
 2. `ubuntu` 이미지를 기반으로 새로운 컨테이너를 생성(`docker container create`)한다. 
+
+3. 도커는 생성된 컨테이너에 read-write 파일 시스템을 할당한다. 이를 통해 컨테이너는 로컬 파일시스템에 파일과 폴더를 읽고 쓸 수 있다.
+
+4. 도커는 네트워크 인터페이스를 생성하여 컨테이너를 기본 네트워크와 연결한다. 이 때, 컨테이너는 IP 주소를 부여받는다. 격리된 네트워크 환경을 갖고 있음에도 불구하고, 컨테이너는 호스트 네트워크 환경과의 연결을 통해 외부 인터넷에 접근할 수 있다.
+
+5. 다음으로, 도커는 컨테이너에서 `/bin/bash` 명령어를 실행한다. 위 명령어에서 `-it` flag를 사용하여 컨테이너의 STDIN와 STDOUT을 현재 터미널 세션과 연결하였기 때문에, 사용자는 현재 터미널을 사용하여 컨테이너와 상호작용 할 수 있다.
+
+6. 마지막으로, 사용자는 `exit` 명령어를 수행하여 이전에 실행한 `/bin/bash` 프로그램을 종료하고, 컨테이너는 `stop` 상태가 된다. `stop` 상태에 있는 컨테이너는 삭제되지 않고 남아있으며, 이후 언제든 해당 컨테이너를 다시 실행할 수 있다.
+
+&nbsp;
+## The Underlying Technology
+
+도커는 `Go` 언어로 작성되었으며, 다수의 리눅스 커널의 기능들을 사용한다. 대표적으로 도커는 리눅스 시스템의 `namcespace` 기능을 사용하여 새롭게 실행되는 프로세스의 네트워크, 파일 시스템, 권한 등을 호스트 스페이스로 부터 격리(`isolate`)하여 `container`를 생성한다.
 
 
 ### References
