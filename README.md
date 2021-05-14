@@ -167,6 +167,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 ### Contents
 - [`Architecture`: Kubernetes Architecture Overview](https://velog.io/@koo8624/%EB%B2%88%EC%97%AD-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Kubernetes-Architecture-Explained)
 - [`API Server`: Kubernetes API Server](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-API-%EC%84%9C%EB%B2%84)
+- [`Network`: Understanding Kubernetes Networking](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Understanding-kubernetes-networking)
 - [`Toy Project`: Deploy simple web application](https://github.com/DonghyungKo/til/blob/master/devops/k8s/simplek8s)
 
 &nbsp;

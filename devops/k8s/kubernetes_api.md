@@ -138,4 +138,3 @@ $ curl http://127.0.0.1:8080/apis/batch/v2alpha1
 [In-depth analysis of the Kubernetes API Server trilogy - part 1](https://www.programmersought.com/article/47541020995/)
 [Kubernetes 공식 문서: The Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/)
 [Kubernetes 코드 분석: kube-apiserver](https://woohhan.tistory.com/44)
-
