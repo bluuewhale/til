@@ -125,20 +125,22 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Item 04`: Kiwoom API Server](https://github.com/DonghyungKo/til/blob/master/python/django/kiwoom_rest_api)
 
 &nbsp;
-## LeetCode
+## Algorithms
 
-- [`Array101`: Check If N and Its Double Exist](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Check%20If%20N%20and%20Its%20Double%20Exist.py)
-- [`Array101`: Duplicated Zeros](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Check%20If%20N%20and%20Its%20Double%20Exist.py)
-- [`Array101`: Find Numbers with Even Number of Digits](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Find%20Numbers%20with%20Even%20Number%20of%20Digits.py)
-- [`Array101`: Max Consecutive Ones](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Max%20Consecutive%20Ones.py)
-- [`Array101`: Merge Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Merge%20Sorted%20Array.py)
-- [`Array101`: Move Zeroes](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Move%20Zeroes.py)
-- [`Array101`: Remove Duplicates from Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Remove%20Duplicates%20from%20Sorted%20Array.py)
-- [`Array101`: Remove Element Solution](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Remove%20Element%20%20Solution.py)
-- [`Array101`: Remove Elements with Greatest Element on Right Side](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Replace%20Elements%20with%20Greatest%20Element%20on%20Right%20Side.py)
-- [`Array101`: Sort Array By Parity](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Sort%20Array%20By%20Parity.py)
-- [`Array101`: Squares of a Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Squares%20of%20a%20Sorted%20Array.py)
-- [`Array101`: Valid Mountain Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Valid%20Mountain%20Array.py)
+- [`LeetCode`: (Array101) Check If N and Its Double Exist](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Check%20If%20N%20and%20Its%20Double%20Exist.py)
+- [`LeetCode`: (Array101) Duplicated Zeros](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Check%20If%20N%20and%20Its%20Double%20Exist.py)
+- [`LeetCode`: (Array101) Find Numbers with Even Number of Digits](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Find%20Numbers%20with%20Even%20Number%20of%20Digits.py)
+- [`LeetCode`: (Array101) Max Consecutive Ones](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Max%20Consecutive%20Ones.py)
+- [`LeetCode`: (Array101) Merge Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Merge%20Sorted%20Array.py)
+- [`LeetCode`: (Array101) Move Zeroes](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Move%20Zeroes.py)
+- [`LeetCode`: (Array101) Remove Duplicates from Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Remove%20Duplicates%20from%20Sorted%20Array.py)
+- [`LeetCode`: (Array101) Remove Element Solution](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Remove%20Element%20%20Solution.py)
+- [`LeetCode`: (Array101) Remove Elements with Greatest Element on Right Side](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Replace%20Elements%20with%20Greatest%20Element%20on%20Right%20Side.py)
+- [`LeetCode`: (Array101) Sort Array By Parity](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Sort%20Array%20By%20Parity.py)
+- [`LeetCode`: (Array101) Squares of a Sorted Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Squares%20of%20a%20Sorted%20Array.py)
+- [`LeetCode`: (Array101) Valid Mountain Array](https://github.com/DonghyungKo/til/blob/master/python/leetcode/Array101/Valid%20Mountain%20Array.py)
+- [`Programmers`: (BFS/DFS) Target Number](https://github.com/DonghyungKo/til/blob/master/python/algorithms/BFS_DFS/target_number.py)
+- [`Programmers`: (BFS/DFS) Network ](https://github.com/DonghyungKo/til/blob/master/python/algorithms/BFS_DFS/network.py)
 
 
 &nbsp;
