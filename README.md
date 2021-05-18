@@ -143,6 +143,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Programmers`: (BFS/DFS) Network](https://github.com/DonghyungKo/til/blob/master/python/algorithms/BFS_DFS/network.py)
 - [`Programmers`: (BFS/DFS) Word Transformation](https://github.com/DonghyungKo/til/blob/master/python/algorithms/BFS_DFS/word_transformation.py)
 - [`Programmers`: (Dynamic Programming) Triangle](https://github.com/DonghyungKo/til/blob/master/python/algorithms/dynamic_programming/triangle.py)
+- [`Programmers`: (Dynamic Programming) Way to School](https://github.com/DonghyungKo/til/blob/master/python/algorithms/dynamic_programming/way_to_school.py)
 
 
 &nbsp;
