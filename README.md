@@ -86,6 +86,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Item 11`: Always override hashCode when you override equals](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item11.java)
 - [`Item 12`: Always override toString](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item12.java)
 - [`Item 13`: Override clone judiciously](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item13.java)
+- [`Item 14`: Consider implementing Comparable](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item14.java)
 
 &nbsp;
 
