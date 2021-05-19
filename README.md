@@ -83,6 +83,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Item 08`: Avoid finalizers and cleaners](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item08.java)
 - [`Item 09`: Prefer try-with-resource to try-finally](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item09.java)
 - [`Item 10`: Obey the general contract with overriding equals](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item10.java)
+- [`Item 11`: Always override hashCode when you override equals](https://github.com/DonghyungKo/til/blob/master/java/effective_java/src/Item11.java)
 
 &nbsp;
 
