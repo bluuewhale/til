@@ -1,21 +1,24 @@
 package com.donghyungko.hellospring.service;
 
 import com.donghyungko.hellospring.domain.Member;
-import com.donghyungko.hellospring.repository.MemberRepsitory;
-import com.donghyungko.hellospring.repository.MemoryMemberRepository;
+import com.donghyungko.hellospring.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
-public class MemberService {
+public class MemberService<T extends MemberRepository>{
+    private final T memberRepository ;
 
-    private final MemberRepsitory memberRepository ;
-
-    public MemberService(MemberRepsitory memberRepository) {
+    @Autowired
+    public MemberService(T memberRepository) {
         this.memberRepository = memberRepository;
     }
 
-
+    /***
+     * 이름 중복 검사
+     * 같은 이름의 회원이 있을 경우, IllegalStateExection을 발생시킨다.
+     */
     private void validateDuplicateMember(Member member) {
         memberRepository.findByName(member.getName()).ifPresent(m -> {
             throw new IllegalStateException("이미 존재하는 회원입니다.");

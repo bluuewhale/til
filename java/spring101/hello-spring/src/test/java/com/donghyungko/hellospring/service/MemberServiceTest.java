@@ -2,12 +2,9 @@ package com.donghyungko.hellospring.service;
 
 import com.donghyungko.hellospring.domain.Member;
 import com.donghyungko.hellospring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,8 +16,8 @@ class MemberServiceTest {
 
     @BeforeEach
     public void beforeEach() {
-        MemoryMemberRepository memberRepository = new MemoryMemberRepository();
-        MemberService memberService = new MemberService(memberRepository);
+        this.memberRepository = new MemoryMemberRepository();
+        this.memberService = new MemberService(this.memberRepository);
     }
 
     @AfterEach
@@ -31,6 +28,7 @@ class MemberServiceTest {
     @Test
     void 회원가입() {
         //given
+        System.out.println(this.memberRepository);
         Member member = new Member();
         member.setName("spring");
 
