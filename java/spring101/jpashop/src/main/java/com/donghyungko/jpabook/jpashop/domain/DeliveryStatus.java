@@ -1,2 +1,5 @@
-package com.donghyungko.jpabook.jpashop.domain;public enum DeliveryStatus {
+package com.donghyungko.jpabook.jpashop.domain;
+
+public enum DeliveryStatus {
+    READY, COMP
 }
