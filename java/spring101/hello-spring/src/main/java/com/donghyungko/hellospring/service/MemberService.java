@@ -4,9 +4,11 @@ import com.donghyungko.hellospring.domain.Member;
 import com.donghyungko.hellospring.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class MemberService<T extends MemberRepository>{
     private final T memberRepository ;
 

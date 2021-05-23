@@ -1,11 +1,12 @@
 package com.donghyungko.hellospring.service;
 
-import com.donghyungko.hellospring.repository.JdbcMemberRepository;
-import com.donghyungko.hellospring.repository.MemoryMemberRepository;
+import com.donghyungko.hellospring.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 /**
@@ -14,24 +15,18 @@ import javax.sql.DataSource;
  * 그러나, 상황에 따라 구현 클래스를 변경(ex, MemoryMemberRepository -> MysqlMemberRepository)해야 하는 경우,
  * 변경지점을 최소화할 수 있다.
  */
+
 @Configuration
 public class SpringConfig {
-    DataSource dataSource;
 
-    @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    private final MemberRepository memberRepository;
+
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
-
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
-
-    @Bean
-    public JdbcMemberRepository memberRepository() {
-        return new JdbcMemberRepository(dataSource);
-    }
-
 }
