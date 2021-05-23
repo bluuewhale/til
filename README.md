@@ -112,6 +112,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`AOP`: Aspect Oriented Programming](https://velog.io/@koo8624/Spring101-%EA%B4%80%EC%A0%90-%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8DAOP)
 - [`Test`: Test With @SpringBootTest](https://velog.io/@koo8624/Spring-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8%EC%97%90%EC%84%9C-%ED%86%B5%ED%95%A9-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0)
 - [`JPA`: Entity, PersistencyContext and EntityManager](https://velog.io/@koo8624/Spring-EntityManager)
+- [`JPA`: Entity Architecture Tips](https://velog.io/@koo8624/Spring-Entity-%EC%84%A4%EA%B3%84-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
 
 
 &nbsp;
