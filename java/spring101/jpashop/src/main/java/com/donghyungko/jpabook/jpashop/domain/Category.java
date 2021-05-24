@@ -19,7 +19,7 @@ public class Category {
 
     private String name;
 
-    @ManyToMany // 실무에서는 사용하지 않는 것이 좋다.
+    @ManyToMany // 사용하지 않는 것이 좋다.
     @JoinTable(name = "category_item", // JoinTable 방식의 다대다 매칭
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")
