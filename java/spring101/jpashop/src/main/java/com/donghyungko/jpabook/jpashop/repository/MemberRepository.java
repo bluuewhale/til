@@ -21,7 +21,7 @@ public class MemberRepository {
     }
 
     // 회원 조회 by Id
-    public Optional<Member> findById(Long id) {
+    public Optional<Member> findOne(Long id) {
         return Optional.ofNullable(em.find(Member.class, id));
     }
 
