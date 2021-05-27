@@ -115,6 +115,8 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`JPA`: Entity, PersistencyContext and EntityManager](https://velog.io/@koo8624/Spring-EntityManager)
 - [`JPA`: Entity Architecture Tips](https://velog.io/@koo8624/Spring-Entity-%EC%84%A4%EA%B3%84-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
 - [`JPA`: Update Entity With Dirty Check](https://velog.io/@koo8624/Spring-%EB%B3%80%EA%B2%BD-%EA%B0%90%EC%A7%80%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Entity-%EC%88%98%EC%A0%95)
+- [`JPA`: Lazy Fetch and JPA Query Optimization](https://velog.io/@koo8624/Spring-JPA-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94#fetch-join)
+
 
 &nbsp;
 
