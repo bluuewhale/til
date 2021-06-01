@@ -170,6 +170,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Programmers`: (Greedy) Max Number](https://github.com/DonghyungKo/til/blob/master/python/algorithms/greedy/max_number.py)
 - [`Programmers`: (Exhaustive Search) Count Prime Numbers](https://github.com/DonghyungKo/til/blob/master/python/algorithms/exhaustive_search/count_prime_numbers.py)
 - [`Programmers`: (Graph) Farthest Node](https://github.com/DonghyungKo/til/blob/master/python/algorithms/graph/farthest_node.py)
+- [`Others`: (Sort) Merge Sort](https://github.com/DonghyungKo/til/blob/master/python/algorithms/etc/merge_sort.py)
 
 
 &nbsp;
