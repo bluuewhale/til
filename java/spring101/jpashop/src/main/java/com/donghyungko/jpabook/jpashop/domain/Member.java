@@ -23,5 +23,6 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy = "member") // Order 클래스의 member 필드
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 }

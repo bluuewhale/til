@@ -43,11 +43,12 @@ public class OrderSimpleApiController {
                 .map(OrderQueryDto::fromOrder)
                 .collect(Collectors.toList());
 
+        System.out.println(orderQueryDtoList.size());
+
         return new SuccessResponse(orderQueryDtoList);
     }
 
     @Data
-    @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     static class OrderQueryDto {
         private Long orderId;
