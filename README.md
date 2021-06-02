@@ -117,6 +117,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`JPA`: Update Entity With Dirty Check](https://velog.io/@koo8624/Spring-%EB%B3%80%EA%B2%BD-%EA%B0%90%EC%A7%80%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Entity-%EC%88%98%EC%A0%95)
 - [`JPA`: Lazy Fetch and JPA Query Optimization](https://velog.io/@koo8624/Spring-JPA-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94#fetch-join)
 - [`JPA`: @CreationTimeStamp, @UpdateTimeStamp](https://velog.io/@koo8624/Spring-CreationTimestamp-UpdateTimestamp)
+- [`Spring`: Create Custom Validation with @Constraint](https://velog.io/@koo8624/Spring-Constraint%EB%A1%9C-%EC%BB%A4%EC%8A%A4%ED%85%80-validation-%EB%A7%8C%EB%93%A4%EA%B8%B0)
 
 &nbsp;
 
