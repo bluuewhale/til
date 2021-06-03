@@ -208,4 +208,12 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 ## Terraform
 <img src="images/2021-05-09-22-06-29.png" width="200">
 
-- [`Item 01`: Create Azure Resources](https://github.com/DonghyungKo/til/blob/master/devops/terraform)
+- [`Toy Project`: Create Azure Resources](https://github.com/DonghyungKo/til/blob/master/devops/terraform)
+
+&nbsp;
+
+## DataBase and Distributed System
+
+### Contents
+- [`Database`: Google Bigtable](https://velog.io/@koo8624/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-Google-Bigtable)
+
