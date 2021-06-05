@@ -207,7 +207,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 
 &nbsp;
 ## AWS
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fko.wikipedia.org%2Fwiki%2F%25EC%2595%2584%25EB%25A7%2588%25EC%25A1%25B4_%25EC%259B%25B9_%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4&psig=AOvVaw1ln-C5bGvDZUzpfdJOJ-ct&ust=1622959018575000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPidydDn__ACFQAAAAAdAAAAABAY" width="200">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/1200px-Amazon_Web_Services_Logo.svg.png" width="200">
 
 ### Contents
 - [`Access`: Accessing AWS with IAM](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-AWS-Access)
