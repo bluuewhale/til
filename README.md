@@ -229,5 +229,6 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 ## DataBase and Distributed System
 
 ### Contents
+- [`Distributed System`: Apache ZooKeeper](https://velog.io/@koo8624/%EB%B6%84%EC%82%B0-%EC%8B%9C%EC%8A%A4%ED%85%9C-Apache-Zookeeper)
 - [`Database`: Google Bigtable](https://velog.io/@koo8624/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-Google-Bigtable)
 
