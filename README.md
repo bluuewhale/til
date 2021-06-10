@@ -233,4 +233,5 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Database`: Google Bigtable](https://velog.io/@koo8624/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-Google-Bigtable)
 - [`Database`: Index](https://velog.io/@koo8624/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9D%B8%EB%8D%B1%EC%8A%A4Index)
 - [`Elasticsearch`: Architecture](https://velog.io/@koo8624/Database-Elastic-Search-2%ED%8E%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98Architecture)
+- [`Elasticsearch`: Inverted Index & Morpheme Analysis](https://velog.io/@koo8624/Database-Elastic-Search-2%ED%8E%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98Architecture)
 
