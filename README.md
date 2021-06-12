@@ -215,6 +215,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Computing`: EC2 Container Service(ECS)](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-%EC%BB%B4%ED%93%A8%ED%8C%85Computing-EC2)
 - [`Computing`: Lightsail, Batch, Lambda and Elastic Beanstalk](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Computing-Lightsail-Batch-Beanstalk-Lambda)
 - [`Storage`: S3](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Storage-S3)
+- [`Storage`: S3 Glacier Deep Archive](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-S3-Glacier-Deep-Archive)
 - [`Storage`: Elastic Block Storage(EBS)](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Storage-AWS-Elastic-Block-Store)
 - [`Storage`: Elastic File System(EFS)](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-AWS-EFS)
 
