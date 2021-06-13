@@ -218,6 +218,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Storage`: S3 Glacier Deep Archive](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-S3-Glacier-Deep-Archive)
 - [`Storage`: Elastic Block Storage(EBS)](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Storage-AWS-Elastic-Block-Store)
 - [`Storage`: Elastic File System(EFS)](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-AWS-EFS)
+- [`Storage`: Storage Gateway](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Storage-Storage-Gateway)
 
 &nbsp;
 
