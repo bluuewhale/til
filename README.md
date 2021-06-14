@@ -219,6 +219,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Storage`: Elastic Block Storage(EBS)](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Storage-AWS-Elastic-Block-Store)
 - [`Storage`: Elastic File System(EFS)](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-AWS-EFS)
 - [`Storage`: Storage Gateway](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Storage-Storage-Gateway)
+- [`Storage`: VPC 01](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-VPC-1%ED%8E%B8)
 
 &nbsp;
 
