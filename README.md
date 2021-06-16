@@ -177,34 +177,6 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 &nbsp;
 # Devops
 
-## Docker & Docker Compose
-<img src="images/2021-05-09-21-54-11.png" width="200">
-
-### Contents
-- [`Overview`: Docker Architecture Overview](https://velog.io/@koo8624/Docker-%EB%B2%88%EC%97%AD-%EB%8F%84%EC%BB%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Docker-Architecture-Overview)
-- [`Container`: Docker Container: Under the Hood](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-Docker-Container-Under-the-Hood)
-- [`FileSystem`: Docker File System: Union File System](https://velog.io/@koo8624/Docker-%EC%9C%A0%EB%8B%88%EC%98%A8-%ED%8C%8C%EC%9D%BC-%EC%8B%9C%EC%8A%A4%ED%85%9C-Union-File-System)
-- [`Storage Driver`: UFS and Storage Driver](https://velog.io/@koo8624/Docker-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-Storage-Driver)
-- [`Network`: Docker Network: Under the Hood](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Under-the-Hood)
-- [`Network`: Docker Network Overview](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Overview)
-- [`Toy Project`: Build redis image](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/redis-image/Dockerfile)
-- [`Toy Project`: Build simple web application](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/simpleweb)
-- [`Toy Project`: Deploy toy web application with docker-compose](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/visits-starter)
-- [`Toy Project`: Deploy frontend application with docker-compose](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/simpleweb)
-- [`Toy Project`: Deploy complex web application with docker-compose](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/complex)
-
-&nbsp;
-## k8s
-<img src="images/2021-05-09-22-03-15.png" width="200">
-
-### Contents
-- [`Toy Project`: Deploy simple web application](https://github.com/BlueWhaleKo/til/blob/master/devops/k8s/simplek8s)
-- [`Architecture`: Kubernetes Architecture Overview](https://velog.io/@koo8624/%EB%B2%88%EC%97%AD-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Kubernetes-Architecture-Explained)
-- [`API Server`: Kubernetes API Server](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-API-%EC%84%9C%EB%B2%84)
-- [`Network`: Understanding Kubernetes Networking](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Understanding-kubernetes-networking)
-- [`Probe`: Probes in Kubernetes](https://velog.io/@koo8624/Kubernetes-Probes)
-
-
 &nbsp;
 ## AWS
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/1200px-Amazon_Web_Services_Logo.svg.png" width="200">
@@ -222,6 +194,38 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Network`: VPC: Components](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-VPC-1%ED%8E%B8)
 - [`Network`: VPC: Network Interfaces](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-VPC-Network-Interfaces)
 - [`Network`: VPC: NAT Devices](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-NAT-Devices)
+
+&nbsp;
+
+## Docker & Docker Compose
+<img src="images/2021-05-09-21-54-11.png" width="200">
+
+### Contents
+- [`Overview`: Docker Architecture Overview](https://velog.io/@koo8624/Docker-%EB%B2%88%EC%97%AD-%EB%8F%84%EC%BB%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Docker-Architecture-Overview)
+- [`Container`: Docker Container: Under the Hood](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-Docker-Container-Under-the-Hood)
+- [`FileSystem`: Docker File System: Union File System](https://velog.io/@koo8624/Docker-%EC%9C%A0%EB%8B%88%EC%98%A8-%ED%8C%8C%EC%9D%BC-%EC%8B%9C%EC%8A%A4%ED%85%9C-Union-File-System)
+- [`Storage Driver`: UFS and Storage Driver](https://velog.io/@koo8624/Docker-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-Storage-Driver)
+- [`Network`: Docker Network: Under the Hood](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Under-the-Hood)
+- [`Network`: Docker Network Overview](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Overview)
+- [`Toy Project`: Build redis image](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/redis-image/Dockerfile)
+- [`Toy Project`: Build simple web application](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/simpleweb)
+- [`Toy Project`: Deploy toy web application with docker-compose](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/visits-starter)
+- [`Toy Project`: Deploy frontend application with docker-compose](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/simpleweb)
+- [`Toy Project`: Deploy complex web application with docker-compose](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/complex)
+
+&nbsp;
+
+## k8s
+<img src="images/2021-05-09-22-03-15.png" width="200">
+
+### Contents
+- [`Toy Project`: Deploy simple web application](https://github.com/BlueWhaleKo/til/blob/master/devops/k8s/simplek8s)
+- [`Architecture`: Kubernetes Architecture Overview](https://velog.io/@koo8624/%EB%B2%88%EC%97%AD-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-Kubernetes-Architecture-Explained)
+- [`API Server`: Kubernetes API Server](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-API-%EC%84%9C%EB%B2%84)
+- [`Network`: Understanding Kubernetes Networking](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Understanding-kubernetes-networking)
+- [`Probe`: Probes in Kubernetes](https://velog.io/@koo8624/Kubernetes-Probes)
+
+
 
 &nbsp;
 
