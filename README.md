@@ -194,6 +194,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Network`: VPC: Components](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-VPC-1%ED%8E%B8)
 - [`Network`: VPC: Network Interfaces](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-VPC-Network-Interfaces)
 - [`Network`: VPC: NAT Devices](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-NAT-Devices)
+- [`Network`: Network: Bastion Host](https://velog.io/@koo8624/AWS-%EB%B0%B1%EC%84%9C-Network-Bastion-Host)
 
 &nbsp;
 
