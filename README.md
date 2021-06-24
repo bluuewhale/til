@@ -1,4 +1,4 @@
-# Today I've learned
+# Today I learned
 this repository is where I write code implementations of what I've learned everyday.
 
 &nbsp;
