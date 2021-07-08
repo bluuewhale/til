@@ -50,6 +50,18 @@ this repository is where I write code implementations of what I've learned every
 - [`No.283`: Move Zeroes](https://github.com/BlueWhaleKo/til/blob/master/rust/leetcode/no283_Move_Zeroes/src/lib.rs)
 - [`No.448`: Find All Numbers Disappeared in an Array](https://github.com/BlueWhaleKo/til/tree/master/rust/leetcode/no448_Find_All_Numbers_Disappeared_In_An_Array)
 
+&nbsp;
+# Golang
+<img src="images/golang.png" width="200">
+
+&nbsp;
+
+## A tour or Go
+
+- [`Chapter 01`: Hello Go](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/01_hello/main.go)
+- [`Chapter 02`: Package](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/02_package/main.go)
+- [`Chapter 03`: Iterations and Conditions](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/03_iteration_and_condition/main.go)
+- [`Chapter 04`: Data Structures](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/04_data_structures/main.go)
 
 &nbsp;
 # Java
