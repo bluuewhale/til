@@ -52,7 +52,7 @@ this repository is where I write code implementations of what I've learned every
 
 &nbsp;
 # Golang
-<img src="images/golang.png" width="200">
+<img src="images/golang3.png" width="200">
 
 &nbsp;
 
