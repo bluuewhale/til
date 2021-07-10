@@ -62,7 +62,8 @@ this repository is where I write code implementations of what I've learned every
 - [`Chapter 02`: Package](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/02_package/main.go)
 - [`Chapter 03`: Iterations and Conditions](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/03_iteration_and_condition/main.go)
 - [`Chapter 04`: Data Structures](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/04_data_structures/main.go)
-- [`Chapter 05`: Methods and Interfaces](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/04_data_structures/main.go)
+- [`Chapter 05`: Methods and Interfaces](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/05_methods_and_interfaces/main.go)
+- [`Chapter 06`: Concurrency](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/06_goroutines)
 
 &nbsp;
 # Java
