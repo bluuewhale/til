@@ -33,12 +33,52 @@ variable "aws_profile" {
   default     = "mfa"
 }
 
-variable "region" {
+// aws cluster
+variable "cluster_version" {
+  type = string
+}
+
+variable "cluster_name" {
   type    = string
-  default = "sa-east-1" // 상파울로
+  default = "onboarding-project-B"
+}
+
+variable "cluster_suffix" {
+  type    = string
+  default = ""
+}
+
+variable "kubernetes_service_ipv4_cidr" {
+  type    = string
+  default = "172.20.0.0/16"
 }
 
 
-locals {
-  cidr_blocks_sucho = ["103.114.125.1/32", "103.114.125.2/32"]
+// AMI
+variable "worker_ami_name_filter" {
+  type    = string
+  default = ""
+}
+
+variable "worker_ami_owner_id" {
+  description = "The ID of the owner for the AMI to use for the AWS EKS Worker"
+  type        = string
+  default     = "amazon"
+}
+
+
+// aws iam
+variable "cluster_iam_role_name" {
+  type    = string
+  default = ""
+}
+
+variable "iam_path" {
+  type    = string
+  default = "/"
+}
+
+variable "iam_permissions_boundary" {
+  type    = string
+  default = null
 }
