@@ -6,7 +6,7 @@ provider "aws" {
   default_tags {
     tags = {
       Phase     = "Test"
-      Owner     = "DonghyungKo"
+      Owner     = "Donghyung Ko"
       Workspace = "BlueWhale/onboarding-projects/project-B"
     }
   }

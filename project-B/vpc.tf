@@ -3,7 +3,7 @@ data "aws_availability_zones" "az" {}
 module "vpc" {
   source = "../module/vpc"
 
-  name = "main-vpc"
+  name = var.vpc_name
   cidr = "10.0.0.0/16"
 
   azs = [
@@ -12,15 +12,14 @@ module "vpc" {
     data.aws_availability_zones.az.names[2]
   ]
 
-  public_subnets  = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  private_subnets = ["10.0.100.0/24", "10.0.101.0/24", "10.0.102.0/24"]
+  public_subnets  = var.public_subnets
+  private_subnets = var.private_subnets
 
-  enable_nat_gateway = true
-
+  enable_nat_gateway = true // NAT Gateway per public subnets
 
   tags = {
-    Environment = "Test"
-    Project     = "onboarding-project-B"
-    Owner       = "DonghyungKo"
+    Phase     = "Test"
+    Owner     = "Donghyung Ko"
+    Workspace = "BlueWhale/onboarding-projects/project-B"
   }
 }
