@@ -21,6 +21,7 @@ resource "aws_eks_node_group" "webapp" {
       scaling_config[0].desired_size
     ]
   }
+  labels = local.node_group_webapp_settings.labels
 
   depends_on = [
     aws_iam_role_policy_attachment.webapp_AmazonEKSWorkerNodePolicy,
