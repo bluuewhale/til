@@ -17,9 +17,9 @@ data "aws_iam_policy_document" "cluster_assume_role_policy" {
 resource "aws_iam_role" "cluster" {
   name                  = local.cluster_iam_role_name
   assume_role_policy    = data.aws_iam_policy_document.cluster_assume_role_policy.json
-  path                  = var.iam_path
+  path                  = local.iam_path
   force_detach_policies = true
-  permissions_boundary  = var.iam_permissions_boundary
+  permissions_boundary  = local.iam_permissions_boundary
 }
 
 // Managed policies attached to IAM role
@@ -55,10 +55,10 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceControlle
 //
 //}
 //resource "aws_iam_policy" "cluster_elb_sl_role_creation" {
-//  name        = "${var.cluster_prefix}-elb-sl-role-creation"
+//  name        = "${local.cluster_prefix}-elb-sl-role-creation"
 //  description = "Permission for EKS to create AWSServiceRoleForElasticBalancing service-linked role"
 //  policy      = data.aws_iam_policy_document.cluster_elb_sl_role_creation.json
-//  path        = var.iam_path
+//  path        = local.iam_path
 //}
 //
 //resource "aws_iam_role_policy_attachment" "cluster_elb_sl_role_creation" {

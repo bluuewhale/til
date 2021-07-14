@@ -1,46 +1,54 @@
-// VPC
+// [VPC]
 variable "vpc_name" {
   type    = string
-  default = "vpc-main"
+  default = ""
 }
 
 variable "region" {
   type    = string
-  default = "sa-east-1" // 상파울로
+  default = "" // 상파울로
 }
 
-
-variable "public_subnets" {
-  type    = list(string)
-  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+variable "vpc_cidr" {
+  type        = string
+  default     = ""
+  description = "CIDR block for VPC"
 }
 
-variable "private_subnets" {
-  type    = list(string)
-  default = ["10.0.100.0/24", "10.0.101.0/24", "10.0.102.0/24"]
+variable "public_subnet_cidrs" {
+  type        = list(string)
+  description = "CIDR blocks for public subnet in VPC"
+  default     = [""]
 }
 
-// aws provider
+variable "private_subnet_cidrs" {
+  type        = list(string)
+  description = "CIDR blocks for private subnet in VPC"
+  default     = [""]
+}
+
+// [Provider]
 variable "aws_credentials_path" {
   type        = string
-  description = "path to AWS credential configuration file"
-  default     = "~/.aws/credentials"
+  description = "Path to AWS credential configuration file"
+  default     = ""
 }
 
 variable "aws_profile" {
   type        = string
   description = "AWS profile configuration. Refers to AWS_PROFILE"
-  default     = "mfa"
+  default     = ""
 }
 
-// aws cluster
+// [EKS cluster]
 variable "cluster_version" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "cluster_name" {
   type    = string
-  default = "onboarding-project-B"
+  default = ""
 }
 
 variable "cluster_suffix" {
@@ -49,8 +57,46 @@ variable "cluster_suffix" {
 }
 
 variable "kubernetes_service_ipv4_cidr" {
-  type    = string
-  default = "172.20.0.0/16"
+  type        = string
+  description = "CIDR block for Kubernetes Service objects in cluster"
+  default     = ""
+}
+
+// [Node Group]
+variable "node_group_name" {
+  type        = string
+  default     = ""
+  description = "Name of the node group"
+}
+
+variable "node_group_instance_types" {
+  type        = list(string)
+  default     = [""]
+  description = "Instance type of the node group"
+}
+
+variable "node_group_disk_size" {
+  type        = string
+  default     = ""
+  description = "Disk size of nodes in node group"
+}
+
+variable "node_group_desired_size" {
+  type        = string
+  default     = ""
+  description = "Desired worker capacity in ASG"
+}
+
+variable "node_group_max_size" {
+  type        = string
+  default     = ""
+  description = "Maximum worker capacity in ASG"
+}
+
+variable "node_group_min_size" {
+  type        = string
+  default     = ""
+  description = "Minimum worker capacity in ASG"
 }
 
 
@@ -63,7 +109,7 @@ variable "worker_ami_name_filter" {
 variable "worker_ami_owner_id" {
   description = "The ID of the owner for the AMI to use for the AWS EKS Worker"
   type        = string
-  default     = "amazon"
+  default     = ""
 }
 
 
@@ -73,12 +119,17 @@ variable "cluster_iam_role_name" {
   default = ""
 }
 
+variable "worker_iam_role_name" {
+  type    = string
+  default = ""
+}
+
 variable "iam_path" {
   type    = string
-  default = "/"
+  default = ""
 }
 
 variable "iam_permissions_boundary" {
   type    = string
-  default = null
+  default = ""
 }
