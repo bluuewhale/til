@@ -67,8 +67,8 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceControlle
 //}
 
 
-// worker
-data "aws_iam_policy_document" "worker_assume_role_policy" {
+// webapp
+data "aws_iam_policy_document" "webapp_assume_role_policy" {
   statement {
     sid = "EKSWorkerAssumeRole"
 
@@ -83,9 +83,9 @@ data "aws_iam_policy_document" "worker_assume_role_policy" {
   }
 }
 
-resource "aws_iam_role" "worker" {
-  name                  = local.worker_iam_role_name
-  assume_role_policy    = data.aws_iam_policy_document.worker_assume_role_policy.json
+resource "aws_iam_role" "webapp" {
+  name                  = local.webapp_iam_role_name
+  assume_role_policy    = data.aws_iam_policy_document.webapp_assume_role_policy.json
   path                  = local.iam_path
   force_detach_policies = true
   permissions_boundary  = local.iam_permissions_boundary
@@ -95,22 +95,22 @@ resource "aws_iam_role" "worker" {
 
 // (Required) Enable EC2 Describe Actions
 // see https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy$jsonEditor
-resource "aws_iam_role_policy_attachment" "worker_AmazonEKSWorkerNodePolicy" {
+resource "aws_iam_role_policy_attachment" "webapp_AmazonEKSWorkerNodePolicy" {
   policy_arn = "${local.policy_arn_prefix}/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.worker.name
+  role       = aws_iam_role.webapp.name
 }
 
 // (Required)
-resource "aws_iam_role_policy_attachment" "worker_AmazonEC2ContainerRegistryReadOnly" {
+resource "aws_iam_role_policy_attachment" "webapp_AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "${local.policy_arn_prefix}/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.worker.name
+  role       = aws_iam_role.webapp.name
 }
 
 // (Optional) Needed for Amazon VPC CNI plugin
 // see: https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy$jsonEditor
-//resource "aws_iam_role_policy_attachment" "worker_AmazonEKSCNIPolicy" {
+//resource "aws_iam_role_policy_attachment" "webapp_AmazonEKSCNIPolicy" {
 //  policy_arn = "${local.policy_arn_prefix}/AmazonEKS_CNI_Policy"
-//  role       = aws_iam_role.worker.name
+//  role       = aws_iam_role.webapp.name
 //}
 //
 

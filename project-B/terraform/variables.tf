@@ -84,30 +84,30 @@ variable "node_group_disk_size" {
 variable "node_group_desired_size" {
   type        = string
   default     = ""
-  description = "Desired worker capacity in ASG"
+  description = "Desired webapp capacity in ASG"
 }
 
 variable "node_group_max_size" {
   type        = string
   default     = ""
-  description = "Maximum worker capacity in ASG"
+  description = "Maximum webapp capacity in ASG"
 }
 
 variable "node_group_min_size" {
   type        = string
   default     = ""
-  description = "Minimum worker capacity in ASG"
+  description = "Minimum webapp capacity in ASG"
 }
 
 
 // AMI
-variable "worker_ami_name_filter" {
+variable "webapp_ami_name_filter" {
   type    = string
   default = ""
 }
 
-variable "worker_ami_owner_id" {
-  description = "The ID of the owner for the AMI to use for the AWS EKS Worker"
+variable "webapp_ami_owner_id" {
+  description = "The ID of the owner for the AMI to use for the AWS EKS webapp"
   type        = string
   default     = ""
 }
@@ -119,7 +119,7 @@ variable "cluster_iam_role_name" {
   default = ""
 }
 
-variable "worker_iam_role_name" {
+variable "webapp_iam_role_name" {
   type    = string
   default = ""
 }
