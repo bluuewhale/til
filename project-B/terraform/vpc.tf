@@ -1,7 +1,7 @@
 data "aws_availability_zones" "az" {}
 
 module "vpc" {
-  source = "../module/vpc"
+  source = "./module/vpc"
 
   name = local.vpc_name
   cidr = local.vpc_cidr
