@@ -48,23 +48,33 @@ fi
 
 
 # Get Helm repo for ingress-nginx if not exists
-log_info "Get Helm repo 'ingress-nginx' if not exists"
-
 hasRepo=$(helm repo list | grep ingress-nginx | wc -l)
 if ! (( $hasRepo )) ; then
+    log_info "Get Helm repo 'ingress-nginx'"
 	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 fi
 
 log_info "Update Helm repo"
 helm repo update
 
-# Install ingress-nginx chart
-hasInstall=$(helm list | grep ingress-nginx | wc -l)
-if (( hasInstall )) ; then
+# Install/Upgrade ingress-nginx chart
+hasIngressNginxInstall=$(helm list --all-namespaces | grep ingress-nginx | wc -l)
+if (( hasIngressNginxInstall )) ; then
 	log_info "Upgrade helm chart 'ingress-nginx'"
-	helm upgrade --values ingress-nginx-values.yaml ingress-nginx ingress-nginx/ingress-nginx --install > /dev/null
+	helm upgrade --values ./values/ingress-nginx-values.yaml ingress-nginx ingress-nginx/ingress-nginx --install > /dev/null
 else 
 	log_info "Install helm chart 'ingress-nginx'"
-	helm install --values ingress-nginx-values.yaml ingress-nginx ingress-nginx/ingress-nginx > /dev/null
+	helm install --values ./values/ingress-nginx-values.yaml ingress-nginx ingress-nginx/ingress-nginx > /dev/null
 fi
 
+# Install/Upgrade web application chart
+hasWebAppInstall=$(helm list --all-namespaces | grep webapp | wc -l )
+if (( hasWebAppInstall )) ; then
+	log_info "Upgrade helm chart 'webapp'"
+	helm upgrade --values ./values/webapp-values.yaml --namespace webapp webapp ./package/webapp-0.1.0.tgz --install 
+else 
+	log_info "Install helm chart 'webapp'"
+	helm install --values ./values/webapp-values.yaml --namespace webapp --create-namespace webapp ./package/webapp-0.1.0.tgz
+fi
+
+log_info "Successfully launched applications"

@@ -1,0 +1,46 @@
+{{- if .Values.deployment.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      {{- range $k, $v := .Values.deployment.matchLabels }}
+      {{ $k }}: {{ $v }}
+      {{- end}}
+  template:
+    metadata:
+      labels:
+        {{- include "webapp.labels" . | nindent 8 }}
+        {{- if .Values.deployment.labels }}
+        {{- range $k, $v := .Values.deployment.labels}}
+        {{ $k }}: {{ $v }}
+        {{- end}}
+      {{- end }}
+    spec:
+      containers:
+        {{- range .Values.deployment.containers }}
+        - name: {{ .name }}
+          image: {{ .image }}
+          ports:
+            {{- range $v := .ports }}
+            - containerPort: {{ $v }}
+            {{- end }}
+          {{- if .resources }}
+          resources:
+            {{- if  .resources.limits }}
+            limits: 
+              memory: {{ .resources.limits.memory }}
+              cpu: {{ .resources.limits.cpu }}
+            {{- end }}
+            {{- if  .resources.requests }}
+            requests: 
+              memory: {{ .resources.requests.memory }}
+              cpu: {{ .resources.requests.cpu }}
+            {{- end }}
+          {{- end}}
+        {{- end }}
+{{- end }}

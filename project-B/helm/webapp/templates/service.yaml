@@ -1,0 +1,21 @@
+{{- if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{ include "webapp.labels" . | nindent 4 }}
+spec:
+  {{ if .Values.service.selector }}
+  selector:
+    {{- range $k, $v := .Values.service.selector }}
+    {{ $k }}: {{ $v | quote }}
+    {{- end }}
+  {{- end }}
+
+  ports:
+  - port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.port }}
+    protocol: TCP
+{{- end }}
