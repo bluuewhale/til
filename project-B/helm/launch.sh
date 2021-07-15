@@ -1,6 +1,12 @@
 #!/bin/bash
-set -e
+#
+# [Description]
+# This script is for launching a simple web application with Helm
+#
+# [Maintainer]
+# Donghyung Ko <koko8624@pubg.com>
 
+set -e
 
 #====================== log ======================
 log_info() {
