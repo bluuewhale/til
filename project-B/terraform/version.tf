@@ -6,4 +6,10 @@ terraform {
     }
     kubernetes = "~> 1.11"
   }
+
+  backend "s3" {
+    key    = "webapp.tfstate"
+    bucket = "onboarding-project-b-donghyungko"
+    region = "sa-east-1"
+  }
 }
