@@ -28,4 +28,8 @@ resource "aws_eks_node_group" "webapp" {
     aws_iam_role_policy_attachment.webapp_AmazonEC2ContainerRegistryReadOnly,
     //aws_iam_role_policy_attachment.webapp_AmazonEKSCNIPolicy,
   ]
+
+  tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "owned"
+  }
 }
