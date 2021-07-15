@@ -42,29 +42,29 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceControlle
 }
 
 // Custom policy to provision ELB
-//data "aws_iam_policy_document" "cluster_elb_sl_role_creation" {
-//  statement {
-//    effect = "Allow"
-//    actions = [
-//      "ec2:DescribeAccountAttributes",
-//      "ec2:DescribeInternetGateways",
-//      "ec2:DescribeAddresses"
-//    ]
-//    resources = ["*"]
-//  }
-//
-//}
-//resource "aws_iam_policy" "cluster_elb_sl_role_creation" {
-//  name        = "${local.cluster_prefix}-elb-sl-role-creation"
-//  description = "Permission for EKS to create AWSServiceRoleForElasticBalancing service-linked role"
-//  policy      = data.aws_iam_policy_document.cluster_elb_sl_role_creation.json
-//  path        = local.iam_path
-//}
-//
-//resource "aws_iam_role_policy_attachment" "cluster_elb_sl_role_creation" {
-//  policy_arn = aws_iam_policy.cluster_elb_sl_role_creation.arn
-//  role       = aws_iam_role.cluster.name
-//}
+data "aws_iam_policy_document" "cluster_elb_sl_role_creation" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "ec2:DescribeAccountAttributes",
+      "ec2:DescribeInternetGateways",
+      "ec2:DescribeAddresses"
+    ]
+    resources = ["*"]
+  }
+
+}
+resource "aws_iam_policy" "cluster_elb_sl_role_creation" {
+  name        = "elb-sl-role-creation"
+  description = "Permission for EKS to create AWSServiceRoleForElasticBalancing service-linked role"
+  policy      = data.aws_iam_policy_document.cluster_elb_sl_role_creation.json
+  path        = local.iam_path
+}
+
+resource "aws_iam_role_policy_attachment" "cluster_elb_sl_role_creation" {
+  policy_arn = aws_iam_policy.cluster_elb_sl_role_creation.arn
+  role       = aws_iam_role.cluster.name
+}
 
 
 // webapp
