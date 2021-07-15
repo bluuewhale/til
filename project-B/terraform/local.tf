@@ -7,11 +7,12 @@ locals {
   region               = var.region != "" ? var.region : "sa-east-1"
 
   // [VPC]
-  vpc_name             = var.vpc_name != "" ? var.vpc_name : "onboarding-project-B"
-  vpc_azs              = var.vpc_azs[0] != "" ? var.vpc_azs : ["sa-east-1a", "sa-east-1c"]
-  vpc_cidr             = var.vpc_cidr != "" ? var.vpc_cidr : "10.0.0.0/16"                                                                  // CIDR block for VPC
-  public_subnet_cidrs  = var.public_subnet_cidrs[0] != "" ? var.public_subnet_cidrs : ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]         // CIDR block for public subnets in VPC
-  private_subnet_cidrs = var.private_subnet_cidrs[0] != "" ? var.private_subnet_cidrs : ["10.0.100.0/24", "10.0.101.0/24", "10.0.102.0/24"] // CIDR block for priavate subnets in VPC
+  vpc_name                 = var.vpc_name != "" ? var.vpc_name : "onboarding-project-B"
+  vpc_azs                  = var.vpc_azs[0] != "" ? var.vpc_azs : ["sa-east-1a", "sa-east-1c"]
+  vpc_cidr                 = var.vpc_cidr != "" ? var.vpc_cidr : "10.0.0.0/16"                                                                  // CIDR block for VPC
+  public_subnet_cidrs      = var.public_subnet_cidrs[0] != "" ? var.public_subnet_cidrs : ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]         // CIDR block for public subnets in VPC
+  private_subnet_cidrs     = var.private_subnet_cidrs[0] != "" ? var.private_subnet_cidrs : ["10.0.100.0/24", "10.0.101.0/24", "10.0.102.0/24"] // CIDR block for priavate subnets in VPC
+  wait_for_cluster_timeout = var.wait_for_cluster_timeout != "" ? tonumber(var.wait_for_cluster_timeout) : 600
 
   // [EKS]
   cluster_name                 = var.cluster_name != "" ? var.cluster_name : "onboarding-project-B"                          // EKS cluster name

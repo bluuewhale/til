@@ -24,3 +24,13 @@ resource "aws_eks_cluster" "eks" {
     aws_iam_role_policy_attachment.cluster_AmazonEKSVPCResourceControllerPolicy,
   ]
 }
+
+data "http" "wait_for_cluster" {
+  url            = format("%s/healthz", aws_eks_cluster.eks.endpoint)
+  ca_certificate = base64decode(aws_eks_cluster.eks.certificate_authority[0].data)
+  timeout        = local.wait_for_cluster_timeout
+
+  depends_on = [
+    aws_eks_cluster.eks,
+  ]
+}

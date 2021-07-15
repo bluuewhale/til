@@ -67,6 +67,12 @@ variable "kubernetes_service_ipv4_cidr" {
   default     = ""
 }
 
+variable "wait_for_cluster_timeout" {
+  type        = string
+  description = "A timeout (in seconds) to wait for the cluster to be ready"
+  default     = ""
+}
+
 // [Node Group]
 variable "node_group_name" {
   type        = string

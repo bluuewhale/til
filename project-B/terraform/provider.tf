@@ -11,3 +11,7 @@ provider "aws" {
     }
   }
 }
+
+provider "http" {
+
+}
