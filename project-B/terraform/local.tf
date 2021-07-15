@@ -51,8 +51,8 @@ locals {
   // [IAM Role]
   ec2_principal            = "ec2.${data.aws_partition.current.dns_suffix}" // e.g. amazonaws.com in AWS Commercial, amazonaws.com.cn in AWS China
   eks_principal            = "eks.amazonaws.com"                            // TODO: ec2와 달리 domain-suffix가 변하지 않는지 여부 확인해보기
-  cluster_iam_role_name    = var.cluster_iam_role_name != "" ? var.cluster_iam_role_name : "${var.cluster_suffix}-cluster-iam-role"
-  webapp_iam_role_name     = var.webapp_iam_role_name != "" ? var.webapp_iam_role_name : "${var.cluster_suffix}-webapp-iam-role"
+  cluster_iam_role_name    = var.cluster_iam_role_name != "" ? var.cluster_iam_role_name : "cluster-iam-role"
+  webapp_iam_role_name     = var.webapp_iam_role_name != "" ? var.webapp_iam_role_name : "webapp-iam-role"
   policy_arn_prefix        = "arn:${data.aws_partition.current.partition}:iam::aws:policy"
   iam_path                 = var.iam_path != "" ? var.iam_path : "/"
   iam_permissions_boundary = var.iam_permissions_boundary != "" ? var.iam_permissions_boundary : null
