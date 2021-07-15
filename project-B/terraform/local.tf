@@ -16,7 +16,7 @@ locals {
 
   // [EKS]
   cluster_name                 = var.cluster_name != "" ? var.cluster_name : "onboarding-project-B"                          // EKS cluster name
-  cluster_version              = var.cluster_version != "" ? var.cluster_version : "1.17"                                    // Version of the EKS cluster
+  cluster_version              = var.cluster_version != "" ? var.cluster_version : "1.19"                                    // Version of the EKS cluster
   cluster_suffix               = var.cluster_suffix != "" ? var.cluster_suffix : local.cluster_name                          // EKS cluster resource suffix
   kubernetes_service_ipv4_cidr = var.kubernetes_service_ipv4_cidr != "" ? var.kubernetes_service_ipv4_cidr : "172.20.0.0/16" // CIDR block for Kubernetes Services
   endpoint_private_access      = true
