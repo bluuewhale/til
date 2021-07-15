@@ -9,6 +9,11 @@ terraform {
       version = "3.1.0"
     }
   }
+  backend "s3" {
+    key    = "project-a.tfstate"
+    bucket = "onboarding-project-b-donghyungko"
+    region = "sa-east-1"
+  }
 }
 
 
