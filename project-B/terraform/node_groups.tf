@@ -15,13 +15,13 @@ resource "aws_eks_node_group" "webapp" {
   // [Optional]
   ami_type       = local.node_group_webapp_settings.ami_type
   instance_types = local.node_group_webapp_settings.instance_types
+  labels         = local.node_group_webapp_settings.labels
 
   lifecycle {
     ignore_changes = [
       scaling_config[0].desired_size
     ]
   }
-  labels = local.node_group_webapp_settings.labels
 
   depends_on = [
     aws_iam_role_policy_attachment.webapp_AmazonEKSWorkerNodePolicy,

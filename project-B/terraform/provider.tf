@@ -1,5 +1,5 @@
 provider "aws" {
-  region                  = "sa-east-1" // 남아메리카 상파울로
+  region                  = local.region
   shared_credentials_file = local.aws_credentials_path
   profile                 = local.aws_profile
 

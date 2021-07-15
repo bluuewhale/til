@@ -1,12 +1,30 @@
+// [Provider]
+variable "aws_credentials_path" {
+  type        = string
+  description = "Path to AWS credential configuration file"
+  default     = ""
+}
+
+variable "aws_profile" {
+  type        = string
+  description = "AWS profile configuration. Refers to AWS_PROFILE"
+  default     = ""
+}
+
+variable "region" {
+  type    = string
+  default = "" // 상파울로
+}
+
 // [VPC]
 variable "vpc_name" {
   type    = string
   default = ""
 }
 
-variable "region" {
-  type    = string
-  default = "" // 상파울로
+variable "vpc_azs" {
+  type    = list(string)
+  default = [""]
 }
 
 variable "vpc_cidr" {
@@ -25,19 +43,6 @@ variable "private_subnet_cidrs" {
   type        = list(string)
   description = "CIDR blocks for private subnet in VPC"
   default     = [""]
-}
-
-// [Provider]
-variable "aws_credentials_path" {
-  type        = string
-  description = "Path to AWS credential configuration file"
-  default     = ""
-}
-
-variable "aws_profile" {
-  type        = string
-  description = "AWS profile configuration. Refers to AWS_PROFILE"
-  default     = ""
 }
 
 // [EKS cluster]
