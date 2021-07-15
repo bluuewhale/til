@@ -108,11 +108,11 @@ resource "aws_iam_role_policy_attachment" "webapp_AmazonEC2ContainerRegistryRead
 
 // (Optional) Needed for Amazon VPC CNI plugin
 // see: https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy$jsonEditor
-//resource "aws_iam_role_policy_attachment" "webapp_AmazonEKSCNIPolicy" {
-//  policy_arn = "${local.policy_arn_prefix}/AmazonEKS_CNI_Policy"
-//  role       = aws_iam_role.webapp.name
-//}
-//
+resource "aws_iam_role_policy_attachment" "webapp_AmazonEKSCNIPolicy" {
+  policy_arn = "${local.policy_arn_prefix}/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.webapp.name
+}
+
 
 
 
