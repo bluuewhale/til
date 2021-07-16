@@ -26,4 +26,4 @@ echo "Successfully merged KUBECONFIG to ${KUBECONFIG}"
 
 # change context
 kubectx aws
-echo "You are temporarily able to access EKS cluster by using 'kubectl' command with this terminal session only"
+echo "You are now able to access EKS cluster by using 'kubectl' command"
