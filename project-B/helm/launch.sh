@@ -63,8 +63,19 @@ if (( hasIngressNginxInstall )) ; then
 	log_info "Upgrade helm chart 'ingress-nginx'"
 	helm upgrade --values ./values/ingress-nginx-values.yaml ingress-nginx ingress-nginx/ingress-nginx --install > /dev/null
 else 
+    ctx=$(kubectx --current)
+    if [[ "$ctx" == "minikube" ]]; then # explicitly set a random external IP for load-balancer when using minikube
+        (
+        sleep 5;
+        log_info "explicitly set a random external IP for load-balancer when using minikube"
+        kubectl patch svc ingress-nginx-controller \
+            -n default \
+            -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.31.71.218"]}}'
+        ) &
+    fi
+
 	log_info "Install helm chart 'ingress-nginx'"
-	helm install --values ./values/ingress-nginx-values.yaml ingress-nginx ingress-nginx/ingress-nginx > /dev/null
+	helm install --values ./values/ingress-nginx-values.yaml ingress-nginx ingress-nginx/ingress-nginx --wait > /dev/null
 fi
 
 # Install/Upgrade web application chart
