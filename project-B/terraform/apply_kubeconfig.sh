@@ -10,18 +10,23 @@
 set -e
 
 if [[ -z $KUBECONFIG ]]; then
-    OLD_KUBECONFIG="$HOME/.kube/config"
+    OLD_KUBECONFIG=~/.kube/config
 fi
 
 # create new config file from Terraform output
-NEW_KUBECONFIG="$HOME/.kube/eks-webapp.config"
-terraform output -raw kubeconfig > $NEW_KUBECONFIG
-chmod 600 ~/.kube/eks-webapp.config
+NEW_KUBECONFIG=~/.kube/eks-webapp.config
+#terraform output -raw kubeconfig > $NEW_KUBECONFIG
 
-# merge config files
-KUBECONFIG=$OLD_KUBECONFIG:$NEW_CONFIG_PATH 
-kubectl config view --merge --flatten >  ~/.kube/merged.config 
-KUBECONFIG="$HOME/.kube/merged.config"
+# create backup file for original kubeconfig file
+BACKUP_FILE_PATH="$OLD_KUBECONFIG.backup.$(date +%Y-%m-%d.%H:%M:%S)"
+cp $OLD_KUBECONFIG $BACKUP_FILE_PATH
+echo "Create '$BACKUP_FILE_PATH' as backup of original kubeconfig file located at $OLD_KUBECONFIG"
+
+# merge kubeconfigs
+export KUBECONFIG=$OLD_KUBECONFIG:$NEW_KUBECONFIG
+kubectl config view --merge --flatten > ~/.kube/tmptmp.config && mv ~/.kube/tmptmp.config $OLD_KUBECONFIG
+KUBECONFIG=$OLD_KUBECONFIG
+chmod 600 $KUBECONFIG
 echo "Successfully merged KUBECONFIG to ${KUBECONFIG}"
 
 # change context
