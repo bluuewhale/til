@@ -245,6 +245,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`API Server`: Kubernetes API Server](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-API-%EC%84%9C%EB%B2%84)
 - [`Network`: Understanding Kubernetes Networking](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Understanding-kubernetes-networking)
 - [`Probe`: Probes in Kubernetes](https://velog.io/@koo8624/Kubernetes-Probes)
+- [`Scheduling`: Drain, Cordon and Uncordon](https://velog.io/@koo8624/Kubernetes-Drain-Cordon-and-Uncordon)
 
 
 
