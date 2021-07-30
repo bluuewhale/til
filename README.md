@@ -253,7 +253,9 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 ## Terraform
 <img src="images/2021-05-09-22-06-29.png" width="200">
 
-- [`Toy Project`: Create Azure Resources](https://github.com/BlueWhaleKo/til/blob/master/devops/terraform)
+- [`Toy Project`: Create Azure Resources](https://github.com/BlueWhaleKo/til/blob/master/devops/terraform/toyproject-azure)
+- [`Toy Project`: Create AWS VPC & ASG](https://github.com/BlueWhaleKo/til/blob/master/devops/terraform/toyproject-aws-vpc)
+- [`Toy Project`: Create AWS EKS](https://github.com/BlueWhaleKo/til/blob/master/devops/terraform/toyproject-aws-eks)
 
 &nbsp;
 

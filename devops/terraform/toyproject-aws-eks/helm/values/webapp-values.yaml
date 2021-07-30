@@ -1,0 +1,40 @@
+# values for webapp.
+common_labels:
+  enabled: false
+  test: hello-world
+
+ingress:
+  enabled: true
+  name: webapp-ingress
+  annotatios:
+    kubernetes.io/ingress.class: "nginx" 
+
+service:
+  enabled: true
+  name: webapp
+  type: ClusterIP
+  selector:
+    app: webapp # which pods to route traffic to
+  port: 80
+
+deployment:
+  enabled: true
+  name: webapp
+  replicas: 3
+  matchLabels: 
+    app: webapp
+  labels: # needed to be discovered by service
+    app: webapp
+  containers:
+    - name: webapp
+      image: koko8624/go-http-server
+      ports:
+        - 80
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+        requests:
+          memory: "128Mi"
+          cpu: "500m"
+
