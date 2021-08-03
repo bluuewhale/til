@@ -246,6 +246,8 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Network`: Understanding Kubernetes Networking](https://velog.io/@koo8624/Kubernetes-%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Understanding-kubernetes-networking)
 - [`Probe`: Probes in Kubernetes](https://velog.io/@koo8624/Kubernetes-Probes)
 - [`Scheduling`: Drain, Cordon and Uncordon](https://velog.io/@koo8624/Kubernetes-Drain-Cordon-and-Uncordon)
+- [`DNS`: CoreDNS](https://velog.io/@koo8624/Kubernetes-CoreDNS)
+
 
 
 
