@@ -74,6 +74,9 @@ EOF
   sudo systemctl restart docker
   sudo systemctl enable docker
 
+  # Add user group
+  usermod add -aG docker vagrant
+
 }
 
 # install kubernetes
