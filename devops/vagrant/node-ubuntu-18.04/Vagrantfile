@@ -1,0 +1,129 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+
+  config.vm.provider "virtualbox" do |vb|
+    # Customize the amount of memory on the VM:
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  config.vm.network "private_network", ip: "192.168.33.10"
+  #config.vm.synced_folder "../data", "/vagrant_data"
+
+  config.vm.provision "shell", inline: <<-SHELL
+  #!/bin/bash
+  
+  set -ex
+  
+  function load_br_netfilter() {
+    if [[ $(lsmod | grep br_netfilter | wc -l) -eq 0 ]]; then
+      sudo modprobe br_netfilter
+    fi
+  
+    cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+  br_netfilter
+  EOF
+  
+    cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  EOF
+  
+    sudo sysctl --system
+  }
+  
+  # install docker
+  function install_docker() {
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+  
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo \
+      "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable" \
+      | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
+    sudo apt-get update
+    sudo apt-get install -y docker-ce=18.06.2~ce~3-0~ubuntu -y
+  
+    # Create required directories
+    sudo mkdir -p /etc/systemd/system/docker.service.d
+  
+    # Create daemon json config file
+    sudo tee /etc/docker/daemon.json <<EOF
+  {
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+  "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+  }
+  EOF
+  
+    # Start and enable Services
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
+    sudo systemctl enable docker
+  
+  }
+  
+  # install kubernetes
+  function install_kubernetes() {
+    sudo apt-get update
+    sudo apt-get -y install apt-transport-https ca-certificates curl
+    sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  
+    sudo apt-get update
+    sudo apt-get -y install kubelet kubeadm kubectl
+    sudo apt-mark hold kubelet kubeadm kubectl
+  }
+  
+  load_br_netfilter
+  install_docker
+  install_kubernetes
+  SHELL
+
+
+  # Provision
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # NOTE: This will enable public access to the opened port
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine and only allow access
+  # via 127.0.0.1 to disable public access
+  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network "public_network"
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   apt-get update
+  #   apt-get install -y apache2
+  # SHELL
+end
