@@ -26,9 +26,15 @@ function install_docker() {
 
   curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
-
   sudo apt-get update
   sudo apt-get install -y docker-ce
+
+  distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+  && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
+  && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+  sudo apt-get update
+  sudo apt-get install nvidia-docker2 -y
 
   # Create required directories
   sudo mkdir -p /etc/systemd/system/docker.service.d
@@ -36,12 +42,19 @@ function install_docker() {
   # Create daemon json config file
   sudo tee /etc/docker/daemon.json <<EOF
 {
-"exec-opts": ["native.cgroupdriver=systemd"],
-"log-driver": "json-file",
-"log-opts": {
-"max-size": "100m"
-},
-"storage-driver": "overlay2"
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+  "max-size": "100m"
+  },
+  "default-runtime": "nvidia",
+  "storage-driver": "overlay2",
+  "runtimes": {
+    "nvidia": {
+      "path": "nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  }
 }
 EOF
 
@@ -49,10 +62,6 @@ EOF
   sudo systemctl daemon-reload
   sudo systemctl restart docker
   sudo systemctl enable docker
-
-  # Add user group
-  usermod -a -G docker $USER
-
 }
 
 # install kubernetes
