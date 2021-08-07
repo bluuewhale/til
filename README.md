@@ -65,6 +65,9 @@ this repository is where I write code implementations of what I've learned every
 - [`Chapter 05`: Methods and Interfaces](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/05_methods_and_interfaces/main.go)
 - [`Chapter 06`: Concurrency](https://github.com/BlueWhaleKo/til/tree/master/go/a-tour-of-go/06_goroutines)
 
+## Basic Concepts
+- [`Channel`](https://github.com/BlueWhaleKo/til/tree/master/go/channel/main_test.go)
+
 &nbsp;
 # Java
 <img src="images/2021-05-09-22-08-24.png" width="200">  
