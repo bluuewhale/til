@@ -232,6 +232,7 @@ This repository is where I write code implementations of Effective Jave 3rd edit
 - [`Network`: Docker Network: Under the Hood](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Under-the-Hood)
 - [`Network`: Docker Network Overview](https://velog.io/@koo8624/Docker-%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-Docker-Network-Overview)
 - [`Network`: Linux Virtual Network Interfaces](https://velog.io/@koo8624/Linux-Linux-Virtual-networking-Interface)
+- [`Runtime`: Container Runtime: OCI and runc](https://velog.io/@koo8624/Docker-OCI-and-runc)
 - [`Toy Project`: Build redis image](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/redis-image/Dockerfile)
 - [`Toy Project`: Build simple web application](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/simpleweb)
 - [`Toy Project`: Deploy toy web application with docker-compose](https://github.com/BlueWhaleKo/til/blob/master/devops/docker/visits-starter)
