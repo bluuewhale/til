@@ -1,0 +1,22 @@
+{
+  "name": "express-demo",
+  "version": "1.0.0",
+  "description": "express demo project",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "method-override": "^3.0.0",
+    "mongodb": "^4.1.1",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.10.0"
+  }
+}
