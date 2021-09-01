@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const mongo = require('mongodb');
 const Joi = require('joi');
+const jwt = require('../jwt');
 const getClient = require('../../db').get;
 
 const DB = 'sample_mflix';
@@ -11,7 +12,7 @@ async function getCollection() {
 }
 
 // GET /api/movies
-router.get('/', async function (req, res) {
+router.get('/', jwt.verifyToken, async function (req, res) {
   const movieCol = await getCollection();
 
   const query = { runtime: { $lt: 15 } };
@@ -64,7 +65,7 @@ const postSchema = Joi.object().keys({
   }).required(),
 });
 
-router.post('/', async function (req, res) {
+router.post('/', jwt.verifyToken, async function (req, res) {
   const { error, value } = postSchema.validate(req.body);
   if (error) {
     throw error;
@@ -78,7 +79,7 @@ router.post('/', async function (req, res) {
   });
 });
 
-router.get('/:id', async function (req, res) {
+router.get('/:id', jwt.verifyToken, async function (req, res) {
   const query = { _id: new mongo.ObjectId(req.params.id) };
   const options = {
     projection: {

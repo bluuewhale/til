@@ -1,6 +1,7 @@
-var router = require("express").Router();
+var router = require('express').Router();
 
-router.use("/version", require("./versions"));
-router.use("/movies", require("./movies"));
+router.use('/version', require('./versions'));
+router.use('/auth', require('./auth'));
+router.use('/movies', require('./movies'));
 
 module.exports = router;

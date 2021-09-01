@@ -3,6 +3,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const db = require('./db');
+const config = require('./config');
 
 const port = process.env.PORT || 3000;
 
@@ -32,16 +33,14 @@ app.use(require('./routes'));
 // error handler, no stacktraces leaked to user
 app.use(function (err, req, res, next) {
   console.log(err.stack);
-  res.status(err.status || 500).send('internal error');
+  res.status(err.status || 500).send(err.message || 'internal error');
 });
 
-// Mongo
-const mongoUser = process.env.MONGODB_USER || 'admin';
-const mongoPassword = process.env.MONGODB_PASSW || 'admin';
-const mongoUrl = process.env.MONGODB_URL;
-const mongoUri = `mongodb+srv://${mongoUser}:${mongoPassword}@${mongoUrl}`;
+// JWT
+app.set('jwt-secret', config['jwt-secret']);
 
-db.initialize(mongoUri, function (err) {
+// Mongo
+db.initialize(config.mongodbUri, function (err) {
   if (err) {
     throw err;
   }
