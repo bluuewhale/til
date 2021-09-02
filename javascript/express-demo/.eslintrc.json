@@ -1,15 +1,19 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2020
+  },
   "env": {
     "node": true
   },
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "extends": ["airbnb-typescript-prettier"],
   "plugins": ["prettier"],
-  "parserOptions": {
-    "ecmaVersion": 2020
-  },
   "rules": {
     "import/extensions": "off",
     "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "consistent-return": "warn",
+    "@typescript-eslint/no-unused-vars": "warn"
   }
 }
