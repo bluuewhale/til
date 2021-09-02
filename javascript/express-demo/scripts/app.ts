@@ -2,11 +2,11 @@ import express, { Response, Request, NextFunction } from 'express';
 import compression from 'compression';
 import morgan from 'morgan';
 import chalk from 'chalk';
+import { config } from 'dotenv';
+
 import { initClient } from './db';
 import router from './routes/api';
 import { isMyError, MyError } from './errors';
-
-import { config } from 'dotenv';
 
 // Envs
 config();
@@ -49,7 +49,7 @@ app.all('*', (_req, _res, next) => {
 });
 
 // error handler, no stacktraces leaked to user
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error | MyError, _req: Request, res: Response, _next: NextFunction) => {
   if (isMyError(err)) {
     return res.status(err.status || 500).send(err.message || 'internal error');

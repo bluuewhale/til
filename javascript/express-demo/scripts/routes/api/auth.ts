@@ -1,13 +1,13 @@
 import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import Joi from 'joi';
-import utils from '../../lib/utils';
+import { asyncWrapper } from '../../lib/utils';
 
 const router = Router();
 
 router.post(
   '/login',
-  utils.asyncWrapper(async (req: Request, res: Response) => {
+  asyncWrapper(async (req: Request, res: Response) => {
     const schema = Joi.object().keys({
       username: Joi.string().required(),
       password: Joi.string().required(),

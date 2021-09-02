@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import mongo, { ObjectId } from 'mongodb';
-import Joi from 'joi';
+import { ObjectId } from 'mongodb';
 import { asyncWrapper } from '../../lib/utils';
 import { verifyToken } from '../jwt';
 import { getClient } from '../../db';
@@ -33,7 +32,7 @@ router.get('/', verifyToken, async (req, res) => {
 router.post(
   '/',
   verifyToken,
-  asyncWrapper(async (req: Request, res: Response) => {
+  asyncWrapper(async (req: Request, res: Response): Promise<void> => {
     const movieCol = await getMovieCollection();
     const value = await movieSchema.validateAsync(req.body);
     const result = await movieCol.insertOne(value);
@@ -47,7 +46,7 @@ router.post(
 router.get(
   '/:id',
   verifyToken,
-  asyncWrapper(async (req: Request, res: Response, next: NextFunction) => {
+  asyncWrapper(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const movieCol = await getMovieCollection();
     const movie = await movieCol.findOne(
       { _id: new ObjectId(req.params.id) },

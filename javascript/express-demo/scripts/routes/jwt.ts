@@ -15,7 +15,7 @@ function getTokenFromHeader(req: Request): string | null {
 }
 
 // Custom Authentication Middleware
-export function verifyToken(req: RequestWithUsername, _res: Response, next: NextFunction) {
+export function verifyToken(req: RequestWithUsername, _res: Response, next: NextFunction): void {
   const token = getTokenFromHeader(req);
   const secret = req.app.get('jwt-secret');
 
