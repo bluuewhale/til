@@ -1,8 +1,6 @@
-export interface MyError extends Error {
-  status?: number;
-}
-
 export class MyError extends Error {
+  status: number;
+
   constructor(message: string, status: number = 500) {
     super(message);
     this.status = status;
