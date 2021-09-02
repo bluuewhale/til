@@ -1,11 +1,13 @@
-const router = require('express').Router();
-const jwt = require('jsonwebtoken');
-const Joi = require('joi');
-const utils = require('../../lib/utils');
+import { Router, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import Joi from 'joi';
+import utils from '../../lib/utils';
+
+const router = Router();
 
 router.post(
   '/login',
-  utils.asyncWrapper(async (req, res) => {
+  utils.asyncWrapper(async (req: Request, res: Response) => {
     const schema = Joi.object().keys({
       username: Joi.string().required(),
       password: Joi.string().required(),
@@ -36,4 +38,4 @@ router.post(
   })
 );
 
-module.exports = router;
+export default router;
