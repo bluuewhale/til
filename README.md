@@ -71,7 +71,7 @@ this repository is where I write code implementations of what I've learned every
 
 &nbsp;
 # JavaScript
-<img srcd="images/2149683A58CA6BF313.png" width="200">
+<img src="images/2149683A58CA6BF313.png" width="200">
 
 ## Basic Concepts
 - [`Prototype`](https://velog.io/@koo8624/Javascript-Prototype)
