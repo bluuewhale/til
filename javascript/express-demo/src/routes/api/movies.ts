@@ -22,6 +22,7 @@ router.get('/', verifyToken, async (req, res) => {
   const movies = await movieCol
     .find({ runtime: { $lt: 15 } })
     .sort({ title: 1 })
+    .limit(100)
     .project<MovieWithoutId>({ _id: 0 })
     .toArray();
 
