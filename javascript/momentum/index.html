@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Momentum</title>
 </head>
 <body>
-    <form id="login-form">
+    <form id="login-form" class="hidden">
         <input 
             required
             maxlength="15"
@@ -16,7 +16,27 @@
             placeholder="What is your name?"
         />
         <button>Log In</button>
+    </form>
+    <h1 id="greeting" class="hidden"></h1>
+    <h2 id=clock></h2>
+    <div id=weather>
+        <span></span>
+        <span></span>
     </div>
-    <script src="app.js"></script>
+    <form id="todo-form"> 
+        <input type="text" placeholder="What's next?" required>
+    </form>
+    <ul id="todo-list"></ul>
+    <div id="quote">
+        <div id="quote-text"></div>
+        <div id="quote-author"></div>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/greetings.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/quotes.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/todo.js"></script>
+    <script src="js/weather.js"></script>
 </body>
 </html>
