@@ -8,25 +8,32 @@
     <title>Momentum</title>
 </head>
 <body>
-    <form id="login-form" class="hidden">
-        <input 
-            required
-            maxlength="15"
-            type="text"
-            placeholder="What is your name?"
-        />
-        <button>Log In</button>
-    </form>
+    <div id="login-form">
+        <form id="login-form" class="hidden">
+            <input 
+                required
+                maxlength="15"
+                type="text"
+                placeholder="What is your name?"
+            />
+        </form>
+    </div>
     <h1 id="greeting" class="hidden"></h1>
-    <h2 id=clock></h2>
+    <div id=clock>
+        <h2 id=clock></h2>
+    </div>
     <div id=weather>
         <span></span>
         <span></span>
     </div>
-    <form id="todo-form"> 
-        <input type="text" placeholder="What's next?" required>
-    </form>
-    <ul id="todo-list"></ul>
+    <div id="todo-form">
+        <form id="todo-form"> 
+            <input type="text" placeholder="What's next?" required>
+        </form>
+    </div>
+    <div id="todo-list">
+        <ul id="todo-list"></ul>
+    </div>
     <div id="quote">
         <div id="quote-text"></div>
         <div id="quote-author"></div>

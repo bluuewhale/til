@@ -3,7 +3,7 @@ const todoInput = todoForm.querySelector('input');
 const todos = document.querySelector('#todo-list');
 
 const TODO_KEY = 'todo';
-let todoList;
+let TODO_LIST;
 
 class Todo {
   constructor(txt = new Array()) {
@@ -14,14 +14,15 @@ class Todo {
 
 class TodoList {
   constructor(inner) {
-    this.inner = inner;
+    if (inner === undefined) {
+      this.inner = new Array();
+    } else {
+      this.inner = inner;
+    }
   }
 
   push(todo) {
-    console.dir(this);
-    console.log(this.inner);
     this.inner.push(todo);
-
     this.save();
   }
 
@@ -41,13 +42,14 @@ class TodoList {
 }
 
 function loadTodoList() {
-  todoList = new TodoList();
+  TODO_LIST = new TodoList();
 
-  let val = localStorage.getItem(TODO_KEY);
+  let val = JSON.parse(localStorage.getItem(TODO_KEY));
   if (val != null) {
-    todoList.inner = JSON.parse(val);
-    todoList.inner.forEach(displayTodo); // update screen
+    TODO_LIST.inner = val;
+    TODO_LIST.inner.forEach(displayTodo); // update screen
   }
+  console.dir(TODO_LIST);
 }
 
 function displayTodo(todo) {
@@ -62,7 +64,7 @@ function displayTodo(todo) {
 
     // update binded context
     li.remove();
-    todoList.removeById(todo.id);
+    TODO_LIST.removeById(todo.id);
   });
 
   li.appendChild(span);
@@ -77,7 +79,7 @@ function submitTodoForm(event) {
 
   // update
   displayTodo(todo);
-  todoList.push(todo);
+  TODO_LIST.push(todo);
 }
 
 // load on screen
