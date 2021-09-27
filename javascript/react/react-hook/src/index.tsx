@@ -1,12 +1,5 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import ReactDOM from 'react-dom';
-import { act } from 'react-dom/test-utils';
 
 interface AppProp {
   name: string;
@@ -44,10 +37,23 @@ function Wrapper(elem: WrapperProps) {
   return <div style={style}>{children}</div>;
 }
 
+type CountState = number;
+type CountAction = { type: CountActionType };
+type CountActionType = 'INCREMENT' | 'DECREMENT';
+function countReducer(state: CountState, action: CountAction) {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state - 1;
+  }
+}
+
 function Counter() {
-  const [cnt, setCnt] = useState(0);
-  const increaseCnt = () => setCnt((prev) => prev + 1);
-  const decreaseCnt = () => setCnt((prev) => prev - 1);
+  const [cnt, dispatch] = useReducer(countReducer, 0);
+
+  const increaseCnt = () => dispatch({ type: 'INCREMENT' });
+  const decreaseCnt = () => dispatch({ type: 'DECREMENT' });
 
   return (
     <>
@@ -58,77 +64,105 @@ function Counter() {
   );
 }
 
-function SimpleInput() {
-  const [text, setText] = useState('');
+// Reducer
+type UserState = {
+  inputs: Omit<UserCreateProps, 'onChange' | 'onCreate'>;
+  users: Omit<UserProps, 'onRemove' | 'onToggle'>[];
+};
 
-  const onChange = (e: React.ChangeEvent<any>) => {
-    setText(e.target.value);
-  };
+type UserAction =
+  | { type: 'CHANGE_INPUT'; name: string; value: string }
+  | { type: 'CREATE_USER'; name: string; email: string }
+  | { type: 'REMOVE_USER'; id: number }
+  | { type: 'TOGGLE_USER'; id: number };
 
-  const onReset = () => {
-    setText('');
-  };
-
-  return (
-    <div>
-      <input onChange={onChange} />
-      <button onClick={onReset}>초기화</button>
-      <div>
-        <b>값: {text}</b>
-      </div>
-    </div>
-  );
-}
-
-function MultiInputWithRef() {
-  const initInputs = {
+const initialState: UserState = {
+  inputs: {
     name: '',
-    nickname: '',
-  };
+    email: '',
+  },
+  users: [
+    {
+      id: 0,
+      name: 'foo',
+      email: 'foo@gmail.com',
+      isActive: true,
+    },
+    {
+      id: 1,
+      name: 'bar',
+      email: 'bar@gmail.com',
+      isActive: false,
+    },
+  ],
+};
 
-  const [inputs, setInputs] = useState(initInputs);
-  const nameInput = useRef<HTMLInputElement>(null);
+function userReducer(state: UserState, action: UserAction): UserState {
+  switch (action.type) {
+    case 'CHANGE_INPUT': {
+      return {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          [action.name]: action.value,
+        },
+      };
+    }
+    case 'CREATE_USER': {
+      const users = state.users;
+      const nextId = users.length ? users[users.length - 1].id + 1 : 0;
 
-  const onChange = (e: React.ChangeEvent<any>) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
-  const onReset = (e: React.ChangeEvent<any>) => {
-    setInputs(initInputs);
-    nameInput.current?.focus();
-  };
-
-  return (
-    <div>
-      <input
-        name="name"
-        onChange={onChange}
-        ref={nameInput}
-        placeholder="이름"
-      />
-      <input name="nickname" onChange={onChange} placeholder="닉네임" />
-      <button onClick={onReset}>초기화</button>
-      <div>이름: {inputs.name}</div>
-      <div>닉네임: {inputs.nickname}</div>
-    </div>
-  );
+      return {
+        ...state,
+        inputs: {
+          name: '',
+          email: '',
+        },
+        users: [
+          ...users,
+          {
+            id: nextId,
+            name: action.name,
+            email: action.email,
+            isActive: false,
+          },
+        ],
+      };
+    }
+    case 'REMOVE_USER': {
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.id),
+      };
+    }
+    case 'TOGGLE_USER': {
+      return {
+        ...state,
+        users: state.users.map((user) => {
+          if (user.id !== action.id) {
+            return user;
+          }
+          return {
+            ...user,
+            isActive: !user.isActive,
+          };
+        }),
+      };
+    }
+  }
 }
 
-interface UserProps {
+type UserProps = {
   id: number;
   name: string;
   email: string;
   isActive: boolean;
   onRemove: (id: number) => void;
   onToggle: (id: number) => void;
-}
+};
 
 function User(props: UserProps) {
-  const { id, name, email, isActive, onToggle, onRemove } = props;
+  const { id, name, email, isActive, onRemove, onToggle } = props;
 
   useEffect(() => {
     console.log(`User ${id} is mounted`);
@@ -173,126 +207,78 @@ function UserList(props: UserListProps) {
   return (
     <div>
       {users.map((user) => (
-        <User key={user.id} onRemove={onRemove} onToggle={onToggle} {...user} />
+        <User key={user.id} {...user} onRemove={onRemove} onToggle={onToggle} />
       ))}
     </div>
   );
 }
-interface CreateUserProps {
-  onUserCreate: (input: Pick<UserProps, 'name' | 'email'>) => void;
-}
 
-function CreateUser(props: CreateUserProps) {
-  const [input, setInput] = useState({
-    name: '',
-    email: '',
-  });
-
-  const onChange = (e: React.ChangeEvent<any>) => {
-    const { name, value } = e.target;
-
-    setInput({
-      ...input,
-      [name]: value,
-    });
-  };
-
-  const onCreate = () => {
-    // add new user
-    props.onUserCreate({ ...input });
-
-    // refrest
-    setInput({
-      name: '',
-      email: '',
-    });
-  };
-
-  // const { name, email, onChange, onCreate } = props;
+type UserCreateProps = {
+  name: string;
+  email: string;
+  onChange: (e: React.ChangeEvent<any>) => void;
+  onCreate: (name: string, email: string) => void;
+};
+function CreateUser(props: UserCreateProps) {
+  const { name, email, onChange, onCreate } = props;
   return (
     <div>
-      <input
-        name="name"
-        placeholder="name"
-        onChange={onChange}
-        value={input.name}
-      />
+      <input name="name" placeholder="name" onChange={onChange} value={name} />
       <input
         name="email"
         placeholder="email"
         onChange={onChange}
-        value={input.email}
+        value={email}
       />
-      <button onClick={onCreate}>Submit</button>
+      <button onClick={() => onCreate(name, email)}>Submit</button>
     </div>
   );
 }
 
 function UserPage() {
   // UserList
-  const [users, setUsers] = useState([
-    {
-      id: 0,
-      name: 'foo',
-      email: 'foo@gmail.com',
-      isActive: true,
-    },
-    {
-      id: 1,
-      name: 'bar',
-      email: 'bar@gmail.com',
-      isActive: false,
-    },
-  ]);
-
-  // const onRemove = useCallback(
-  //   (id: number) => {
-  //     setUsers(() => users.filter((user) => user.id !== id));
-  //   },
-  //   [users]
-  // );
-  const onRemove = useCallback((id: number) => {
-    setUsers((users) => users.filter((user) => user.id !== id));
-  }, []);
-  const onToggle = useCallback((id: number) => {
-    setUsers((users) =>
-      users.map((user) =>
-        user.id === id ? { ...user, isActive: !user.isActive } : user
-      )
-    );
-  }, []);
+  const [state, dispatch] = useReducer(userReducer, initialState);
 
   const userListProps = {
-    users,
-    onRemove,
-    onToggle,
+    users: state.users,
+    onRemove: useCallback((id: number) => {
+      dispatch({
+        id,
+        type: 'REMOVE_USER',
+      });
+    }, []),
+    onToggle: useCallback((id: number) => {
+      dispatch({
+        id,
+        type: 'TOGGLE_USER',
+      });
+    }, []),
   };
 
   // UserCreate
-  const onUserCreate = useCallback(
-    (input: Pick<UserProps, 'name' | 'email'>) => {
-      setUsers((users) => {
-        const id = users.length ? users[users.length - 1].id + 1 : 0;
-        const { name, email } = input;
-
-        const user = {
-          id,
-          name,
-          email,
-          isActive: false,
-        };
-        return [...users, user];
+  const createUserProps = {
+    name: state.inputs.name,
+    email: state.inputs.email,
+    onChange: useCallback((e: React.ChangeEvent<any>) => {
+      const { name, value } = e.target;
+      dispatch({
+        name,
+        value,
+        type: 'CHANGE_INPUT',
       });
-    },
-    []
-  );
-  const createProps = {
-    onUserCreate,
+    }, []),
+    onCreate: useCallback((name: string, email: string) => {
+      dispatch({
+        name,
+        email,
+        type: 'CREATE_USER',
+      });
+    }, []),
   };
 
   return (
     <>
-      <CreateUser {...createProps} />
+      <CreateUser {...createUserProps} />
       <UserList {...userListProps} />
     </>
   );
@@ -302,12 +288,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Wrapper>
       <Counter />
-    </Wrapper>
-    <Wrapper>
-      <SimpleInput />
-    </Wrapper>
-    <Wrapper>
-      <MultiInputWithRef />
     </Wrapper>
     <Wrapper>
       <UserPage />
