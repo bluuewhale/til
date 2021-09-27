@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useCallback, useContext, useEffect, useReducer } from 'react';
 import ReactDOM from 'react-dom';
 
 interface AppProp {
@@ -65,6 +65,7 @@ function Counter() {
 }
 
 // Reducer
+
 type UserState = {
   inputs: Omit<UserCreateProps, 'onChange' | 'onCreate'>;
   users: Omit<UserProps, 'onRemove' | 'onToggle'>[];
@@ -96,6 +97,11 @@ const initialState: UserState = {
     },
   ],
 };
+
+const UserStateContext = React.createContext<UserState>(initialState);
+const UserDispatchContext = React.createContext<React.Dispatch<UserAction>>(
+  () => null
+);
 
 function userReducer(state: UserState, action: UserAction): UserState {
   switch (action.type) {
@@ -157,12 +163,11 @@ type UserProps = {
   name: string;
   email: string;
   isActive: boolean;
-  onRemove: (id: number) => void;
-  onToggle: (id: number) => void;
 };
 
 function User(props: UserProps) {
-  const { id, name, email, isActive, onRemove, onToggle } = props;
+  const { id, name, email, isActive } = props;
+  const dispatch = useContext(UserDispatchContext);
 
   useEffect(() => {
     console.log(`User ${id} is mounted`);
@@ -171,15 +176,33 @@ function User(props: UserProps) {
     };
   }, [id]);
 
+  const onRemove = useCallback(
+    () =>
+      dispatch({
+        type: 'REMOVE_USER',
+        id: id,
+      }),
+    [id]
+  );
+
+  const onToggle = useCallback(
+    () =>
+      dispatch({
+        type: 'TOGGLE_USER',
+        id: id,
+      }),
+    [id]
+  );
+
   return (
     <div>
-      <button onClick={() => onRemove(id)}>삭제</button>
+      <button onClick={onRemove}>삭제</button>
       <b
         style={{
           cursor: 'pointer',
           color: isActive ? 'green' : 'black',
         }}
-        onClick={() => onToggle(id)}
+        onClick={onToggle}
       >
         <div>이름: {name}</div>
       </b>
@@ -190,12 +213,10 @@ function User(props: UserProps) {
 
 interface UserListProps {
   users: Omit<UserProps, 'onRemove' | 'onToggle'>[];
-  onRemove: (id: number) => void;
-  onToggle: (id: number) => void;
 }
 
 function UserList(props: UserListProps) {
-  const { users, onRemove, onToggle } = props;
+  const { users } = props;
 
   useEffect(() => {
     console.log(`UserList is mounted`);
@@ -207,7 +228,7 @@ function UserList(props: UserListProps) {
   return (
     <div>
       {users.map((user) => (
-        <User key={user.id} {...user} onRemove={onRemove} onToggle={onToggle} />
+        <User key={user.id} {...user} />
       ))}
     </div>
   );
@@ -216,11 +237,31 @@ function UserList(props: UserListProps) {
 type UserCreateProps = {
   name: string;
   email: string;
-  onChange: (e: React.ChangeEvent<any>) => void;
-  onCreate: (name: string, email: string) => void;
 };
 function CreateUser(props: UserCreateProps) {
-  const { name, email, onChange, onCreate } = props;
+  const { name, email } = props;
+  const dispatch = useContext(UserDispatchContext);
+
+  const onChange = useCallback(
+    (e: React.ChangeEvent<any>) => {
+      const { name, value } = e.target;
+      dispatch({
+        name,
+        value,
+        type: 'CHANGE_INPUT',
+      });
+    },
+    [dispatch]
+  );
+
+  const onCreate = useCallback(() => {
+    dispatch({
+      name,
+      email,
+      type: 'CREATE_USER',
+    });
+  }, [name, email, dispatch]);
+
   return (
     <div>
       <input name="name" placeholder="name" onChange={onChange} value={name} />
@@ -230,7 +271,7 @@ function CreateUser(props: UserCreateProps) {
         onChange={onChange}
         value={email}
       />
-      <button onClick={() => onCreate(name, email)}>Submit</button>
+      <button onClick={onCreate}>Submit</button>
     </div>
   );
 }
@@ -241,46 +282,21 @@ function UserPage() {
 
   const userListProps = {
     users: state.users,
-    onRemove: useCallback((id: number) => {
-      dispatch({
-        id,
-        type: 'REMOVE_USER',
-      });
-    }, []),
-    onToggle: useCallback((id: number) => {
-      dispatch({
-        id,
-        type: 'TOGGLE_USER',
-      });
-    }, []),
   };
 
   // UserCreate
   const createUserProps = {
     name: state.inputs.name,
     email: state.inputs.email,
-    onChange: useCallback((e: React.ChangeEvent<any>) => {
-      const { name, value } = e.target;
-      dispatch({
-        name,
-        value,
-        type: 'CHANGE_INPUT',
-      });
-    }, []),
-    onCreate: useCallback((name: string, email: string) => {
-      dispatch({
-        name,
-        email,
-        type: 'CREATE_USER',
-      });
-    }, []),
   };
 
   return (
-    <>
-      <CreateUser {...createUserProps} />
-      <UserList {...userListProps} />
-    </>
+    <UserStateContext.Provider value={state}>
+      <UserDispatchContext.Provider value={dispatch}>
+        <CreateUser {...createUserProps} />
+        <UserList {...userListProps} />
+      </UserDispatchContext.Provider>
+    </UserStateContext.Provider>
   );
 }
 
