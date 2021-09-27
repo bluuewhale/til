@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useReducer } from 'react';
 import ReactDOM from 'react-dom';
-
+import produce from 'immer';
 interface AppProp {
   name: string;
   color: string;
@@ -106,54 +106,41 @@ const UserDispatchContext = React.createContext<React.Dispatch<UserAction>>(
 function userReducer(state: UserState, action: UserAction): UserState {
   switch (action.type) {
     case 'CHANGE_INPUT': {
-      return {
-        ...state,
-        inputs: {
+      return produce(state, (draft) => {
+        draft.inputs = {
           ...state.inputs,
           [action.name]: action.value,
-        },
-      };
+        };
+      });
     }
     case 'CREATE_USER': {
-      const users = state.users;
-      const nextId = users.length ? users[users.length - 1].id + 1 : 0;
+      return produce(state, (draft) => {
+        const users = state.users;
+        const nextId = users.length ? users[users.length - 1].id + 1 : 0;
 
-      return {
-        ...state,
-        inputs: {
+        draft.inputs = {
           name: '',
           email: '',
-        },
-        users: [
-          ...users,
-          {
-            id: nextId,
-            name: action.name,
-            email: action.email,
-            isActive: false,
-          },
-        ],
-      };
+        };
+        draft.users.push({
+          id: nextId,
+          name: action.name,
+          email: action.email,
+          isActive: false,
+        });
+      });
     }
     case 'REMOVE_USER': {
-      return {
-        ...state,
-        users: state.users.filter((user) => user.id !== action.id),
-      };
+      return produce(state, (draft) => {
+        console.log(action);
+        draft.users = draft.users.filter((user) => user.id !== action.id);
+      });
     }
     case 'TOGGLE_USER': {
-      return {
-        ...state,
-        users: state.users.map((user) => {
-          if (user.id !== action.id) {
-            return user;
-          }
-          return {
-            ...user,
-            isActive: !user.isActive,
-          };
-        }),
-      };
+      return produce(state, (draft) => {
+        const user = draft.users.find((user) => user.id === action.id);
+        if (user) user.isActive = !user?.isActive;
+      });
     }
   }
 }
@@ -182,7 +169,7 @@ function User(props: UserProps) {
         type: 'REMOVE_USER',
         id: id,
       }),
-    [id]
+    [id, dispatch]
   );
 
   const onToggle = useCallback(
@@ -191,7 +178,7 @@ function User(props: UserProps) {
         type: 'TOGGLE_USER',
         id: id,
       }),
-    [id]
+    [id, dispatch]
   );
 
   return (
